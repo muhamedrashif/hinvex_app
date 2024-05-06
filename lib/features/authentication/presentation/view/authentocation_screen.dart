@@ -134,11 +134,12 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
               ),
             ),
             Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SkipButton(
-                  height: 44,
-                  width: MediaQuery.of(context).size.width,
-                )),
+              padding: const EdgeInsets.all(8.0),
+              child: SkipButton(
+                height: 44,
+                width: MediaQuery.of(context).size.width,
+              ),
+            ),
           ],
         ),
       ),
