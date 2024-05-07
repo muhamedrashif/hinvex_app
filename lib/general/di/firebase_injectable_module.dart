@@ -4,7 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 // ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:hinvex_app/firebase_options.dart';
 
 import 'package:injectable/injectable.dart';
 
@@ -22,13 +24,16 @@ abstract class FirebaseInjectableModule {
 
   @lazySingleton
   FirebaseAuth get auth => FirebaseAuth.instance;
+
+  @lazySingleton
+  FirebaseMessaging get messaging => FirebaseMessaging.instance;
 }
 
 class FirebaseServeice {
   static Future<FirebaseServeice> init() async {
-    // await Firebase.initializeApp(
-    //   options:
-    // );  //TODO:ADD FIRABASE
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
     return FirebaseServeice();
   }
 }

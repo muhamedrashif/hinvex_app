@@ -33,18 +33,20 @@ class _OnBoardSplashScreen3State extends State<OnBoardSplashScreen3> {
           ),
           CustumImage(
             image: ImageConstant.onBoard3,
-            height: 200,
+            height: 183.29,
             width: 200,
           ),
           const SizedBox(
             height: 20,
           ),
           TextWidget(
+              alignment: Alignment.centerLeft,
               text: "You Can Filter Your\nSelection",
               fontWeight: FontWeight.bold,
               fontSize: 23,
               textColor: AppColors.titleTextColor),
           const TextWidget(
+              alignment: Alignment.centerLeft,
               text:
                   "You Possess the Ability to Refine and\nCustomize Your Selection According to\nSpecific Criteria and Preferences. Explore and\nTailor Your Choices",
               fontWeight: FontWeight.w500,

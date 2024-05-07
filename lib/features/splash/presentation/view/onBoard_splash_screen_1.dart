@@ -41,11 +41,13 @@ class _OnBoardSplashScreen1State extends State<OnBoardSplashScreen1> {
             height: 20,
           ),
           TextWidget(
+              alignment: Alignment.centerLeft,
               text: "You Can Sell Your Property\nAnd Buy A New Property",
               fontWeight: FontWeight.bold,
               fontSize: 23,
               textColor: AppColors.titleTextColor),
           const TextWidget(
+              alignment: Alignment.centerLeft,
               text:
                   "sell your property, acquire a new one, and\nseamlessly transition to the next phase of your\njourney with confidence and ease.",
               fontWeight: FontWeight.w500,

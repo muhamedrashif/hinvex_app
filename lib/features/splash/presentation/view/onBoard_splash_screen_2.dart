@@ -34,18 +34,20 @@ class _OnBoardSplashScreen2State extends State<OnBoardSplashScreen2> {
           ),
           CustumImage(
             image: ImageConstant.onBoard2,
-            height: 200,
+            height: 183.29,
             width: 200,
           ),
           const SizedBox(
             height: 20,
           ),
           TextWidget(
+              alignment: Alignment.centerLeft,
               text: "You Can Upload Your\nProperty Unlimitedly",
               fontWeight: FontWeight.bold,
               fontSize: 23,
               textColor: AppColors.titleTextColor),
           const TextWidget(
+              alignment: Alignment.centerLeft,
               text:
                   "You are free to upload your property without\nany limitations or restrictions, enabling you to\nshare as much as you desire.",
               fontWeight: FontWeight.w500,

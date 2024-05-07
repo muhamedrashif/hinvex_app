@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:hinvex_app/features/authentication/presentation/provider/auth_provider.dart';
+import 'package:hinvex_app/features/location/presentation/view/location_sreen.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_button_widget.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_image_widget.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/skip_button_widget.dart';
 import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
+import 'package:hinvex_app/general/utils/progress_indicator_widget/progress_indicator_widget.dart';
+import 'package:provider/provider.dart';
 
 class AuthenticationScreen extends StatefulWidget {
   const AuthenticationScreen({super.key});
@@ -130,7 +134,18 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                 buttonColor: AppColors.textButtonColor,
                 text: "Get OTP",
                 textColor: AppColors.buttonTextColor,
-                onTap: () {},
+                onTap: () {
+                  showProgress(context);
+                  context.read<AuthProvider>().verifyPhoneNumber(
+                        phoneNumber: '+91${_mobileNumberController.text}',
+                        onSuccess: () {
+                          Navigator.pop(context);
+                        },
+                        onFailure: () {
+                          Navigator.pop(context);
+                        },
+                      );
+                },
               ),
             ),
             Padding(
@@ -138,6 +153,13 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
               child: SkipButton(
                 height: 44,
                 width: MediaQuery.of(context).size.width,
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LocationScreen(),
+                      ));
+                },
               ),
             ),
           ],
