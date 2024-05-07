@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'search_location_model/search_location_model.dart';
+import '../../../location/data/model/search_location_model.dart';
 
 class UserModel {
   String? id;
@@ -37,7 +37,7 @@ class UserModel {
         "userWhatsAppNumber": userWhatsAppNumber,
         "userImage": userImage,
         "totalPosts": totalPosts,
-        "userLocation": userLocation!.toMap(),
+        "userLocation": userLocation?.toMap(),
         "partnership": partnership,
         "isBlocked": isBlocked,
         'notificationToken': notificationToken,

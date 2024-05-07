@@ -3,11 +3,13 @@ import 'package:hinvex_app/features/authentication/presentation/provider/auth_pr
 import 'package:hinvex_app/features/location/presentation/view/location_sreen.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_button_widget.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_image_widget.dart';
-import 'package:hinvex_app/features/splash/presentation/view/widgets/skip_button_widget.dart';
+import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_outLines_button_widget.dart';
 import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
 import 'package:hinvex_app/general/utils/progress_indicator_widget/progress_indicator_widget.dart';
 import 'package:provider/provider.dart';
+
+import 'widget/otpverification_widget.dart';
 
 class AuthenticationScreen extends StatefulWidget {
   const AuthenticationScreen({super.key});
@@ -18,7 +20,6 @@ class AuthenticationScreen extends StatefulWidget {
 
 class _AuthenticationScreenState extends State<AuthenticationScreen> {
   final TextEditingController _mobileNumberController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -140,6 +141,29 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                         phoneNumber: '+91${_mobileNumberController.text}',
                         onSuccess: () {
                           Navigator.pop(context);
+                          showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            isDismissible: true,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadiusDirectional.only(
+                                topEnd: Radius.circular(20),
+                                topStart: Radius.circular(20),
+                              ),
+                            ),
+                            builder: (BuildContext context) {
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8.0,
+                                  vertical: 16.0,
+                                ),
+                                child: OTPVerificationSheet(
+                                  phoneNumber:
+                                      '+91${_mobileNumberController.text}', // Pass the phone number here
+                                ),
+                              );
+                            },
+                          );
                         },
                         onFailure: () {
                           Navigator.pop(context);
@@ -150,9 +174,11 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: SkipButton(
+              child: CustomOutLineButtonWidget(
                 height: 44,
                 width: MediaQuery.of(context).size.width,
+                text: "Skip",
+                textColor: Colors.grey,
                 onTap: () {
                   Navigator.push(
                       context,

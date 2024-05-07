@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hinvex_app/features/location/presentation/view/widgets/search_location_widget.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_button_widget.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_image_widget.dart';
-import 'package:hinvex_app/features/splash/presentation/view/widgets/skip_button_widget.dart';
+import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_outLines_button_widget.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/text_widget.dart';
 import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
@@ -61,6 +62,7 @@ class _LocationScreenState extends State<LocationScreen> {
                 height: 44,
                 width: MediaQuery.of(context).size.width,
                 buttonColor: AppColors.textButtonColor,
+                icon: Icons.location_on_outlined,
                 text: "Choose Current Location",
                 textColor: AppColors.buttonTextColor,
                 onTap: () {},
@@ -68,9 +70,18 @@ class _LocationScreenState extends State<LocationScreen> {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: SkipButton(
+              child: CustomOutLineButtonWidget(
                 height: 44,
                 width: MediaQuery.of(context).size.width,
+                text: "Other Location",
+                textColor: AppColors.titleTextColor,
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SearchLocationWidget(),
+                      ));
+                },
               ),
             ),
           ],

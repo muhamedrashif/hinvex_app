@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/authentication/presentation/view/authentocation_screen.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_image_widget.dart';
-import 'package:hinvex_app/features/splash/presentation/view/widgets/skip_button_widget.dart';
+import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_outLines_button_widget.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/text_widget.dart';
 import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
@@ -81,9 +81,11 @@ class _OnBoardSplashScreen3State extends State<OnBoardSplashScreen3> {
                     const SizedBox(
                       width: 10,
                     ),
-                    SkipButton(
+                    CustomOutLineButtonWidget(
                       height: 48,
                       width: 52,
+                      text: "Skip",
+                      textColor: Colors.grey,
                       onTap: () {
                         Navigator.push(
                             context,

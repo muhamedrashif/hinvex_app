@@ -28,4 +28,26 @@ class AuthProvider with ChangeNotifier {
       );
     });
   }
+
+  void verifySmsCode({
+    required String smsCode,
+    required VoidCallback onSuccess,
+    required VoidCallback onFailure,
+  }) {
+    iAuthFacade
+        .verifySmsCode(
+      smsCode: smsCode,
+      verificationId: verificationId!,
+    )
+        .then((event) {
+      event.fold(
+        (l) {
+          onFailure();
+        },
+        (r) {
+          onSuccess();
+        },
+      );
+    });
+  }
 }

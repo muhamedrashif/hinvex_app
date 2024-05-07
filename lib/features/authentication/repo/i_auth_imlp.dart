@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
@@ -46,6 +47,7 @@ class IAuthImpl implements IAuthFacade {
     required String smsCode,
     required String verificationId,
   }) async {
+    log('$smsCode, $verificationId');
     try {
       final PhoneAuthCredential phoneAuthCredential =
           PhoneAuthProvider.credential(
@@ -54,7 +56,7 @@ class IAuthImpl implements IAuthFacade {
       UserCredential userCredential =
           await _firebaseAuth.signInWithCredential(phoneAuthCredential);
 
-      await saveUser(
+      await _saveUser(
         phoneNo: userCredential.user!.phoneNumber!,
         uid: userCredential.user!.uid,
       );
@@ -65,7 +67,7 @@ class IAuthImpl implements IAuthFacade {
     }
   }
 
-  Future<void> saveUser({
+  Future<void> _saveUser({
     required String uid,
     required String phoneNo,
   }) async {

@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 
-class SkipButton extends StatelessWidget {
+class CustomOutLineButtonWidget extends StatelessWidget {
+  final String text;
+  final Color textColor;
+
   final double height;
   final double width;
   final VoidCallback? onTap;
-  const SkipButton({
+  const CustomOutLineButtonWidget({
     super.key,
     this.onTap,
     required this.height,
     required this.width,
+    required this.text,
+    required this.textColor,
   });
 
   @override
@@ -22,11 +27,11 @@ class SkipButton extends StatelessWidget {
           border: Border.all(color: Colors.grey),
           borderRadius: BorderRadius.circular(8),
         ),
-        child: const Center(
+        child: Center(
           child: Text(
-            "Skip",
+            text,
             style: TextStyle(
-              color: Colors.grey,
+              color: textColor,
               fontWeight: FontWeight.w600,
             ),
           ),

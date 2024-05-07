@@ -6,6 +6,7 @@ class CustomButtonWidget extends StatelessWidget {
   final Color buttonColor;
   final String text;
   final Color textColor;
+  final IconData? icon;
   final VoidCallback? onTap;
 
   const CustomButtonWidget({
@@ -15,6 +16,7 @@ class CustomButtonWidget extends StatelessWidget {
     required this.buttonColor,
     required this.text,
     required this.textColor,
+    this.icon,
     this.onTap,
   });
 
@@ -30,12 +32,24 @@ class CustomButtonWidget extends StatelessWidget {
           color: buttonColor,
         ),
         child: Center(
-          child: Text(
-            text,
-            style: TextStyle(
-              color: textColor,
-              fontWeight: FontWeight.w600,
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                icon,
+                color: Colors.white,
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              Text(
+                text,
+                style: TextStyle(
+                  color: textColor,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
           ),
         ),
       ),
