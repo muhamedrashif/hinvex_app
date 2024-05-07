@@ -70,7 +70,7 @@ class _OnBoardSplashScreen3State extends State<OnBoardSplashScreen3> {
                       text: "Next",
                       textColor: Colors.white,
                       onTap: () {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
@@ -87,7 +87,7 @@ class _OnBoardSplashScreen3State extends State<OnBoardSplashScreen3> {
                       text: "Skip",
                       textColor: Colors.grey,
                       onTap: () {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                               builder: (context) =>

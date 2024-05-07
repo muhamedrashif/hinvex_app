@@ -88,7 +88,7 @@ class _OnBoardSplashScreen1State extends State<OnBoardSplashScreen1> {
                       text: "Skip",
                       textColor: Colors.grey,
                       onTap: () {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
