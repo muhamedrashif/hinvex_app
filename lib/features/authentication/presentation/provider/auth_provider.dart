@@ -4,9 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:hinvex_app/features/authentication/data/i_auth_facade.dart';
 
 class AuthProvider with ChangeNotifier {
-  AuthProvider(this.iAuthFacade);
-
   final IAuthFacade iAuthFacade;
+  AuthProvider({required this.iAuthFacade});
 
   String? verificationId;
 

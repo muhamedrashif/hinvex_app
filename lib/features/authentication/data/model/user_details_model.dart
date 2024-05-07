@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-import '../../../location/data/model/search_location_model.dart';
+import 'package:hinvex_app/features/location/data/model/search_location_model/search_location_model.dart';
 
 class UserModel {
   String? id;

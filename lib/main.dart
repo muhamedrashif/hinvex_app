@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/authentication/data/i_auth_facade.dart';
 import 'package:hinvex_app/features/authentication/presentation/provider/auth_provider.dart';
+import 'package:hinvex_app/features/location/data/i_location_facade.dart';
+import 'package:hinvex_app/features/location/presentation/provider/location_provider.dart';
 import 'package:hinvex_app/general/di/injection.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
 import 'package:provider/provider.dart';
@@ -23,8 +25,12 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => AuthProvider(sl<IAuthFacade>()),
-        )
+          create: (context) => AuthProvider(iAuthFacade: sl<IAuthFacade>()),
+        ),
+        ChangeNotifierProvider(
+          create: (_) =>
+              LocationProvider(iLocationFacade: sl<ILocationFacade>()),
+        ),
       ],
       child: MaterialApp(
         title: 'HinveX App',

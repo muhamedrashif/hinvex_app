@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hinvex_app/features/location/presentation/provider/location_provider.dart';
 import 'package:hinvex_app/features/location/presentation/view/widgets/search_location_widget.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_button_widget.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_image_widget.dart';
@@ -6,6 +7,7 @@ import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_outL
 import 'package:hinvex_app/features/splash/presentation/view/widgets/text_widget.dart';
 import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
+import 'package:provider/provider.dart';
 
 class LocationScreen extends StatefulWidget {
   const LocationScreen({super.key});
@@ -65,7 +67,9 @@ class _LocationScreenState extends State<LocationScreen> {
                 icon: Icons.location_on_outlined,
                 text: "Choose Current Location",
                 textColor: AppColors.buttonTextColor,
-                onTap: () {},
+                onTap: () {
+                  context.read<LocationProvider>().getUserCurrentPosition();
+                },
               ),
             ),
             Padding(
