@@ -22,4 +22,34 @@ class ImageConstant {
 
   // locationIcon
   static String locationIcon = '$imagePath/locationIcon.png';
+
+  // ads
+  static String ads = '$imagePath/ads.png';
+
+  // unads
+  static String unads = '$imagePath/unads.png';
+
+  // shortlist
+  static String shortlist = '$imagePath/short.png';
+
+  // unshortlist
+  static String unshortlist = '$imagePath/unshort.png';
+
+  // sell
+  static String sell = '$imagePath/sell.png';
+
+  // unsell
+  static String unsell = '$imagePath/unsell.png';
+
+  // category
+  static String category = '$imagePath/category.png';
+
+  // uncategory
+  static String uncategory = '$imagePath/uncategory.png';
+
+  // home
+  static String home = '$imagePath/home.png';
+
+  // unhome
+  static String unhome = '$imagePath/unhome.png';
 }

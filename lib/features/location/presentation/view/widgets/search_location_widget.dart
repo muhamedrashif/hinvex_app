@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:hinvex_app/features/home/presentation/view/home_screen.dart';
 import 'package:hinvex_app/features/location/presentation/provider/location_provider.dart';
 import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
@@ -127,13 +128,12 @@ class _SearchLocationWidgetState extends State<SearchLocationWidget> {
 
                             _searchLocationController.clear();
                             state.clearSuggestions();
+                            Navigator.pop(context);
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      const SearchLocationWidget(),
+                                  builder: (context) => const HomeScreen(),
                                 ));
-                            Navigator.pop(context);
                           },
                           onFailure: () {
                             log("FAILED");
@@ -151,69 +151,88 @@ class _SearchLocationWidgetState extends State<SearchLocationWidget> {
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    SizedBox(
-                        height: 28,
-                        width: 28,
-                        child: Image.asset(
-                          ImageConstant.locationIcon,
-                        )),
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Use Currant Location",
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.blue),
-                          ),
-                          Text(
-                            "Kunnamangalam, karanthur, 453345",
-                            style: TextStyle(fontSize: 10, color: Colors.blue),
-                          ),
-                        ],
+                child: InkWell(
+                  onTap: () {
+                    showProgress(context);
+                    state.getUserCurrentPosition(onSuccess: () {
+                      log("Get current location Success");
+                      Navigator.pop(context);
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const HomeScreen(),
+                          ));
+                    }, onFailure: () {
+                      log("Get current location Failed");
+                      Navigator.pop(context);
+                    });
+                  },
+                  child: Row(
+                    children: [
+                      SizedBox(
+                          height: 28,
+                          width: 28,
+                          child: Image.asset(
+                            ImageConstant.locationIcon,
+                          )),
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Use Current Location",
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.blue),
+                            ),
+                            // Text(
+                            //   "Kunnamangalam, karanthur, 453345",
+                            //   style:
+                            //       TextStyle(fontSize: 10, color: Colors.blue),
+                            // ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const SliverToBoxAdapter(
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  "Recently Used Locations",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+                    ],
                   ),
                 ),
               ),
             ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  height: 50,
-                  child: ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: 2,
-                    itemBuilder: (context, index) {
-                      return const Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
-                        child: Text("Kunnamangalam"),
-                      );
-                    },
-                  ),
-                ),
-              ),
-            ),
+/////////////////////////////////////////////////// Recently Used Locations
+            // const SliverToBoxAdapter(
+            //   child: Padding(
+            //     padding: EdgeInsets.all(8.0),
+            //     child: Text(
+            //       "Recently Used Locations",
+            //       style: TextStyle(
+            //         fontSize: 16,
+            //         fontWeight: FontWeight.w600,
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            // SliverToBoxAdapter(
+            //   child: Padding(
+            //     padding: const EdgeInsets.all(8.0),
+            //     child: SizedBox(
+            //       height: 50,
+            //       child: ListView.builder(
+            //         physics: const NeverScrollableScrollPhysics(),
+            //         itemCount: 2,
+            //         itemBuilder: (context, index) {
+            //           return const Padding(
+            //             padding:
+            //                 EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
+            //             child: Text("Kunnamangalam"),
+            //           );
+            //         },
+            //       ),
+            //     ),
+            //   ),
+            // ),
             const SliverToBoxAdapter(
               child: Padding(
                 padding: EdgeInsets.all(8.0),

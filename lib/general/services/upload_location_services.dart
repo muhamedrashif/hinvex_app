@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:hinvex_app/features/location/data/model/search_location_model/search_location_model.dart';
@@ -13,6 +11,7 @@ class UploadPlaceService {
   final FirebaseFirestore firebaseFirestore;
 
   FutureResult<Unit> uploadPlace(PlaceCell placeCell) async {
+    // ignore: cascade_invocations
     try {
       // add Local area
       final district = await firebaseFirestore
@@ -24,20 +23,10 @@ class UploadPlaceService {
           .doc(placeCell.district)
           .get();
       if (district.exists) {
-        // Get LocalArea Map List // [{Nilambur: Instance of 'GeoPoint'}]
         final localAreaList =
             (district.data()?['localArea'] as List<dynamic>?) ?? [];
-        // map convert localArea key then convert
-        final localAreaKeysList = <String>[];
-        for (final localArea in localAreaList) {
-          final localAreaMap = localArea as Map<String, dynamic>;
-          // ignore: cascade_invocations
-          localAreaMap.forEach((key, value) {
-            localAreaKeysList.add(key);
-          });
-        }
 
-        if (!localAreaKeysList.contains(placeCell.localArea)) {
+        if (!localAreaList.contains(placeCell.localArea)) {
           await firebaseFirestore
               .collection('locations')
               .doc(placeCell.country)
@@ -47,12 +36,7 @@ class UploadPlaceService {
               .doc(placeCell.district)
               .update({
             'localArea': FieldValue.arrayUnion([
-              {
-                placeCell.localArea: GeoPoint(
-                  placeCell.geoPoint.latitude,
-                  placeCell.geoPoint.longitude,
-                ),
-              },
+              placeCell.localArea,
             ]),
           });
         }
@@ -68,23 +52,11 @@ class UploadPlaceService {
           .get();
 
       if (state.exists) {
-        // Get LocalArea Map List // [{Malappuram: Instance of 'GeoPoint'}]
         final districtList =
             (state.data()?['district'] as List<dynamic>?) ?? [];
-        // map convert district key then convert
-        final districtKeysList = <String>[];
-        for (final district in districtList) {
-          final districtMap = district as Map<String, dynamic>;
-          // ignore: cascade_invocations
-          districtMap.forEach((key, value) {
-            districtKeysList.add(key);
-          });
-        }
-
-        log(districtKeysList.toString());
 
         final batch = firebaseFirestore.batch();
-        if (!districtKeysList.contains(placeCell.district)) {
+        if (!districtList.contains(placeCell.district)) {
           batch.update(
             firebaseFirestore
                 .collection('locations')
@@ -92,14 +64,7 @@ class UploadPlaceService {
                 .collection(placeCell.state)
                 .doc(placeCell.state),
             {
-              'district': FieldValue.arrayUnion([
-                {
-                  placeCell.district: GeoPoint(
-                    placeCell.geoPoint.latitude,
-                    placeCell.geoPoint.longitude,
-                  ),
-                }
-              ]),
+              'district': FieldValue.arrayUnion([placeCell.district]),
             },
           );
         }
@@ -112,14 +77,7 @@ class UploadPlaceService {
               .collection(placeCell.district)
               .doc(placeCell.district),
           {
-            'localArea': FieldValue.arrayUnion([
-              {
-                placeCell.localArea: GeoPoint(
-                  placeCell.geoPoint.latitude,
-                  placeCell.geoPoint.longitude,
-                ),
-              }
-            ]),
+            'localArea': FieldValue.arrayUnion([placeCell.localArea]),
           },
         );
 
@@ -133,33 +91,15 @@ class UploadPlaceService {
           .doc(placeCell.country)
           .get();
       if (country.exists) {
-        // Get LocalArea Map List // [{Kerala: Instance of 'GeoPoint'}]
         final stateList = (country.data()?['state'] as List<dynamic>?) ?? [];
 
-        // map convert state key then convert
-        final stateKeysList = <String>[];
-        for (final state in stateList) {
-          final stateMap = state as Map<String, dynamic>;
-          // ignore: cascade_invocations
-          stateMap.forEach((key, value) {
-            stateKeysList.add(key);
-          });
-        }
-
         final batch = firebaseFirestore.batch();
-        if (!stateKeysList.contains(placeCell.state)) {
+        if (!stateList.contains(placeCell.state)) {
           batch.update(
             // update
             firebaseFirestore.collection('locations').doc(placeCell.country),
             {
-              'state': FieldValue.arrayUnion([
-                {
-                  placeCell.state: GeoPoint(
-                    placeCell.geoPoint.latitude,
-                    placeCell.geoPoint.longitude,
-                  ),
-                }
-              ]),
+              'state': FieldValue.arrayUnion([placeCell.state]),
             },
           );
         }
@@ -171,14 +111,7 @@ class UploadPlaceService {
                 .collection(placeCell.state)
                 .doc(placeCell.state),
             {
-              'district': FieldValue.arrayUnion([
-                {
-                  placeCell.district: GeoPoint(
-                    placeCell.geoPoint.latitude,
-                    placeCell.geoPoint.longitude,
-                  ),
-                }
-              ]),
+              'district': FieldValue.arrayUnion([placeCell.district]),
             },
           )
           ..set(
@@ -190,14 +123,7 @@ class UploadPlaceService {
                 .collection(placeCell.district)
                 .doc(placeCell.district),
             {
-              'localArea': FieldValue.arrayUnion([
-                {
-                  placeCell.localArea: GeoPoint(
-                    placeCell.geoPoint.latitude,
-                    placeCell.geoPoint.longitude,
-                  ),
-                }
-              ]),
+              'localArea': FieldValue.arrayUnion([placeCell.localArea]),
             },
           );
 
@@ -211,14 +137,7 @@ class UploadPlaceService {
           // set
           firebaseFirestore.collection('locations').doc(placeCell.country),
           {
-            'state': FieldValue.arrayUnion([
-              {
-                placeCell.state: GeoPoint(
-                  placeCell.geoPoint.latitude,
-                  placeCell.geoPoint.longitude,
-                ),
-              }
-            ]),
+            'state': FieldValue.arrayUnion([placeCell.state]),
           },
         )
         ..set(
@@ -228,14 +147,7 @@ class UploadPlaceService {
               .collection(placeCell.state)
               .doc(placeCell.state),
           {
-            'district': FieldValue.arrayUnion([
-              {
-                placeCell.district: GeoPoint(
-                  placeCell.geoPoint.latitude,
-                  placeCell.geoPoint.longitude,
-                ),
-              }
-            ]),
+            'district': FieldValue.arrayUnion([placeCell.district]),
           },
         )
         ..set(
@@ -247,14 +159,7 @@ class UploadPlaceService {
               .collection(placeCell.district)
               .doc(placeCell.district),
           {
-            'localArea': FieldValue.arrayUnion([
-              {
-                placeCell.localArea: GeoPoint(
-                  placeCell.geoPoint.latitude,
-                  placeCell.geoPoint.longitude,
-                ),
-              }
-            ]),
+            'localArea': FieldValue.arrayUnion([placeCell.localArea]),
           },
         );
 

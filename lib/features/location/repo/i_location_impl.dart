@@ -10,8 +10,6 @@ import 'package:hinvex_app/general/services/location_service.dart'
 import 'package:hinvex_app/general/services/upload_location_services.dart';
 import 'package:hinvex_app/general/typedefs/typedefs.dart';
 import 'package:injectable/injectable.dart';
-// import 'package:road_king_user/application/core/serveice/location_serveice/location_serveice.dart'
-//     show LocationService, GetPosition;
 import 'package:shared_preferences/shared_preferences.dart';
 
 @LazySingleton(as: ILocationFacade)

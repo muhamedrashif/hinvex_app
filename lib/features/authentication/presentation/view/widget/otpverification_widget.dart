@@ -39,10 +39,10 @@ class _OTPVerificationSheetState extends State<OTPVerificationSheet> {
               fontSize: 18,
               textColor: AppColors.titleTextColor,
             ),
-            const TextWidget(
+            TextWidget(
               alignment: Alignment.centerLeft,
               text:
-                  "Enter A verification code we just sent to your number +91 *******21.",
+                  "Enter A verification code we just sent to your number +91${widget.phoneNumber}.",
               fontWeight: FontWeight.normal,
               fontSize: 13,
               textColor: Colors.grey,
@@ -95,11 +95,12 @@ class _OTPVerificationSheetState extends State<OTPVerificationSheet> {
                 onTap: () {
                   showProgress(context);
                   context.read<AuthProvider>().verifySmsCode(
+                        phoneNumber: widget.phoneNumber,
                         smsCode: otpController.text,
                         onSuccess: () {
                           Navigator.pop(context);
                           Navigator.pop(context);
-                          Navigator.push(
+                          Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => const LocationScreen(),

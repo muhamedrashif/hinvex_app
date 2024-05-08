@@ -13,9 +13,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    // Add a delay to simulate the splash screen duration
     Timer(const Duration(seconds: 3), () {
-      // Navigate to the main screen after the delay
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) => const OnBoardSplashScreen1(),

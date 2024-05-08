@@ -1,4 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:hinvex_app/features/bottomNavigationBar/presentation/view/bottom_navigation_widget.dart';
+import 'package:hinvex_app/features/home/presentation/view/home_screen.dart';
 import 'package:hinvex_app/features/location/presentation/provider/location_provider.dart';
 import 'package:hinvex_app/features/location/presentation/view/widgets/search_location_widget.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_button_widget.dart';
@@ -7,6 +11,7 @@ import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_outL
 import 'package:hinvex_app/features/splash/presentation/view/widgets/text_widget.dart';
 import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
+import 'package:hinvex_app/general/utils/progress_indicator_widget/progress_indicator_widget.dart';
 import 'package:provider/provider.dart';
 
 class LocationScreen extends StatefulWidget {
@@ -68,7 +73,21 @@ class _LocationScreenState extends State<LocationScreen> {
                 text: "Choose Current Location",
                 textColor: AppColors.buttonTextColor,
                 onTap: () {
-                  context.read<LocationProvider>().getUserCurrentPosition();
+                  showProgress(context);
+                  context.read<LocationProvider>().getUserCurrentPosition(
+                      onSuccess: () {
+                    log("Get current location Success");
+                    Navigator.pop(context);
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const BottomNavigationWidget(),
+                        ),
+                        (route) => false);
+                  }, onFailure: () {
+                    log("Get current location Failed");
+                    Navigator.pop(context);
+                  });
                 },
               ),
             ),
