@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hinvex_app/features/category/presentation/view/category_screen.dart';
 import 'package:hinvex_app/features/home/presentation/view/home_screen.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_image_widget.dart';
 import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
@@ -15,7 +16,7 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
   int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
-    HomeScreen(),
+    CategoryScreen(),
     HomeScreen(),
     HomeScreen(),
     HomeScreen(),
@@ -30,10 +31,12 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: CustumImage(

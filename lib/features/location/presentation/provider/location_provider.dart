@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/location/data/i_location_facade.dart';
 import 'package:hinvex_app/features/location/data/model/location_model_main.dart/location_model_main.dart';
+import 'package:hinvex_app/features/location/data/model/popular_cities_model/popularcities_model.dart';
 import 'package:hinvex_app/features/location/data/model/search_location_model/search_location_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -70,9 +71,31 @@ class LocationProvider with ChangeNotifier {
     });
   }
 
+  List<PopularCitiesModel> popularcitiesList = [];
+  bool popularcitiesIsLoading = false;
+  Future fetchPopularCities() async {
+    popularcitiesList.clear();
+    popularcitiesIsLoading = true;
+    notifyListeners();
+
+    final result = await iLocationFacade.fetchPopularCities();
+    result.fold((l) => null,
+        (r) => popularcitiesList.addAll(r as Iterable<PopularCitiesModel>));
+
+    popularcitiesIsLoading = false;
+    notifyListeners();
+  }
+
+  // void _saveLocationInSharedPreferences(PlaceCell location) {
+  //   log("SHAREDPREFERENCES CALLED");
+  //   _prefs!.setString('save_location', location.localArea!);
+  // }
+
   void _saveLocationInSharedPreferences(PlaceCell location) {
     log("SHAREDPREFERENCES CALLED");
-    _prefs!.setString('save_location', location.localArea!);
+    if (_prefs != null) {
+      _prefs!.setString('save_location', location.localArea!);
+    }
   }
 
   Future<String?> getSavedLocation() async {

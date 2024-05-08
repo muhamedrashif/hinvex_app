@@ -3,6 +3,7 @@ import 'package:hinvex_app/general/failures/failures.dart';
 import 'package:hinvex_app/general/typedefs/typedefs.dart';
 
 import 'model/location_model_main.dart/location_model_main.dart';
+import 'model/popular_cities_model/popularcities_model.dart';
 import 'model/search_location_model/search_location_model.dart';
 
 abstract class ILocationFacade {
@@ -39,5 +40,9 @@ abstract class ILocationFacade {
       'openSettings() is not implemented, '
       'implement the method before calling it',
     );
+  }
+
+  FutureResult<List<PopularCitiesModel>> fetchPopularCities() {
+    throw UnimplementedError('fetchMobileBanners() not impl');
   }
 }

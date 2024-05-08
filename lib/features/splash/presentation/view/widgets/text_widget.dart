@@ -8,13 +8,13 @@ class TextWidget extends StatelessWidget {
   final Alignment alignment;
 
   const TextWidget({
-    Key? key,
+    super.key,
     required this.text,
     required this.fontWeight,
     required this.fontSize,
     required this.textColor,
     required this.alignment,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

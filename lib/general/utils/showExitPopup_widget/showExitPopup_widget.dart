@@ -8,6 +8,7 @@ Future<bool> showExitPopup(BuildContext context) async {
         context: context,
         barrierDismissible: false,
         builder: (context) => AlertDialog(
+          backgroundColor: AppColors.backgroundColor,
           title: Text(
             'Exit App',
             style: TextStyle(

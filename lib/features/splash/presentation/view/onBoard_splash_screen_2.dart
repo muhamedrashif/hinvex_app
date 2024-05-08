@@ -20,6 +20,7 @@ class _OnBoardSplashScreen2State extends State<OnBoardSplashScreen2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,

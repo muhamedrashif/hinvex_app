@@ -1,7 +1,6 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:hinvex_app/features/home/presentation/view/home_screen.dart';
+import 'package:hinvex_app/features/bottomNavigationBar/presentation/view/bottom_navigation_widget.dart';
 import 'package:hinvex_app/features/location/presentation/provider/location_provider.dart';
 import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
@@ -18,9 +17,20 @@ class SearchLocationWidget extends StatefulWidget {
 class _SearchLocationWidgetState extends State<SearchLocationWidget> {
   final TextEditingController _searchLocationController =
       TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<LocationProvider>(context, listen: false)
+          .fetchPopularCities();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: AppColors.backgroundColor,
         appBar: AppBar(
           iconTheme: IconThemeData(color: AppColors.titleTextColor),
           title: Text(
@@ -129,11 +139,13 @@ class _SearchLocationWidgetState extends State<SearchLocationWidget> {
                             _searchLocationController.clear();
                             state.clearSuggestions();
                             Navigator.pop(context);
-                            Navigator.pushReplacement(
+                            Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const HomeScreen(),
-                                ));
+                                  builder: (context) =>
+                                      const BottomNavigationWidget(),
+                                ),
+                                (route) => false);
                           },
                           onFailure: () {
                             log("FAILED");
@@ -157,11 +169,13 @@ class _SearchLocationWidgetState extends State<SearchLocationWidget> {
                     state.getUserCurrentPosition(onSuccess: () {
                       log("Get current location Success");
                       Navigator.pop(context);
-                      Navigator.pushReplacement(
+                      Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const HomeScreen(),
-                          ));
+                            builder: (context) =>
+                                const BottomNavigationWidget(),
+                          ),
+                          (route) => false);
                     }, onFailure: () {
                       log("Get current location Failed");
                       Navigator.pop(context);
@@ -254,20 +268,56 @@ class _SearchLocationWidgetState extends State<SearchLocationWidget> {
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: 3,
                     itemBuilder: (context, index) {
-                      return const Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.add,
-                              color: Colors.blue,
-                            ),
-                            SizedBox(
-                              width: 8,
-                            ),
-                            Text("Eranamkulam"),
-                          ],
+                      if (index >= state.popularcitiesList.length) {
+                        return const SizedBox
+                            .shrink(); // If the index is out of bounds, return an empty SizedBox
+                      }
+                      return InkWell(
+                        onTap: () {
+                          showProgress(context);
+
+                          state.searchLocationByAddress(
+                            latitude: state.popularcitiesList[index].placeCell!
+                                .geoPoint.latitude
+                                .toString(),
+                            longitude: state.popularcitiesList[index].placeCell!
+                                .geoPoint.longitude
+                                .toString(),
+                            onSuccess: (placecell) {
+                              log("SUCCESS");
+                              log("placeCell$placecell");
+
+                              Navigator.pop(context);
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const BottomNavigationWidget(),
+                                  ),
+                                  (route) => false);
+                            },
+                            onFailure: () {
+                              log("FAILED");
+                              Navigator.pop(context);
+                            },
+                          );
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0, vertical: 4),
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.add,
+                                color: Colors.blue,
+                              ),
+                              const SizedBox(
+                                width: 8,
+                              ),
+                              Text(state.popularcitiesList[index].placeCell!
+                                  .district),
+                            ],
+                          ),
                         ),
                       );
                     },

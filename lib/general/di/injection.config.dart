@@ -67,6 +67,7 @@ Future<_i1.GetIt> init(
         gh<_i10.UploadPlaceService>(),
       ));
   gh.lazySingleton<_i14.ILocationFacade>(() => _i13.ILocationImpl(
+        gh<_i5.FirebaseFirestore>(),
         gh<_i13.GetCurrentPosition>(),
         gh<_i4.SharedPreferences>(),
         gh<_i10.UploadPlaceService>(),

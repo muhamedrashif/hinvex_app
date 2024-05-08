@@ -23,6 +23,8 @@ class ImageConstant {
   // locationIcon
   static String locationIcon = '$imagePath/locationIcon.png';
 
+// ONBOARD ICON IMAGES
+
   // ads
   static String ads = '$imagePath/ads.png';
 
@@ -52,4 +54,24 @@ class ImageConstant {
 
   // unhome
   static String unhome = '$imagePath/unhome.png';
+
+// CATEGORY ICON IMAGES
+
+  // HOUSE
+  static String house = '$imagePath/houses.png';
+
+  // land&plot
+  static String landplot = '$imagePath/land&plot.png';
+
+  // cowork
+  static String cowork = '$imagePath/cowork.png';
+
+  // commertial
+  static String commertial = '$imagePath/commertial.png';
+
+  // appartment
+  static String appartment = '$imagePath/appartment.png';
+
+  // pg&guestHouse
+  static String pgguestHouse = '$imagePath/pg&guestHouse.png';
 }

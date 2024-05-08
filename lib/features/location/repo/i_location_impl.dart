@@ -1,9 +1,13 @@
 import 'dart:async';
+import 'dart:developer';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hinvex_app/features/location/data/i_location_facade.dart';
 import 'package:hinvex_app/features/location/data/model/location_model_main.dart/location_model_main.dart';
+import 'package:hinvex_app/features/location/data/model/popular_cities_model/popularcities_model.dart';
 import 'package:hinvex_app/features/location/data/model/search_location_model/search_location_model.dart';
+import 'package:hinvex_app/general/failures/exeception/execeptions.dart';
 import 'package:hinvex_app/general/failures/failures.dart';
 import 'package:hinvex_app/general/services/location_service.dart'
     show GetPosition;
@@ -15,11 +19,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 @LazySingleton(as: ILocationFacade)
 class ILocationImpl implements ILocationFacade {
   ILocationImpl(
+    this._firestore,
     this.getCurrentPosition,
     this.sharedPreferences,
     this.uploadPlaceService,
   );
-
+  final FirebaseFirestore _firestore;
   final GetCurrentPosition getCurrentPosition;
   final SharedPreferences sharedPreferences;
   final UploadPlaceService uploadPlaceService;
@@ -103,6 +108,21 @@ class ILocationImpl implements ILocationFacade {
       return left(
         const MainFailure.serverFailure(errorMsg: 'Permission Denied'),
       );
+    }
+  }
+
+  @override
+  FutureResult<List<PopularCitiesModel>> fetchPopularCities() async {
+    try {
+      final result = await _firestore.collection('popularcities').get();
+      final popularCitiesModel =
+          result.docs.map((doc) => PopularCitiesModel.fromSnap(doc)).toList();
+
+      return Right(popularCitiesModel);
+    } catch (e, stackTrace) {
+      print(e.toString());
+      log("Error fetching next reports: $e", stackTrace: stackTrace);
+      throw CustomExeception('Error fetching next reports: $e');
     }
   }
 }
