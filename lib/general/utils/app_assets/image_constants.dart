@@ -70,8 +70,28 @@ class ImageConstant {
   static String commertial = '$imagePath/commertial.png';
 
   // appartment
-  static String appartment = '$imagePath/appartment.png';
+  static String appartment = '$imagePath/apartment.png';
 
   // pg&guestHouse
   static String pgguestHouse = '$imagePath/pg&guestHouse.png';
+
+// SELL ICON IMAGES
+
+  // HOUSE
+  static String sellhouse = '$imagePath/sellhouse.png';
+
+  // land&plot
+  static String sellland = '$imagePath/sellland.png';
+
+  // cowork
+  static String sellcowork = '$imagePath/sellcowork.png';
+
+  // commertial
+  static String sellcommertial = '$imagePath/sellcommertial.png';
+
+  // appartment
+  static String sellapartment = '$imagePath/sellapartment.png';
+
+  // pg&guestHouse
+  static String sellpgguesthouse = '$imagePath/sellpgguesthouse.png';
 }

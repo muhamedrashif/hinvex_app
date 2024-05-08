@@ -6,4 +6,5 @@ class AppColors {
   static Color buttonTextColor = Colors.white;
   static Color titleTextColor = const Color(0xFF34537F);
   static Color backgroundColor = Colors.white;
+  static Color subtitleTextColor = const Color(0xFF08A9CB5);
 }

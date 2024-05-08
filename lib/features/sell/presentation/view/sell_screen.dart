@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:hinvex_app/features/category/presentation/view/widget/category_container_widget.dart';
+import 'package:hinvex_app/features/sell/presentation/view/widget/sell_container_widget.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_image_widget.dart';
 import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
 
-class CategoryScreen extends StatefulWidget {
-  const CategoryScreen({super.key});
+class SellScreen extends StatefulWidget {
+  const SellScreen({super.key});
 
   @override
-  State<CategoryScreen> createState() => _CategoryScreenState();
+  State<SellScreen> createState() => _SellScreenState();
 }
 
-class _CategoryScreenState extends State<CategoryScreen> {
+class _SellScreenState extends State<SellScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +33,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "Category",
+                    "Sell Your Product",
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 18,
@@ -41,7 +41,17 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     ),
                   ),
                 ),
-                const CategoryContainerWidget()
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "What type of property do you offer?",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: AppColors.subtitleTextColor,
+                    ),
+                  ),
+                ),
+                const SellContainerWidget()
               ],
             ),
           ),
