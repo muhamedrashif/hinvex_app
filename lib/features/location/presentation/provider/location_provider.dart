@@ -24,30 +24,54 @@ class LocationProvider with ChangeNotifier {
     );
   }
 
-  Future<void> serchLocationByAddres({
+  Future<void> searchLocationByAddress({
     required String latitude,
     required String longitude,
     required Function(PlaceCell) onSuccess,
     required VoidCallback onFailure,
   }) async {
     final result = await iLocationFacade.serchLocationByAddres(
-        latitude: latitude, longitude: longitude);
+      latitude: latitude,
+      longitude: longitude,
+    );
 
-    await result.fold(
-      (l) {
+    result.fold(
+      (error) {
+        // Failure case
         onFailure();
       },
-      (r) async {
-        log('serchLocationByAddres success');
-
-        result.fold((l) {
-          onFailure();
-        }, (_) {
-          onSuccess(r);
-        });
+      (location) {
+        // Success case
+        log('searchLocationByAddress success');
+        onSuccess(location);
       },
     );
   }
+
+  // Future<void> serchLocationByAddres({
+  //   required String latitude,
+  //   required String longitude,
+  //   required Function(PlaceCell) onSuccess,
+  //   required VoidCallback onFailure,
+  // }) async {
+  //   final result = await iLocationFacade.serchLocationByAddres(
+  //       latitude: latitude, longitude: longitude);
+
+  //   await result.fold(
+  //     (l) {
+  //       onFailure();
+  //     },
+  //     (r) async {
+  //       log('serchLocationByAddres success');
+
+  //       result.fold((l) {
+  //         onFailure();
+  //       }, (_) {
+  //         onSuccess(r);
+  //       });
+  //     },
+  //   );
+  // }
 
   Future<void> getUserCurrentPosition() async {
     iLocationFacade.getUserCurrentPosition();

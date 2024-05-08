@@ -1,11 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hinvex_app/features/location/presentation/provider/location_provider.dart';
-import 'package:hinvex_app/features/location/presentation/view/widgets/search_frames_widget.dart';
 import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
+import 'package:hinvex_app/general/utils/progress_indicator_widget/progress_indicator_widget.dart';
 import 'package:provider/provider.dart';
 
 class SearchLocationWidget extends StatefulWidget {
@@ -88,38 +87,6 @@ class _SearchLocationWidgetState extends State<SearchLocationWidget> {
                         ),
                       ),
                     ),
-
-                    // state.suggestions.isNotEmpty
-                    //     ? SizedBox(
-                    //         height: 200,
-                    //         width: MediaQuery.of(context).size.width * 3,
-                    //         child: ListView.builder(
-                    //             itemCount: state.suggestions.length,
-                    //             itemBuilder: (context, index) {
-                    //               final suggestion = state.suggestions[index];
-                    //               return Padding(
-                    //                 padding: const EdgeInsets.all(2.0),
-                    //                 child: Container(
-                    //                   decoration: BoxDecoration(
-                    //                     borderRadius: BorderRadius.circular(10),
-                    //                     color: Colors.black12,
-                    //                   ),
-                    //                   child: ListTile(
-                    //                     title: Text(
-                    //                       "${suggestion.formattedAddress}",
-                    //                       style: const TextStyle(fontSize: 13),
-                    //                     ),
-                    //                     trailing: const Icon(
-                    //                       Icons.north_west_outlined,
-                    //                       color: Colors.blue,
-                    //                       size: 20,
-                    //                     ),
-                    //                     onTap: () {},
-                    //                   ),
-                    //                 ),
-                    //               );
-                    //             }))
-                    //     : Container(),
                   ],
                 ),
               ),
@@ -146,7 +113,35 @@ class _SearchLocationWidgetState extends State<SearchLocationWidget> {
                         color: AppColors.textButtonColor,
                         size: 20,
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        showProgress(context);
+
+                        state.searchLocationByAddress(
+                          latitude:
+                              suggestion.geometry!.location!.lat.toString(),
+                          longitude:
+                              suggestion.geometry!.location!.lng.toString(),
+                          onSuccess: (placecell) {
+                            log("SUCCESS");
+                            log("placeCell$placecell");
+
+                            _searchLocationController.clear();
+                            state.clearSuggestions();
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const SearchLocationWidget(),
+                                ));
+                            Navigator.pop(context);
+                          },
+                          onFailure: () {
+                            log("FAILED");
+                            state.clearSuggestions();
+                            Navigator.pop(context);
+                          },
+                        );
+                      },
                     ),
                   ),
                 );
@@ -188,8 +183,8 @@ class _SearchLocationWidgetState extends State<SearchLocationWidget> {
                 ),
               ),
             ),
-            SliverToBoxAdapter(
-              child: const Padding(
+            const SliverToBoxAdapter(
+              child: Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
                   "Recently Used Locations",
@@ -219,8 +214,8 @@ class _SearchLocationWidgetState extends State<SearchLocationWidget> {
                 ),
               ),
             ),
-            SliverToBoxAdapter(
-              child: const Padding(
+            const SliverToBoxAdapter(
+              child: Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
                   "Popular Places",
