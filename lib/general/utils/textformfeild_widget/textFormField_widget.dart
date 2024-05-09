@@ -9,8 +9,10 @@ class CustomTextFormFieldWidget extends StatelessWidget {
   final TextInputType keyboardType;
   final int? maxLength;
   final int? maxLines;
+  final double? height;
   final bool readOnly;
   final Function()? suffixIcononTap;
+  final TextStyle? hintStyle;
 
   const CustomTextFormFieldWidget({
     super.key,
@@ -21,14 +23,17 @@ class CustomTextFormFieldWidget extends StatelessWidget {
     this.keyboardType = TextInputType.text,
     this.maxLength,
     this.maxLines,
+    this.height,
     this.readOnly = false,
     this.suffixIcononTap,
+    this.hintStyle = const TextStyle(
+        color: Colors.grey, fontSize: 12, fontWeight: FontWeight.normal),
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 44,
+      height: height,
       decoration: BoxDecoration(
         color: AppColors.backgroundColor,
         borderRadius: BorderRadius.circular(6),
@@ -42,7 +47,7 @@ class CustomTextFormFieldWidget extends StatelessWidget {
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: TextFormField(
           decoration: InputDecoration(
             border: InputBorder.none,
@@ -55,10 +60,7 @@ class CustomTextFormFieldWidget extends StatelessWidget {
               ),
             ),
             hintText: hintText,
-            hintStyle: const TextStyle(
-                color: Colors.grey,
-                fontSize: 12,
-                fontWeight: FontWeight.normal),
+            hintStyle: hintStyle,
           ),
           style: const TextStyle(
             fontWeight: FontWeight.w600,
