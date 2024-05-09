@@ -36,85 +36,104 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
-      bottomNavigationBar: SizedBox(
+      bottomNavigationBar: Container(
         height: 80,
-        child: BottomNavigationBar(
-          backgroundColor: Colors.white,
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: CustumImage(
-                height: 24,
-                width: 24,
-                image: ImageConstant.unhome,
-              ),
-              activeIcon: CustumImage(
-                height: 24,
-                width: 24,
-                image: ImageConstant.home,
-              ),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: CustumImage(
-                height: 24,
-                width: 24,
-                image: ImageConstant.uncategory,
-              ),
-              activeIcon: CustumImage(
-                height: 24,
-                width: 24,
-                image: ImageConstant.category,
-              ),
-              label: 'Category',
-            ),
-            BottomNavigationBarItem(
-              icon: CustumImage(
-                height: 24,
-                width: 24,
-                image: ImageConstant.unsell,
-              ),
-              activeIcon: CustumImage(
-                height: 24,
-                width: 24,
-                image: ImageConstant.sell,
-              ),
-              label: 'Sell',
-            ),
-            BottomNavigationBarItem(
-              icon: CustumImage(
-                height: 24,
-                width: 24,
-                image: ImageConstant.unshortlist,
-              ),
-              activeIcon: CustumImage(
-                height: 24,
-                width: 24,
-                image: ImageConstant.shortlist,
-              ),
-              label: 'Shortlists',
-            ),
-            BottomNavigationBarItem(
-              icon: CustumImage(
-                height: 24,
-                width: 24,
-                image: ImageConstant.unads,
-              ),
-              activeIcon: CustumImage(
-                height: 24,
-                width: 24,
-                image: ImageConstant.ads,
-              ),
-              label: 'My Ads',
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(13),
+            topRight: Radius.circular(13),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.3),
+              blurRadius: 10,
+              spreadRadius: 0,
+              offset: const Offset(0, -3),
             ),
           ],
-          type: BottomNavigationBarType.fixed,
-          currentIndex: _selectedIndex,
-          selectedItemColor: AppColors.textButtonColor,
-          onTap: _onItemTapped,
-          elevation: 6,
-          selectedLabelStyle:
-              const TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
-          unselectedLabelStyle: const TextStyle(fontSize: 12),
+        ),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(13),
+            topRight: Radius.circular(13),
+          ),
+          child: BottomNavigationBar(
+            backgroundColor: Colors.white,
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: CustumImage(
+                  height: 24,
+                  width: 24,
+                  image: ImageConstant.unhome,
+                ),
+                activeIcon: CustumImage(
+                  height: 24,
+                  width: 24,
+                  image: ImageConstant.home,
+                ),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: CustumImage(
+                  height: 24,
+                  width: 24,
+                  image: ImageConstant.uncategory,
+                ),
+                activeIcon: CustumImage(
+                  height: 24,
+                  width: 24,
+                  image: ImageConstant.category,
+                ),
+                label: 'Category',
+              ),
+              BottomNavigationBarItem(
+                icon: CustumImage(
+                  height: 24,
+                  width: 24,
+                  image: ImageConstant.unsell,
+                ),
+                activeIcon: CustumImage(
+                  height: 24,
+                  width: 24,
+                  image: ImageConstant.sell,
+                ),
+                label: 'Sell',
+              ),
+              BottomNavigationBarItem(
+                icon: CustumImage(
+                  height: 24,
+                  width: 24,
+                  image: ImageConstant.unshortlist,
+                ),
+                activeIcon: CustumImage(
+                  height: 24,
+                  width: 24,
+                  image: ImageConstant.shortlist,
+                ),
+                label: 'Shortlists',
+              ),
+              BottomNavigationBarItem(
+                icon: CustumImage(
+                  height: 24,
+                  width: 24,
+                  image: ImageConstant.unads,
+                ),
+                activeIcon: CustumImage(
+                  height: 24,
+                  width: 24,
+                  image: ImageConstant.ads,
+                ),
+                label: 'My Ads',
+              ),
+            ],
+            type: BottomNavigationBarType.fixed,
+            currentIndex: _selectedIndex,
+            selectedItemColor: AppColors.textButtonColor,
+            onTap: _onItemTapped,
+            selectedLabelStyle:
+                const TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+            unselectedLabelStyle: const TextStyle(fontSize: 12),
+          ),
         ),
       ),
     );
