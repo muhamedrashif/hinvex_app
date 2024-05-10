@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:hinvex_app/features/sell/presentation/view/widget/property_uploading/popup_selection_widget.dart';
+import 'package:hinvex_app/features/sell/presentation/view/upload_property_details/widgets/popup_selection_widget.dart';
 import 'package:hinvex_app/general/utils/textformfeild_widget/textFormField_widget.dart';
 
-class BathRoomInputWidget extends StatefulWidget {
-  const BathRoomInputWidget({super.key});
+class CarParkingInputWidget extends StatefulWidget {
+  const CarParkingInputWidget({super.key});
 
   @override
-  State<BathRoomInputWidget> createState() => _BathRoomInputWidgetState();
+  State<CarParkingInputWidget> createState() => _CarParkingInputWidgetState();
 }
 
-class _BathRoomInputWidgetState extends State<BathRoomInputWidget> {
-  final TextEditingController _bathRoomController = TextEditingController();
+class _CarParkingInputWidgetState extends State<CarParkingInputWidget> {
+  final TextEditingController _carParkingController = TextEditingController();
 
-  // BathRoom
-  String? _selectedBathRoom;
+  // Construction Status
+  String? _selectedCarParking;
 
-  final List<String> _bathRoom = ['1', '2', '3', '4', '+4'];
+  final List<String> _carParking = ['1', '2', '3', '4', '+4'];
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class _BathRoomInputWidgetState extends State<BathRoomInputWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          "BathRoom*",
+          "Car Parking*",
           style: TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 13,
@@ -34,7 +34,7 @@ class _BathRoomInputWidgetState extends State<BathRoomInputWidget> {
           padding: const EdgeInsets.symmetric(vertical: 12.0),
           child: CustomTextFormFieldWidget(
             hintText: "Choose One",
-            controller: _bathRoomController,
+            controller: _carParkingController,
             suffixIcon: const Icon(
               Icons.arrow_forward_ios_rounded,
               size: 18,
@@ -45,13 +45,13 @@ class _BathRoomInputWidgetState extends State<BathRoomInputWidget> {
                 context: context,
                 barrierDismissible: false,
                 builder: (context) => CustomAlertDialog(
-                  title: "BathRoom >",
-                  itemCount: _bathRoom.length,
-                  fields: _bathRoom,
+                  title: "Car Parking >",
+                  itemCount: _carParking.length,
+                  fields: _carParking,
                   onItemSelected: (selectedItem) {
                     setState(() {
-                      _selectedBathRoom = selectedItem;
-                      _bathRoomController.text = _selectedBathRoom!;
+                      _selectedCarParking = selectedItem;
+                      _carParkingController.text = _selectedCarParking!;
                     });
                   },
                 ),

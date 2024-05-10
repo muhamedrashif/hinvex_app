@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:hinvex_app/features/sell/presentation/view/widget/property_uploading/popup_selection_widget.dart';
+import 'package:hinvex_app/features/sell/presentation/view/upload_property_details/widgets/popup_selection_widget.dart';
 import 'package:hinvex_app/general/utils/textformfeild_widget/textFormField_widget.dart';
 
-class ListedByInputWidget extends StatefulWidget {
-  const ListedByInputWidget({super.key});
+class FurnishingInputWidget extends StatefulWidget {
+  const FurnishingInputWidget({super.key});
 
   @override
-  State<ListedByInputWidget> createState() => _ListedByInputWidgetState();
+  State<FurnishingInputWidget> createState() => _FurnishingInputWidgetState();
 }
 
-class _ListedByInputWidgetState extends State<ListedByInputWidget> {
-  final TextEditingController _listedByController = TextEditingController();
+class _FurnishingInputWidgetState extends State<FurnishingInputWidget> {
+  final TextEditingController _furnishingController = TextEditingController();
 
-  // ListedBy
-  String? _selectedListedBy;
+  // Furnishing
+  String? _selectedFurnishing;
 
-  final List<String> _listedBy = [
-    'Builder',
-    'Dealer',
+  final List<String> _furnishing = [
+    'Furnished',
+    'Semi-Furnished',
+    'Un-Furnished'
   ];
 
   @override
@@ -27,7 +28,7 @@ class _ListedByInputWidgetState extends State<ListedByInputWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          "ListedBy*",
+          "Furnishing*",
           style: TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 13,
@@ -37,7 +38,7 @@ class _ListedByInputWidgetState extends State<ListedByInputWidget> {
           padding: const EdgeInsets.symmetric(vertical: 12.0),
           child: CustomTextFormFieldWidget(
             hintText: "Choose One",
-            controller: _listedByController,
+            controller: _furnishingController,
             suffixIcon: const Icon(
               Icons.arrow_forward_ios_rounded,
               size: 18,
@@ -48,13 +49,13 @@ class _ListedByInputWidgetState extends State<ListedByInputWidget> {
                 context: context,
                 barrierDismissible: false,
                 builder: (context) => CustomAlertDialog(
-                  title: "ListedBy >",
-                  itemCount: _listedBy.length,
-                  fields: _listedBy,
+                  title: "Furnishing >",
+                  itemCount: _furnishing.length,
+                  fields: _furnishing,
                   onItemSelected: (selectedItem) {
                     setState(() {
-                      _selectedListedBy = selectedItem;
-                      _listedByController.text = _selectedListedBy!;
+                      _selectedFurnishing = selectedItem;
+                      _furnishingController.text = _selectedFurnishing!;
                     });
                   },
                 ),

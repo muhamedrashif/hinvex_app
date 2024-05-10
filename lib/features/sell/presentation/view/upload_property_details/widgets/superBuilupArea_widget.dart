@@ -12,7 +12,7 @@ class SuperBuilupAreaInputWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          "Super Builup Area(ft2)*",
+          "Super Built-up Area(ft2)*",
           style: TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 13,

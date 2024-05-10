@@ -20,9 +20,11 @@ import '../../features/authentication/data/i_auth_facade.dart' as _i11;
 import '../../features/authentication/repo/i_auth_imlp.dart' as _i12;
 import '../../features/location/data/i_location_facade.dart' as _i14;
 import '../../features/location/repo/i_location_impl.dart' as _i13;
+import '../../features/sell/data/i_sell_facade.dart' as _i15;
+import '../../features/sell/repo/i_sell_impl.dart' as _i16;
 import '../services/location_service.dart' as _i9;
 import '../services/upload_location_services.dart' as _i10;
-import 'app_injectable_module.dart' as _i15;
+import 'app_injectable_module.dart' as _i17;
 import 'firebase_injectable_module.dart' as _i3;
 
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -72,9 +74,14 @@ Future<_i1.GetIt> init(
         gh<_i4.SharedPreferences>(),
         gh<_i10.UploadPlaceService>(),
       ));
+  gh.lazySingleton<_i15.ISellFacade>(() => _i16.ISellImpl(
+        gh<_i5.FirebaseFirestore>(),
+        gh<_i10.UploadPlaceService>(),
+        gh<_i13.GetCurrentPosition>(),
+      ));
   return getIt;
 }
 
 class _$FirebaseInjectableModule extends _i3.FirebaseInjectableModule {}
 
-class _$AppInjectableModule extends _i15.AppInjectableModule {}
+class _$AppInjectableModule extends _i17.AppInjectableModule {}

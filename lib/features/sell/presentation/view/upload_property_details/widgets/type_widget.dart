@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hinvex_app/features/sell/presentation/view/widget/property_uploading/popup_selection_widget.dart';
+import 'package:hinvex_app/features/sell/presentation/view/upload_property_details/widgets/popup_selection_widget.dart';
 import 'package:hinvex_app/general/utils/textformfeild_widget/textFormField_widget.dart';
 
 class TypeInputWidget extends StatefulWidget {

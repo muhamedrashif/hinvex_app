@@ -77,7 +77,7 @@
 // }
 
 import 'package:flutter/material.dart';
-import 'package:hinvex_app/features/sell/presentation/view/widget/property_uploading/user_profile_screen.dart';
+import 'package:hinvex_app/features/sell/presentation/view/upload_property_details/screens/user_profile_screen.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_button_widget.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
 import 'package:hinvex_app/general/utils/textformfeild_widget/textFormField_widget.dart';

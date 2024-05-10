@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:hinvex_app/features/sell/presentation/view/widget/property_uploading/popup_selection_widget.dart';
+import 'package:hinvex_app/features/sell/presentation/view/upload_property_details/widgets/popup_selection_widget.dart';
 import 'package:hinvex_app/general/utils/textformfeild_widget/textFormField_widget.dart';
 
-class BedRoomInputWidget extends StatefulWidget {
-  const BedRoomInputWidget({super.key});
+class ListedByInputWidget extends StatefulWidget {
+  const ListedByInputWidget({super.key});
 
   @override
-  State<BedRoomInputWidget> createState() => _BedRoomInputWidgetState();
+  State<ListedByInputWidget> createState() => _ListedByInputWidgetState();
 }
 
-class _BedRoomInputWidgetState extends State<BedRoomInputWidget> {
-  final TextEditingController _bedRoomController = TextEditingController();
+class _ListedByInputWidgetState extends State<ListedByInputWidget> {
+  final TextEditingController _listedByController = TextEditingController();
 
-  // BedRoom
-  String? _selectedBedRoom;
+  // ListedBy
+  String? _selectedListedBy;
 
-  final List<String> _bedRoom = ['1', '2', '3', '4', '+4'];
+  final List<String> _listedBy = [
+    'Builder',
+    'Dealer',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +27,7 @@ class _BedRoomInputWidgetState extends State<BedRoomInputWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          "BedRoom*",
+          "Listed By*",
           style: TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 13,
@@ -34,7 +37,7 @@ class _BedRoomInputWidgetState extends State<BedRoomInputWidget> {
           padding: const EdgeInsets.symmetric(vertical: 12.0),
           child: CustomTextFormFieldWidget(
             hintText: "Choose One",
-            controller: _bedRoomController,
+            controller: _listedByController,
             suffixIcon: const Icon(
               Icons.arrow_forward_ios_rounded,
               size: 18,
@@ -45,13 +48,13 @@ class _BedRoomInputWidgetState extends State<BedRoomInputWidget> {
                 context: context,
                 barrierDismissible: false,
                 builder: (context) => CustomAlertDialog(
-                  title: "BedRoom >",
-                  itemCount: _bedRoom.length,
-                  fields: _bedRoom,
+                  title: "ListedBy >",
+                  itemCount: _listedBy.length,
+                  fields: _listedBy,
                   onItemSelected: (selectedItem) {
                     setState(() {
-                      _selectedBedRoom = selectedItem;
-                      _bedRoomController.text = _selectedBedRoom!;
+                      _selectedListedBy = selectedItem;
+                      _listedByController.text = _selectedListedBy!;
                     });
                   },
                 ),

@@ -1,28 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:hinvex_app/features/sell/presentation/view/widget/property_uploading/popup_selection_widget.dart';
+import 'package:hinvex_app/features/sell/presentation/view/upload_property_details/widgets/popup_selection_widget.dart';
 import 'package:hinvex_app/general/utils/textformfeild_widget/textFormField_widget.dart';
 
-class ConstructionStatusInputWidget extends StatefulWidget {
-  const ConstructionStatusInputWidget({super.key});
+class BedRoomInputWidget extends StatefulWidget {
+  const BedRoomInputWidget({super.key});
 
   @override
-  State<ConstructionStatusInputWidget> createState() =>
-      _ConstructionStatusInputWidgetState();
+  State<BedRoomInputWidget> createState() => _BedRoomInputWidgetState();
 }
 
-class _ConstructionStatusInputWidgetState
-    extends State<ConstructionStatusInputWidget> {
-  final TextEditingController _constructionStatusController =
-      TextEditingController();
+class _BedRoomInputWidgetState extends State<BedRoomInputWidget> {
+  final TextEditingController _bedRoomController = TextEditingController();
 
-  // Construction Status
-  String? _selectedConstructionStatus;
+  // BedRoom
+  String? _selectedBedRoom;
 
-  final List<String> _constructionStatus = [
-    'New Launch',
-    'Ready To Move',
-    'Uder-Construction'
-  ];
+  final List<String> _bedRoom = ['1', '2', '3', '4', '+4'];
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +24,7 @@ class _ConstructionStatusInputWidgetState
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          "Construction Status*",
+          "Bedroom*",
           style: TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 13,
@@ -41,7 +34,7 @@ class _ConstructionStatusInputWidgetState
           padding: const EdgeInsets.symmetric(vertical: 12.0),
           child: CustomTextFormFieldWidget(
             hintText: "Choose One",
-            controller: _constructionStatusController,
+            controller: _bedRoomController,
             suffixIcon: const Icon(
               Icons.arrow_forward_ios_rounded,
               size: 18,
@@ -52,14 +45,13 @@ class _ConstructionStatusInputWidgetState
                 context: context,
                 barrierDismissible: false,
                 builder: (context) => CustomAlertDialog(
-                  title: "Construction Status >",
-                  itemCount: _constructionStatus.length,
-                  fields: _constructionStatus,
+                  title: "BedRoom >",
+                  itemCount: _bedRoom.length,
+                  fields: _bedRoom,
                   onItemSelected: (selectedItem) {
                     setState(() {
-                      _selectedConstructionStatus = selectedItem;
-                      _constructionStatusController.text =
-                          _selectedConstructionStatus!;
+                      _selectedBedRoom = selectedItem;
+                      _bedRoomController.text = _selectedBedRoom!;
                     });
                   },
                 ),

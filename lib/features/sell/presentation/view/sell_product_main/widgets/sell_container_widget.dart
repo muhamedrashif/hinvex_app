@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hinvex_app/features/sell/presentation/view/widget/property_uploading/property_uploading_screen.dart';
+import 'package:hinvex_app/features/sell/presentation/view/upload_property_details/screens/property_uploading_screen.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_image_widget.dart';
 import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
@@ -13,12 +13,12 @@ class SellContainerWidget extends StatefulWidget {
 
 class _SellContainerWidgetState extends State<SellContainerWidget> {
   List<Map<String, dynamic>> categories = [
-    {"image": ImageConstant.sellhouse, "name": "Houses"},
+    {"image": ImageConstant.sellhouse, "name": "House"},
     {"image": ImageConstant.sellapartment, "name": "Apartments"},
-    {"image": ImageConstant.sellland, "name": "Land And Plot"},
+    {"image": ImageConstant.sellland, "name": "Lands/Plots"},
     {"image": ImageConstant.sellcommertial, "name": "Commercial"},
-    {"image": ImageConstant.sellcowork, "name": "Co-Working\nSpace"},
-    {"image": ImageConstant.sellpgguesthouse, "name": "PG & Guest\nHouse"},
+    {"image": ImageConstant.sellcowork, "name": "Co-Working Space"},
+    {"image": ImageConstant.sellpgguesthouse, "name": "PG & Guest House"},
   ];
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,9 @@ class _SellContainerWidgetState extends State<SellContainerWidget> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => PropertyUploadingScreen(),
+                      builder: (context) => PropertyUploadingScreen(
+                        categoryName: categories[index]["name"],
+                      ),
                     ));
               },
               child: Padding(

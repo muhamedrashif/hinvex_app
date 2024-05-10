@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/category/presentation/view/category_screen.dart';
 import 'package:hinvex_app/features/home/presentation/view/home_screen.dart';
-import 'package:hinvex_app/features/sell/presentation/view/sell_screen.dart';
+import 'package:hinvex_app/features/sell/presentation/view/sell_product_main/screens/sell_screen.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_image_widget.dart';
 import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
