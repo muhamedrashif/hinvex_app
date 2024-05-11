@@ -4,7 +4,8 @@ import 'package:hinvex_app/general/utils/textformfeild_widget/textFormField_widg
 import 'package:provider/provider.dart';
 
 class AddTitleInputWidget extends StatelessWidget {
-  const AddTitleInputWidget({super.key});
+  final GlobalKey<FormState> formKey;
+  const AddTitleInputWidget({super.key, required this.formKey});
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +27,12 @@ class AddTitleInputWidget extends StatelessWidget {
               hintText: "Give A Title",
               controller: state.addTitleController,
               maxLength: 70,
+              validator: (text) {
+                if (text == null || text.isEmpty) {
+                  return 'Please Give A Title';
+                }
+                return null;
+              },
             ),
           ),
           const Padding(

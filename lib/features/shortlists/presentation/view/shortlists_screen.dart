@@ -1,0 +1,58 @@
+import 'package:flutter/material.dart';
+import 'package:hinvex_app/features/bottomNavigationBar/presentation/view/bottom_navigation_widget.dart';
+import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_image_widget.dart';
+import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
+import 'package:hinvex_app/general/utils/app_theme/colors.dart';
+
+class ShortListsScreen extends StatefulWidget {
+  const ShortListsScreen({super.key});
+
+  @override
+  State<ShortListsScreen> createState() => _ShortListsScreenState();
+}
+
+class _ShortListsScreenState extends State<ShortListsScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
+      body: SafeArea(
+        child: WillPopScope(
+          onWillPop: () {
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context) {
+                return const BottomNavigationWidget();
+              },
+            ));
+            return Future.value(true);
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  CustumImage(
+                    image: ImageConstant.hinvexAppLogo,
+                    height: 15.87,
+                    width: 72.66,
+                    alignment: Alignment.topLeft,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "My Shortlist",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                        color: AppColors.titleTextColor,
+                      ),
+                    ),
+                  ),
+                ]),
+          ),
+        ),
+      ),
+    );
+  }
+}

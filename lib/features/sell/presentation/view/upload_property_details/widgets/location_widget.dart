@@ -6,7 +6,8 @@ import 'package:hinvex_app/general/utils/textformfeild_widget/textFormField_widg
 import 'package:provider/provider.dart';
 
 class LocationInputWidget extends StatelessWidget {
-  LocationInputWidget({super.key});
+  final GlobalKey<FormState> formKey;
+  const LocationInputWidget({super.key, required this.formKey});
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +35,12 @@ class LocationInputWidget extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
+              validator: (text) {
+                if (text == null || text.isEmpty) {
+                  return 'Please Enter The Selling Location';
+                }
+                return null;
+              },
               readOnly: true,
               suffixIcononTap: () {
                 Navigator.push(

@@ -5,7 +5,8 @@ import 'package:hinvex_app/general/utils/textformfeild_widget/textFormField_widg
 import 'package:provider/provider.dart';
 
 class ListedByInputWidget extends StatefulWidget {
-  const ListedByInputWidget({super.key});
+  final GlobalKey<FormState> formKey;
+  const ListedByInputWidget({super.key, required this.formKey});
 
   @override
   State<ListedByInputWidget> createState() => _ListedByInputWidgetState();
@@ -44,6 +45,13 @@ class _ListedByInputWidgetState extends State<ListedByInputWidget> {
                 size: 18,
                 color: Colors.black,
               ),
+              readOnly: true,
+              validator: (text) {
+                if (text == null || text.isEmpty) {
+                  return 'Please Choose One';
+                }
+                return null;
+              },
               suffixIcononTap: () {
                 showDialog(
                   context: context,
@@ -61,7 +69,6 @@ class _ListedByInputWidgetState extends State<ListedByInputWidget> {
                   ),
                 );
               },
-              readOnly: true,
             ),
           ),
         ],

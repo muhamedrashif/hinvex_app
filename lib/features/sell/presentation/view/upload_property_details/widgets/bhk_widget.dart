@@ -15,7 +15,7 @@ class BHKInputWidget extends StatefulWidget {
 
 class _BHKInputWidgetState extends State<BHKInputWidget> {
   String? _selectedBHK;
-  int? _selectedBHKValue;
+
   final List<Bhk> _bhk = [
     Bhk(name: '1+ BHK', value: 1),
     Bhk(name: '2+ BHK', value: 2),
@@ -70,11 +70,11 @@ class _BHKInputWidgetState extends State<BHKInputWidget> {
                       setState(() {
                         _selectedBHK = selectedItem;
                         state.bHKController.text = _selectedBHK!;
-                        _selectedBHKValue = _bhk
+                        state.selectedBHKValue = _bhk
                             .firstWhere((bhk) => bhk.name == selectedItem,
                                 orElse: () => Bhk(name: "", value: 0))
                             .value;
-                        log("_selectedBHKValue: $_selectedBHKValue");
+                        log("_selectedBHKValue: ${state.selectedBHKValue}");
                       });
                     },
                   ),

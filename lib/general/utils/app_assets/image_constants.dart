@@ -55,7 +55,7 @@ class ImageConstant {
   // unhome
   static String unhome = '$imagePath/unhome.png';
 
-// CATEGORY ICON IMAGES
+/////////////CATEGORY ICON IMAGES
 
   // HOUSE
   static String house = '$imagePath/houses.png';
@@ -75,7 +75,7 @@ class ImageConstant {
   // pg&guestHouse
   static String pgguestHouse = '$imagePath/pg&guestHouse.png';
 
-// SELL ICON IMAGES
+/////////////// SELL ICON IMAGES
 
   // HOUSE
   static String sellhouse = '$imagePath/sellhouse.png';
@@ -94,4 +94,20 @@ class ImageConstant {
 
   // pg&guestHouse
   static String sellpgguesthouse = '$imagePath/sellpgguesthouse.png';
+
+  //////////// DEFAULT PROFILE IMAGE
+  static String defaultProfile = '$imagePath/defaultProfile.png';
+
+  static String userProfile = '$imagePath/userProfile.png';
+
+  static String cameraIcon = '$imagePath/cameraIcon.png';
+
+  static String memberCard = '$imagePath/memberCard.png';
+
+  static String profileIcon = '$imagePath/profileIcon.png';
+
+  ////////////////// NOTIFICATION
+  static String defaultNotification = '$imagePath/defaultNotification.png';
+
+  static String bellIcon = '$imagePath/bellIcon.png';
 }

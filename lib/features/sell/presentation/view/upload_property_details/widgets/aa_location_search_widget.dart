@@ -59,6 +59,7 @@ class _LocationSearchWidgetState extends State<LocationSearchWidget> {
                           child: TextFormField(
                             scrollPadding: const EdgeInsets.all(8),
                             style: const TextStyle(fontSize: 14),
+                            autofocus: true,
                             controller: state.locationController,
                             onChanged: (query) {
                               if (query.isNotEmpty) {

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/location/data/model/location_model_main.dart/location_model_main.dart';
 import 'package:hinvex_app/features/location/data/model/search_location_model/search_location_model.dart';
 import 'package:hinvex_app/features/sell/data/i_sell_facade.dart';
+import 'package:hinvex_app/features/sell/data/model/property_model.dart';
+import 'package:hinvex_app/general/utils/enums/enums.dart';
 
 class SellProvider with ChangeNotifier {
   final ISellFacade iSellFacade;
@@ -32,10 +34,15 @@ class SellProvider with ChangeNotifier {
   final TextEditingController totalFloorsController = TextEditingController();
   final TextEditingController typeController = TextEditingController();
   final TextEditingController washRoomController = TextEditingController();
+  final TextEditingController priceController = TextEditingController();
+
   PlaceCell? placeCellUploadLocation;
+  SelectedCategory? selectedCategory;
+  int? selectedBHKValue;
 
   List<PlaceResult> suggestions = [];
 
+  bool sendLoading = false;
   // SEARCH LOCATION
 
   Future<void> getLocations(String query) async {
@@ -70,6 +77,28 @@ class SellProvider with ChangeNotifier {
         notifyListeners();
       },
     );
+  }
+  // STORE PROPERTY TO FIRESTORE
+
+  Future<void> uploadPropertyToFireStore(
+      {required PropertyModel propertyModel,
+      required VoidCallback onSuccess,
+      required VoidCallback onFailure}) async {
+    sendLoading = true;
+    notifyListeners();
+    final result = await iSellFacade.uploadPropertyToFireStore(
+      propertyModel: propertyModel,
+      // imageByte: imageFile,
+    );
+    result.fold((error) {
+      onFailure();
+      log(error.errorMsg);
+    }, (success) {
+      // imageFile.clear();
+      sendLoading = false;
+      notifyListeners();
+      onSuccess.call();
+    });
   }
 
   void clearSuggestions() {

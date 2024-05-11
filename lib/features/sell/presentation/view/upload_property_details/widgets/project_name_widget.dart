@@ -4,7 +4,7 @@ import 'package:hinvex_app/general/utils/textformfeild_widget/textFormField_widg
 import 'package:provider/provider.dart';
 
 class ProjectNameInputWidget extends StatelessWidget {
-  ProjectNameInputWidget({super.key});
+  const ProjectNameInputWidget({super.key});
   @override
   Widget build(BuildContext context) {
     return Consumer<SellProvider>(builder: (context, state, _) {

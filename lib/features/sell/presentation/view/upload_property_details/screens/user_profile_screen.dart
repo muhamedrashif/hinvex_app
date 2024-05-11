@@ -1,12 +1,16 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hinvex_app/features/bottomNavigationBar/presentation/view/bottom_navigation_widget.dart';
+import 'package:hinvex_app/features/sell/data/model/property_model.dart';
 import 'package:hinvex_app/features/sell/presentation/provider/sell_provider.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_button_widget.dart';
+import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
+import 'package:hinvex_app/general/utils/progress_indicator_widget/progress_indicator_widget.dart';
 import 'package:hinvex_app/general/utils/textformfeild_widget/textFormField_widget.dart';
+import 'package:hinvex_app/general/utils/toast/toast.dart';
 import 'package:provider/provider.dart';
 
 class UserProfileScreen extends StatefulWidget {
@@ -25,7 +29,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         backgroundColor: AppColors.backgroundColor,
         iconTheme: IconThemeData(color: AppColors.titleTextColor),
         title: Text(
-          "Upload Your Property Images",
+          "Review Your Details",
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w600,
@@ -52,7 +56,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: CircleAvatar(
-                                  backgroundColor: AppColors.primaryColor,
+                                  backgroundImage:
+                                      AssetImage(ImageConstant.defaultProfile),
                                   radius: 28,
                                 ),
                               ),
@@ -176,12 +181,121 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   log("state.19.${state.totalFloorsController.text}");
                   log("state.20.${state.typeController.text}");
                   log("state.21.${state.washRoomController.text}");
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const BottomNavigationWidget(),
+                  // log("${PropertyModel.getSelectedFurnisher(state.furnishingController.text.toString())}");
+                  int? selectedBedroom;
+
+                  if (state.bedRoomController.text.isNotEmpty) {
+                    if (state.bedRoomController.text == '+4') {
+                      selectedBedroom = 5;
+                    } else {
+                      selectedBedroom =
+                          int.tryParse(state.bedRoomController.text);
+                    }
+                  }
+
+                  int? selectedBathroom;
+
+                  if (state.bathRoomController.text.isNotEmpty) {
+                    if (state.bathRoomController.text == '+4') {
+                      selectedBathroom = 5;
+                    } else {
+                      selectedBathroom =
+                          int.tryParse(state.bathRoomController.text);
+                    }
+                  }
+
+                  int? selectedCarParking;
+
+                  if (state.carParkingController.text.isNotEmpty) {
+                    if (state.carParkingController.text == '+4') {
+                      selectedCarParking = 5;
+                    } else {
+                      selectedCarParking =
+                          int.tryParse(state.carParkingController.text);
+                    }
+                  }
+
+                  showProgress(context);
+                  state.uploadPropertyToFireStore(
+                      propertyModel: PropertyModel(
+                        createDate: Timestamp.now(),
+                        updateDate: Timestamp.now(),
+                        bathRooms: selectedBathroom,
+                        bedRooms: selectedBedroom,
+                        bhk: state.selectedBHKValue,
+                        carParking: selectedCarParking,
+                        carpetAreaft:
+                            int.tryParse(state.carpetAreaController.text),
+                        constructionStatus: PropertyModel.getConstructionStatus(
+                            state.constructionStatusController.text),
+                        description: state.describeController.text,
+                        floorNo: int.tryParse(state.floorNoController.text),
+                        furnishing: PropertyModel.getSelectedFurnisher(
+                            state.furnishingController.text),
+                        listedBy: PropertyModel.getSelectedListedBy(
+                            state.listedByController.text),
+                        noOfReports: 0,
+                        plotArea: int.tryParse(state.plotAreaController.text),
+                        plotBreadth: int.tryParse(state.breadthController.text),
+                        plotLength: int.tryParse(state.lengthController.text),
+                        pricePerstft:
+                            int.tryParse(state.pricePersqftController.text),
+                        projectName: state.projectNameController.text,
+                        propertyCategory: state.selectedCategory,
+                        propertyLocation: state.placeCellUploadLocation,
+                        propertyPrice: int.tryParse(state.priceController.text),
+                        propertyTitle: state.addTitleController.text,
+                        propertyType: PropertyModel.getSelectedType(
+                            state.typeController.text),
+                        superBuiltupAreaft:
+                            int.tryParse(state.superBuilupAreaController.text),
+                        totalFloors:
+                            int.tryParse(state.totalFloorsController.text),
+                        washRoom: int.tryParse(state.washRoomController.text),
+                        phoneNumber: "+91 7356723212",
+                        whatsAppNumber: "+91 7356723212",
                       ),
-                      (route) => false);
+                      onSuccess: () {
+                        state.addTitleController.clear();
+                        state.bHKController.clear();
+                        state.bathRoomController.clear();
+                        state.bedRoomController.clear();
+                        state.breadthController.clear();
+                        state.carParkingController.clear();
+                        state.constructionStatusController.clear();
+                        state.carpetAreaController.clear();
+                        state.describeController.clear();
+                        state.floorNoController.clear();
+                        state.furnishingController.clear();
+                        state.lengthController.clear();
+                        state.listedByController.clear();
+                        state.locationController.clear();
+                        state.placeCellUploadLocation = null;
+                        state.plotAreaController.clear();
+                        state.priceController.clear();
+                        state.pricePersqftController.clear();
+                        state.projectNameController.clear();
+                        state.selectedBHKValue = 0;
+                        state.selectedCategory = null;
+                        state.superBuilupAreaController.clear();
+                        state.totalFloorsController.clear();
+                        state.typeController.clear();
+                        state.washRoomController.clear();
+                        showToast("Success");
+
+                        Navigator.pop(context);
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const BottomNavigationWidget(),
+                            ),
+                            (route) => false);
+                      },
+                      onFailure: () {
+                        showToast("Failed");
+                        Navigator.pop(context);
+                      });
                 },
               ),
             ),
