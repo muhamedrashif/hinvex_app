@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/sell/presentation/view/upload_property_details/screens/price_screen.dart';
 import 'package:hinvex_app/features/sell/presentation/view/upload_property_details/widgets/breadth_widget.dart';
@@ -15,6 +17,7 @@ import 'package:hinvex_app/features/sell/presentation/view/upload_property_detai
 import 'package:hinvex_app/features/sell/presentation/view/upload_property_details/widgets/washroom_widget.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_button_widget.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
+import 'package:hinvex_app/general/utils/enums/enums.dart';
 import '../widgets/addTitle_widget.dart';
 import '../widgets/bathroom_widget.dart';
 import '../widgets/bedroom_widget.dart';
@@ -26,7 +29,12 @@ import '../widgets/superBuilupArea_widget.dart';
 
 class PropertyUploadingScreen extends StatefulWidget {
   final String categoryName;
-  const PropertyUploadingScreen({super.key, required this.categoryName});
+  final SelectedCategory selectedCategory;
+  const PropertyUploadingScreen({
+    super.key,
+    required this.categoryName,
+    required this.selectedCategory,
+  });
 
   @override
   State<PropertyUploadingScreen> createState() =>
@@ -36,6 +44,7 @@ class PropertyUploadingScreen extends StatefulWidget {
 class _PropertyUploadingScreenState extends State<PropertyUploadingScreen> {
   @override
   Widget build(BuildContext context) {
+    log("${widget.categoryName}+${widget.selectedCategory}");
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(

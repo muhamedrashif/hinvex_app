@@ -13,6 +13,7 @@ class CustomTextFormFieldWidget extends StatelessWidget {
   final bool readOnly;
   final Function()? suffixIcononTap;
   final TextStyle? hintStyle;
+  final ValueChanged<String>? onChanged;
 
   const CustomTextFormFieldWidget({
     super.key,
@@ -28,6 +29,7 @@ class CustomTextFormFieldWidget extends StatelessWidget {
     this.suffixIcononTap,
     this.hintStyle = const TextStyle(
         color: Colors.grey, fontSize: 12, fontWeight: FontWeight.normal),
+    this.onChanged,
   });
 
   @override
@@ -72,6 +74,7 @@ class CustomTextFormFieldWidget extends StatelessWidget {
           maxLines: maxLines,
           readOnly: readOnly,
           validator: validator,
+          onChanged: onChanged,
         ),
       ),
     );

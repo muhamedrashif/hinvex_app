@@ -4,6 +4,8 @@ import 'package:hinvex_app/features/authentication/data/i_auth_facade.dart';
 import 'package:hinvex_app/features/authentication/presentation/provider/auth_provider.dart';
 import 'package:hinvex_app/features/location/data/i_location_facade.dart';
 import 'package:hinvex_app/features/location/presentation/provider/location_provider.dart';
+import 'package:hinvex_app/features/sell/data/i_sell_facade.dart';
+import 'package:hinvex_app/features/sell/presentation/provider/sell_provider.dart';
 import 'package:hinvex_app/general/di/injection.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
 import 'package:provider/provider.dart';
@@ -30,6 +32,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) =>
               LocationProvider(iLocationFacade: sl<ILocationFacade>()),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => SellProvider(iSellFacade: sl<ISellFacade>()),
         ),
       ],
       child: MaterialApp(
