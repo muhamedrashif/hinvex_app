@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hinvex_app/features/notification/presentation/view/notification_screen.dart';
+import 'package:hinvex_app/features/profile/presentation/view/profile_screen.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_image_widget.dart';
 import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
@@ -70,11 +72,20 @@ class _HomeScreenState extends State<HomeScreen> {
                               ));
                         },
                       ),
-                      CustumImage(
-                        image: ImageConstant.profileIcon,
-                        height: 27.87,
-                        width: 27.87,
-                        alignment: Alignment.topLeft,
+                      GestureDetector(
+                        child: CustumImage(
+                          image: ImageConstant.profileIcon,
+                          height: 27.87,
+                          width: 27.87,
+                          alignment: Alignment.topLeft,
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ProfileScreen(),
+                              ));
+                        },
                       ),
                     ],
                   ),

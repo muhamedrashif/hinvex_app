@@ -5,9 +5,15 @@ import 'package:shimmer/shimmer.dart';
 
 class CustomNetworkImageWidget extends StatelessWidget {
   final String imageUrl;
+  final double height;
+  final double width;
 
-  const CustomNetworkImageWidget({required this.imageUrl, Key? key})
-      : super(key: key);
+  const CustomNetworkImageWidget({
+    super.key,
+    required this.imageUrl,
+    required this.width,
+    required this.height,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +22,8 @@ class CustomNetworkImageWidget extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10),
         child: SizedBox(
-          height: 70,
-          width: 80,
+          height: height,
+          width: width,
           child: CachedNetworkImage(
             placeholder: (context, url) => SizedBox(
               width: 220.0,
@@ -39,7 +45,7 @@ class CustomNetworkImageWidget extends StatelessWidget {
             ),
             errorWidget: (context, url, error) => Container(
               color: Colors.grey[300],
-              child: Center(
+              child: const Center(
                 child: Icon(
                   Icons.error_outline,
                   color: Colors.red,
