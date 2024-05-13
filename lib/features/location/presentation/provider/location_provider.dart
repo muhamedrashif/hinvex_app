@@ -49,7 +49,7 @@ class LocationProvider with ChangeNotifier {
       (location) async {
         log('searchLocationByAddress success');
         onSuccess(location);
-        _saveLocationInSharedPreferences(location);
+        // _saveLocationInSharedPreferences(location);
         notifyListeners();
       },
     );
@@ -91,17 +91,17 @@ class LocationProvider with ChangeNotifier {
   //   _prefs!.setString('save_location', location.localArea!);
   // }
 
-  void _saveLocationInSharedPreferences(PlaceCell location) {
-    log("SHAREDPREFERENCES CALLED");
-    if (_prefs != null) {
-      _prefs!.setString('save_location', location.localArea!);
-    }
-  }
+  // void _saveLocationInSharedPreferences(PlaceCell location) {
+  //   log("SHAREDPREFERENCES CALLED");
+  //   if (_prefs != null) {
+  //     _prefs!.setString('save_location', location.localArea!);
+  //   }
+  // }
 
-  Future<String?> getSavedLocation() async {
-    await initSharedPreferences();
-    return _prefs!.getString('save_location');
-  }
+  // Future<String?> getSavedLocation() async {
+  //   await initSharedPreferences();
+  //   return _prefs!.getString('save_location');
+  // }
 
   void clearSuggestions() {
     suggestions.clear();

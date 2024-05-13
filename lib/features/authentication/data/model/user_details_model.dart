@@ -14,6 +14,7 @@ class UserModel {
   String? partnership;
   bool? isBlocked;
   String? notificationToken;
+  Timestamp? startedDate;
 
   UserModel({
     this.id,
@@ -27,6 +28,7 @@ class UserModel {
     this.partnership,
     this.isBlocked,
     this.notificationToken,
+    this.startedDate,
   });
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -40,21 +42,23 @@ class UserModel {
         "partnership": partnership,
         "isBlocked": isBlocked,
         'notificationToken': notificationToken,
+        'startedDate': startedDate,
       };
-  static UserModel fromSnap(DocumentSnapshot<Map<String, dynamic>> snap) {
-    var snapshot = snap.data() as Map<String, dynamic>;
+  static UserModel fromSnap(Map<String, dynamic> snap) {
+    // var snapshot = snap.data() as Map<String, dynamic>;
     return UserModel(
-      id: snap.id,
-      userId: snapshot['userId'],
-      userName: snapshot['userName'],
-      userPhoneNumber: snapshot['userPhoneNumber'],
-      userWhatsAppNumber: snapshot['userWhatsAppNumber'],
-      userImage: snapshot['userImage'],
-      totalPosts: snapshot['totalPosts'],
-      userLocation: PlaceCell.fromMap(snapshot['userLocation']),
-      partnership: snapshot['partnership'],
-      isBlocked: snapshot['isBlocked'],
-      notificationToken: snapshot['notificationToken'],
+      id: snap['id'],
+      userId: snap['userId'],
+      userName: snap['userName'] ?? '',
+      userPhoneNumber: snap['userPhoneNumber'],
+      userWhatsAppNumber: snap['userWhatsAppNumber'],
+      userImage: snap['userImage'] ?? '',
+      totalPosts: snap['totalPosts'] ?? 0,
+      userLocation: PlaceCell.fromMap(snap['userLocation']),
+      partnership: snap['partnership'] ?? '',
+      isBlocked: snap['isBlocked'] ?? false,
+      notificationToken: snap['notificationToken'],
+      startedDate: snap['startedDate'],
     );
   }
 
@@ -70,6 +74,7 @@ class UserModel {
     String? partnership,
     bool? isBlocked,
     String? notificationToken,
+    Timestamp? startedDate,
   }) {
     return UserModel(
       id: id ?? this.id,
@@ -83,6 +88,7 @@ class UserModel {
       partnership: partnership ?? this.partnership,
       isBlocked: isBlocked ?? this.isBlocked,
       notificationToken: notificationToken ?? this.notificationToken,
+      startedDate: startedDate ?? this.startedDate,
     );
   }
 }

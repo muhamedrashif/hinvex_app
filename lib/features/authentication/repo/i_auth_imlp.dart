@@ -82,7 +82,15 @@ class IAuthImpl implements IAuthFacade {
       return;
     } else {
       await _firestore.collection('users').doc(uid).set(UserModel()
-          .copyWith(userPhoneNumber: phoneNo, notificationToken: token)
+          .copyWith(
+            userPhoneNumber: phoneNo,
+            notificationToken: token,
+            id: uid,
+            startedDate: Timestamp.now(),
+            userId: uid,
+            totalPosts: 0,
+            userWhatsAppNumber: phoneNo,
+          )
           .toJson());
     }
   }

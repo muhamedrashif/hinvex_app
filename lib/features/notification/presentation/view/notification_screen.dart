@@ -46,20 +46,20 @@ class _NotificationScreenState extends State<NotificationScreen> {
                             ),
                           ),
                         ),
-                        child: Row(
+                        child: const Row(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.all(20.0),
+                              padding: EdgeInsets.all(20.0),
                               child: CustomNetworkImageWidget(
                                 imageUrl:
-                                    "https://media.istockphoto.com/id/2148278888/photo/indian-girl-having-fun-playing-on-slip-n-slide.jpg?s=612x612&w=0&k=20&c=54iKqUJ9KwnL9ahOQKQ-4_Ja_7abkiX-u1vbwYFpYG4=",
+                                    "https://media.istockphoto.com/id/1293762741/photo/modern-living-room-interior-3d-render.jpg?s=612x612&w=0&k=20&c=iZ561ZIXOtPYGSzqlKUnLrliorreOYVz1pzu8WJmrnc=",
                                 height: 75,
                                 width: 75,
                               ),
                             ),
                             Expanded(
                               child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: EdgeInsets.all(8.0),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,7 +72,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(
+                                      padding: EdgeInsets.only(
                                         top: 8.0,
                                         right: 10,
                                       ),

@@ -108,6 +108,7 @@ class _OTPVerificationSheetState extends State<OTPVerificationSheet> {
                         },
                         onFailure: () {
                           Navigator.pop(context);
+                          Navigator.pop(context);
                         },
                       );
                 },

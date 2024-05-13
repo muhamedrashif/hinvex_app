@@ -110,4 +110,14 @@ class ImageConstant {
   static String defaultNotification = '$imagePath/defaultNotification.png';
 
   static String bellIcon = '$imagePath/bellIcon.png';
+
+  ///////////////// Customer Support
+  static String mail = '$imagePath/mail.png';
+
+  static String whatsApp = '$imagePath/whatsApp.png';
+
+  ///////////////// MY SHORTLIST
+  static String whatsappWhite = '$imagePath/whatsappWhite.png';
+
+  static String call = '$imagePath/call.png';
 }

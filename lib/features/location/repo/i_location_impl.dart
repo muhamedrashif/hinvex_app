@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:hinvex_app/features/authentication/data/model/user_details_model.dart';
 import 'package:hinvex_app/features/location/data/i_location_facade.dart';
 import 'package:hinvex_app/features/location/data/model/location_model_main.dart/location_model_main.dart';
 import 'package:hinvex_app/features/location/data/model/popular_cities_model/popularcities_model.dart';
@@ -70,7 +72,12 @@ class ILocationImpl implements ILocationFacade {
           latitude: double.parse(latitude),
           longitude: double.parse(longitude),
         );
+
         final result = await uploadPlaceService.uploadPlace(placeCell);
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .update({"userLocation": placeCell.toMap()});
 
         return result.fold(
           left,
@@ -178,6 +185,10 @@ class GetCurrentPosition {
                 );
 
                 final result = await uploadPlaceService.uploadPlace(placeCell);
+                FirebaseFirestore.instance
+                    .collection('users')
+                    .doc(FirebaseAuth.instance.currentUser!.uid)
+                    .update({"userLocation": placeCell.toMap()});
 
                 controller.add(result.fold(
                   left,

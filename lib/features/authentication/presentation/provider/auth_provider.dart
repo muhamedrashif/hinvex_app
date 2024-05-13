@@ -62,15 +62,29 @@ class AuthProvider with ChangeNotifier {
     });
   }
 
-  // Function to save phone number locally using SharedPreferences
+  // // Function to save phone number locally using SharedPreferences
+  // void _savePhoneNumberLocally(String phoneNumber) {
+  //   log("SHAREDPREFERENCES CALLED");
+  //   _prefs!.setString('phone_number', phoneNumber);
+  // }
+
   void _savePhoneNumberLocally(String phoneNumber) {
     log("SHAREDPREFERENCES CALLED");
-    _prefs!.setString('phone_number', phoneNumber);
+    if (_prefs != null) {
+      _prefs!.setString('phone_number', phoneNumber);
+    } else {
+      // Handle the case where _prefs is null, maybe by logging an error or throwing an exception
+      log("SharedPreferences instance is null");
+      // Alternatively, you can initialize SharedPreferences here
+      // initSharedPreferences().then((_) {
+      //   _prefs!.setString('phone_number', phoneNumber);
+      // });
+    }
   }
 
   // Function to retrieve phone number from SharedPreferences
-  Future<String?> getSavedPhoneNumber() async {
-    await initSharedPreferences();
-    return _prefs!.getString('phone_number');
-  }
+  // Future<String?> getSavedPhoneNumber() async {
+  //   await initSharedPreferences();
+  //   return _prefs!.getString('phone_number');
+  // }
 }

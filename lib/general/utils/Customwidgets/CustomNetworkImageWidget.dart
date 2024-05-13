@@ -25,21 +25,15 @@ class CustomNetworkImageWidget extends StatelessWidget {
           height: height,
           width: width,
           child: CachedNetworkImage(
-            placeholder: (context, url) => SizedBox(
-              width: 220.0,
-              height: 120.0,
-              child: Shimmer.fromColors(
-                baseColor: Colors.grey[300]!,
-                highlightColor: Colors.grey[100]!,
-                child: Container(
-                  height: 220,
-                  width: 120,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(ImageConstant.hinvexAppLogo),
-                      fit: BoxFit.contain,
-                    ),
-                  ),
+            placeholder: (context, url) => Shimmer.fromColors(
+              baseColor: Colors.grey[300]!,
+              highlightColor: Colors.grey[100]!,
+              child: SizedBox(
+                height: 220,
+                width: 120,
+                child: Transform.scale(
+                  scale: .7,
+                  child: Image.asset(ImageConstant.hinvexAppLogo),
                 ),
               ),
             ),
