@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -93,5 +92,40 @@ class IAuthImpl implements IAuthFacade {
           )
           .toJson());
     }
+  }
+
+  // @override
+  // Stream<QuerySnapshot<UserModel>> fetchUser() {
+  //   log('called impl');
+  //   String userId = _firebaseAuth.currentUser!.uid;
+  //   final result = _firestore
+  //       .collection('users')
+  //       .doc(userId)
+  //       .snapshots();
+  //   return result;
+  // }
+
+  // @override
+  // Future<UserModel?> getUser() async {
+  //   String userId = _firebaseAuth.currentUser!.uid;
+
+  //   final responce = await _firestore.collection('users').doc(userId).get();
+
+  //   final users = UserModel.fromMap(responce.data()!).copyWith(id: responce.id);
+
+  //   return users;
+  // }
+
+  @override
+  Stream<UserModel?> fetchUser() async* {
+    String userId = _firebaseAuth.currentUser!.uid;
+    final snapshot = _firestore.collection('users').doc(userId).snapshots();
+    yield* snapshot.map((doc) {
+      if (doc.exists) {
+        return UserModel.fromMap(doc.data()!).copyWith(id: doc.id);
+      } else {
+        return null;
+      }
+    });
   }
 }

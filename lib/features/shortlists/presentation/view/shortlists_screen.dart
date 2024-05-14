@@ -6,6 +6,8 @@ import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'widget/shortlist_shimmer_loading.dart';
+
 class ShortListsScreen extends StatefulWidget {
   const ShortListsScreen({super.key});
 

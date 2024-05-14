@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:hinvex_app/features/authentication/presentation/provider/auth_provider.dart';
 import 'package:hinvex_app/features/authentication/presentation/view/cheking_screen.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/text_widget.dart';
 import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
-
-import 'onBoard_splash_screen_1.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -22,6 +22,9 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<AuthProvider>(context, listen: false).fetchUser();
+    });
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(

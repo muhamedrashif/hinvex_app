@@ -65,7 +65,7 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
               BottomNavigationBarItem(
                 icon: CustumImage(
                   height: 24,
-                  width: 24,
+                  width: 18,
                   image: ImageConstant.unhome,
                 ),
                 activeIcon: CustumImage(
@@ -78,7 +78,7 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
               BottomNavigationBarItem(
                 icon: CustumImage(
                   height: 24,
-                  width: 24,
+                  width: 18,
                   image: ImageConstant.uncategory,
                 ),
                 activeIcon: CustumImage(
@@ -91,7 +91,7 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
               BottomNavigationBarItem(
                 icon: CustumImage(
                   height: 24,
-                  width: 24,
+                  width: 18,
                   image: ImageConstant.unsell,
                 ),
                 activeIcon: CustumImage(
@@ -104,7 +104,7 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
               BottomNavigationBarItem(
                 icon: CustumImage(
                   height: 24,
-                  width: 24,
+                  width: 18,
                   image: ImageConstant.unshortlist,
                 ),
                 activeIcon: CustumImage(
@@ -117,7 +117,7 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
               BottomNavigationBarItem(
                 icon: CustumImage(
                   height: 24,
-                  width: 24,
+                  width: 18,
                   image: ImageConstant.unads,
                 ),
                 activeIcon: CustumImage(

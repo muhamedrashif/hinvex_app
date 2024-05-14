@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:hinvex_app/features/authentication/data/model/user_details_model.dart';
 import 'package:hinvex_app/features/location/data/i_location_facade.dart';
 import 'package:hinvex_app/features/location/data/model/location_model_main.dart/location_model_main.dart';
 import 'package:hinvex_app/features/location/data/model/popular_cities_model/popularcities_model.dart';

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hinvex_app/features/authentication/presentation/provider/auth_provider.dart';
 import 'package:hinvex_app/features/bottomNavigationBar/presentation/view/bottom_navigation_widget.dart';
 import 'package:hinvex_app/features/sell/data/model/property_model.dart';
 import 'package:hinvex_app/features/sell/presentation/provider/sell_provider.dart';
@@ -38,6 +39,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         ),
       ),
       body: Consumer<SellProvider>(builder: (context, state, _) {
+        final authProviderState =
+            Provider.of<AuthProvider>(context, listen: false).userModel;
         return Column(
           children: [
             Expanded(
@@ -69,11 +72,13 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                   fontSize: 11,
                                   color: Colors.grey),
                             ),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 12.0),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 12.0),
                               child: CustomTextFormFieldWidget(
-                                hintText: "HinveX",
-                                hintStyle: TextStyle(
+                                hintText:
+                                    authProviderState!.userName ?? "HinveX",
+                                hintStyle: const TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black,
@@ -88,11 +93,12 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                   fontSize: 11,
                                   color: Colors.grey),
                             ),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 12.0),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 12.0),
                               child: CustomTextFormFieldWidget(
-                                hintText: "7356723212",
-                                hintStyle: TextStyle(
+                                hintText: authProviderState.userPhoneNumber,
+                                hintStyle: const TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black,
@@ -107,11 +113,14 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                   fontSize: 11,
                                   color: Colors.grey),
                             ),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 12.0),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 12.0),
                               child: CustomTextFormFieldWidget(
-                                hintText: "7356723212",
-                                hintStyle: TextStyle(
+                                hintText:
+                                    authProviderState.userWhatsAppNumber ??
+                                        "Please Enter WhatsApp Number",
+                                hintStyle: const TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black,
@@ -126,16 +135,19 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                   fontSize: 11,
                                   color: Colors.grey),
                             ),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 12.0),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 12.0),
                               child: CustomTextFormFieldWidget(
-                                hintText: "Nilambur",
-                                hintStyle: TextStyle(
+                                hintText:
+                                    authProviderState.userLocation!.localArea ??
+                                        'Please Enter Your Location',
+                                hintStyle: const TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black,
                                 ),
-                                suffixIcon: Icon(
+                                suffixIcon: const Icon(
                                   Icons.arrow_forward_ios_rounded,
                                   size: 18,
                                   color: Colors.black,

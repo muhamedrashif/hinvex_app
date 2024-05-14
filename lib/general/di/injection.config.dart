@@ -16,12 +16,12 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:shared_preferences/shared_preferences.dart' as _i3;
 
-import '../../features/authentication/data/i_auth_facade.dart' as _i13;
-import '../../features/authentication/repo/i_auth_imlp.dart' as _i14;
-import '../../features/location/data/i_location_facade.dart' as _i16;
-import '../../features/location/repo/i_location_impl.dart' as _i15;
-import '../../features/profile/data/i_profile_facade.dart' as _i11;
-import '../../features/profile/repo/i_profile_impl.dart' as _i12;
+import '../../features/authentication/data/i_auth_facade.dart' as _i11;
+import '../../features/authentication/repo/i_auth_imlp.dart' as _i12;
+import '../../features/location/data/i_location_facade.dart' as _i14;
+import '../../features/location/repo/i_location_impl.dart' as _i13;
+import '../../features/profile/data/i_profile_facade.dart' as _i15;
+import '../../features/profile/repo/i_profile_impl.dart' as _i16;
 import '../../features/sell/data/i_sell_facade.dart' as _i17;
 import '../../features/sell/repo/i_sell_impl.dart' as _i18;
 import '../services/location_service.dart' as _i9;
@@ -60,28 +60,31 @@ Future<_i1.GetIt> init(
   gh.lazySingleton<_i9.GetPosition>(() => _i9.GetPosition());
   gh.lazySingleton<_i10.UploadPlaceService>(
       () => _i10.UploadPlaceService(gh<_i5.FirebaseFirestore>()));
-  gh.lazySingleton<_i11.IProfileFacade>(
-      () => _i12.IProfileImpl(gh<_i5.FirebaseFirestore>()));
-  gh.lazySingleton<_i13.IAuthFacade>(() => _i14.IAuthImpl(
+  gh.lazySingleton<_i11.IAuthFacade>(() => _i12.IAuthImpl(
         gh<_i7.FirebaseAuth>(),
         gh<_i5.FirebaseFirestore>(),
         gh<_i8.FirebaseMessaging>(),
       ));
-  gh.lazySingleton<_i15.GetCurrentPosition>(() => _i15.GetCurrentPosition(
+  gh.lazySingleton<_i13.GetCurrentPosition>(() => _i13.GetCurrentPosition(
         gh<_i9.GetPosition>(),
         gh<_i3.SharedPreferences>(),
         gh<_i10.UploadPlaceService>(),
       ));
-  gh.lazySingleton<_i16.ILocationFacade>(() => _i15.ILocationImpl(
+  gh.lazySingleton<_i14.ILocationFacade>(() => _i13.ILocationImpl(
         gh<_i5.FirebaseFirestore>(),
-        gh<_i15.GetCurrentPosition>(),
+        gh<_i13.GetCurrentPosition>(),
         gh<_i3.SharedPreferences>(),
         gh<_i10.UploadPlaceService>(),
+      ));
+  gh.lazySingleton<_i15.IProfileFacade>(() => _i16.IProfileImpl(
+        gh<_i5.FirebaseFirestore>(),
+        gh<_i10.UploadPlaceService>(),
+        gh<_i13.GetCurrentPosition>(),
       ));
   gh.lazySingleton<_i17.ISellFacade>(() => _i18.ISellImpl(
         gh<_i5.FirebaseFirestore>(),
         gh<_i10.UploadPlaceService>(),
-        gh<_i15.GetCurrentPosition>(),
+        gh<_i13.GetCurrentPosition>(),
       ));
   return getIt;
 }

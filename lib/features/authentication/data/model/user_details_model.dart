@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:hinvex_app/features/location/data/model/search_location_model/search_location_model.dart';
 
 class UserModel {
@@ -44,21 +45,21 @@ class UserModel {
         'notificationToken': notificationToken,
         'startedDate': startedDate,
       };
-  static UserModel fromSnap(Map<String, dynamic> snap) {
-    // var snapshot = snap.data() as Map<String, dynamic>;
+  static UserModel fromSnap(DocumentSnapshot<Map<String, dynamic>> snap) {
+    var snapshot = snap.data() as Map<String, dynamic>;
     return UserModel(
-      id: snap['id'],
-      userId: snap['userId'],
-      userName: snap['userName'] ?? '',
-      userPhoneNumber: snap['userPhoneNumber'],
-      userWhatsAppNumber: snap['userWhatsAppNumber'],
-      userImage: snap['userImage'] ?? '',
-      totalPosts: snap['totalPosts'] ?? 0,
-      userLocation: PlaceCell.fromMap(snap['userLocation']),
-      partnership: snap['partnership'] ?? '',
-      isBlocked: snap['isBlocked'] ?? false,
-      notificationToken: snap['notificationToken'],
-      startedDate: snap['startedDate'],
+      id: snapshot['id'],
+      userId: snapshot['userId'],
+      userName: snapshot['userName'],
+      userPhoneNumber: snapshot['userPhoneNumber'],
+      userWhatsAppNumber: snapshot['userWhatsAppNumber'],
+      userImage: snapshot['userImage'],
+      totalPosts: snapshot['totalPosts'],
+      userLocation: PlaceCell.fromMap(snapshot['userLocation']),
+      partnership: snapshot['partnership'],
+      isBlocked: snapshot['isBlocked'],
+      notificationToken: snapshot['notificationToken'],
+      startedDate: snapshot['startedDate'],
     );
   }
 
@@ -89,6 +90,50 @@ class UserModel {
       isBlocked: isBlocked ?? this.isBlocked,
       notificationToken: notificationToken ?? this.notificationToken,
       startedDate: startedDate ?? this.startedDate,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'id': id,
+      'userId': userId,
+      'userName': userName,
+      'userPhoneNumber': userPhoneNumber,
+      'userWhatsAppNumber': userWhatsAppNumber,
+      'userImage': userImage,
+      'totalPosts': totalPosts,
+      'userLocation': userLocation?.toMap(),
+      'partnership': partnership,
+      'isBlocked': isBlocked,
+      'notificationToken': notificationToken,
+      'startedDate': startedDate,
+    };
+  }
+
+  factory UserModel.fromMap(Map<String, dynamic> map) {
+    return UserModel(
+      id: map['id'] != null ? map['id'] as String : null,
+      userId: map['userId'] != null ? map['userId'] as String : null,
+      userName: map['userName'] != null ? map['userName'] as String : null,
+      userPhoneNumber: map['userPhoneNumber'] != null
+          ? map['userPhoneNumber'] as String
+          : null,
+      userWhatsAppNumber: map['userWhatsAppNumber'] != null
+          ? map['userWhatsAppNumber'] as String
+          : null,
+      userImage: map['userImage'] != null ? map['userImage'] as String : null,
+      totalPosts: map['totalPosts'] != null ? map['totalPosts'] as int : null,
+      userLocation: map['userLocation'] != null
+          ? PlaceCell.fromMap(map['userLocation'] as Map<String, dynamic>)
+          : null,
+      partnership:
+          map['partnership'] != null ? map['partnership'] as String : null,
+      isBlocked: map['isBlocked'] != null ? map['isBlocked'] as bool : null,
+      notificationToken: map['notificationToken'] != null
+          ? map['notificationToken'] as String
+          : null,
+      startedDate:
+          map['startedDate'] != null ? map['startedDate'] as Timestamp : null,
     );
   }
 }

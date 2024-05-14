@@ -1,9 +1,11 @@
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hinvex_app/features/authentication/data/i_auth_facade.dart';
+import 'package:hinvex_app/features/authentication/data/model/user_details_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthProvider with ChangeNotifier {
@@ -13,6 +15,10 @@ class AuthProvider with ChangeNotifier {
   String? verificationId;
 
   SharedPreferences? _prefs;
+
+  UserModel? userModel;
+  bool fetchUserIsLoading = false;
+  bool updateLoading = false;
 
   Future<void> initSharedPreferences() async {
     _prefs = await SharedPreferences.getInstance();
@@ -62,6 +68,24 @@ class AuthProvider with ChangeNotifier {
     });
   }
 
+  Future fetchUser() async {
+    fetchUserIsLoading = true;
+    notifyListeners();
+    log('called provider');
+    final result = iAuthFacade.fetchUser();
+
+    result.listen((event) {
+      userModel = event;
+      fetchUserIsLoading = false;
+      notifyListeners();
+    });
+  }
+
+  Future signOut() async {
+    await FirebaseAuth.instance.signOut();
+    userModel = null;
+    notifyListeners();
+  }
   // // Function to save phone number locally using SharedPreferences
   // void _savePhoneNumberLocally(String phoneNumber) {
   //   log("SHAREDPREFERENCES CALLED");

@@ -41,7 +41,6 @@ class SellProvider with ChangeNotifier {
   int? selectedBHKValue;
 
   List<PlaceResult> suggestions = [];
-
   bool sendLoading = false;
   // SEARCH LOCATION
 
