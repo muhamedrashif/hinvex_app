@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:hinvex_app/features/authentication/data/model/user_details_model.dart';
 import 'package:hinvex_app/features/location/data/model/location_model_main.dart/location_model_main.dart';
 import 'package:hinvex_app/features/location/data/model/search_location_model/search_location_model.dart';
@@ -24,5 +26,17 @@ abstract class IProfileFacade {
 
   FutureResult<void> updateUserDetils(UserModel userModel) {
     throw UnimplementedError('updateUserDetils() not impl');
+  }
+
+  FutureResult<File> getImage() {
+    throw UnimplementedError('getImage() not impl');
+  }
+
+  FutureResult saveImage({required File imageFile}) {
+    throw UnimplementedError('saveImage() not impl');
+  }
+
+  FutureResult deleteImage() {
+    throw UnimplementedError();
   }
 }

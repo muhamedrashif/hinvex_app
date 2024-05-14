@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
@@ -10,20 +11,19 @@ import 'package:hinvex_app/features/location/repo/i_location_impl.dart';
 import 'package:hinvex_app/features/profile/data/i_profile_facade.dart';
 import 'package:hinvex_app/general/failures/exeception/execeptions.dart';
 import 'package:hinvex_app/general/failures/failures.dart';
+import 'package:hinvex_app/general/services/image_pick_service.dart';
 import 'package:hinvex_app/general/services/upload_location_services.dart';
 import 'package:hinvex_app/general/typedefs/typedefs.dart';
 import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: IProfileFacade)
 class IProfileImpl implements IProfileFacade {
-  IProfileImpl(
-    this._firestore,
-    this.uploadPlaceService,
-    this.getCurrentPosition,
-  );
+  IProfileImpl(this._firestore, this.uploadPlaceService,
+      this.getCurrentPosition, this.imageService);
   final FirebaseFirestore _firestore;
   final UploadPlaceService uploadPlaceService;
   final GetCurrentPosition getCurrentPosition;
+  final ImageService imageService;
 
   // @override
   // Future<QuerySnapshot<Map<String, dynamic>>> fetchUser() async {
@@ -99,5 +99,28 @@ class IProfileImpl implements IProfileFacade {
     } on CustomExeception catch (e) {
       return left(MainFailure.serverFailure(errorMsg: e.errorMsg));
     }
+  }
+
+  @override
+  FutureResult<File> getImage() async {
+    try {
+      return await imageService.getGalleryImage();
+    } catch (ex) {
+      return left(MainFailure.imagePickFailed(errorMsg: ex.toString()));
+    }
+  }
+
+  @override
+  FutureResult saveImage({required File imageFile}) async {
+    try {
+      return await imageService.saveImage(imageFile: imageFile);
+    } on CustomExeception catch (e) {
+      return left(MainFailure.imageUploadFailure(errorMsg: e.errorMsg));
+    }
+  }
+
+  @override
+  FutureResult deleteImage() {
+    throw UnimplementedError();
   }
 }
