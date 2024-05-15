@@ -87,7 +87,7 @@ class SellProvider with ChangeNotifier {
     required VoidCallback onSuccess,
     required VoidCallback onFailure,
   }) async {
-    final result = await pickMultipleImages(maxImages: 7 - imageFile.length);
+    final result = await pickMultipleImages(7 - imageFile.length);
 
     result.fold((l) {
       onFailure();

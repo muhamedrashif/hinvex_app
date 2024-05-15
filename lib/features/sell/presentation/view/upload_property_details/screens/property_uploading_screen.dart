@@ -161,32 +161,38 @@ class _PropertyUploadingScreenState extends State<PropertyUploadingScreen> {
                           text: "Next",
                           textColor: AppColors.buttonTextColor,
                           onTap: () {
-                            if (formKey.currentState!.validate()) {
-                              formKey.currentState!.save();
+                            // if (formKey.currentState!.validate()) {
+                            //   formKey.currentState!.save();
 
-                              if (state.imageFile.length > 7) {
-                                showToast(
-                                  "Maximum Allowed Images 7",
-                                );
-                                return;
-                              }
+                            if (state.imageFile.length > 7) {
+                              showToast(
+                                "Maximum Allowed Images 7",
+                              );
 
-                              showProgress(context);
-
-                              state.getImage(onSuccess: () {
-                                Navigator.pop(context);
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const PriceScreen(),
-                                    ));
-                              }, onFailure: () {
-                                showToast(
-                                  "Maximum Allowed Images 7",
-                                );
-                                Navigator.pop(context);
-                              });
+                              return;
                             }
+
+                            showProgress(context);
+
+                            state.getImage(onSuccess: () {
+                              Navigator.pop(context);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const PriceScreen(),
+                                  ));
+                            }, onFailure: () {
+                              showToast(
+                                "Maximum Allowed Images 7",
+                              );
+                              Navigator.pop(context);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const PriceScreen(),
+                                  ));
+                            });
+                            // }
                           },
                         ),
                       ),

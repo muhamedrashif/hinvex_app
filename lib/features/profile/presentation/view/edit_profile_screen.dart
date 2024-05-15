@@ -313,13 +313,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   onSuccess: () {
                     showToast(
-                      "Edit Success",
+                      "Edit Profile Success",
                     );
                     Navigator.pop(context);
                     profileProviderState.clearImage();
                   },
                   onFailure: () {
-                    showToast("Edit Failed");
+                    showToast("Edit Profile Failed");
                   });
             },
           ),

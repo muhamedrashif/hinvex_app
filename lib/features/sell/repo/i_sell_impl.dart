@@ -73,16 +73,12 @@ class ISellImpl implements ISellFacade {
   @override
   FutureResult<PropertyModel> uploadPropertyToFireStore({
     required PropertyModel propertyModel,
-    // required List<String> imageByte,
   }) async {
     final builder = AlfabetKeywordsBuilder();
-
     builder.descriptionToKeywords(
         '${propertyModel.propertyTitle} ${propertyModel.description} ${propertyModel.propertyDetils}');
     final keywords = builder.build();
-
     try {
-      // propertyModel.propertyImage = imageByte;
       final response = await _firestore
           .collection('posts')
           .add(propertyModel.copyWith(keywords: keywords).toJson());

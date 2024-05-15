@@ -2,8 +2,10 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hinvex_app/features/authentication/data/model/user_details_model.dart';
 import 'package:hinvex_app/features/authentication/presentation/provider/auth_provider.dart';
 import 'package:hinvex_app/features/bottomNavigationBar/presentation/view/bottom_navigation_widget.dart';
+import 'package:hinvex_app/features/profile/presentation/provider/profile_provider.dart';
 import 'package:hinvex_app/features/sell/data/model/property_model.dart';
 import 'package:hinvex_app/features/sell/presentation/provider/sell_provider.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_button_widget.dart';
@@ -22,6 +24,10 @@ class UserProfileScreen extends StatefulWidget {
 }
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController whatsAppNumberController =
+      TextEditingController();
+  final TextEditingController locationController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,12 +97,12 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                               child: CustomTextFormFieldWidget(
                                 hintText: authProviderState.userName ??
                                     "Please Entre Your Name",
+                                controller: nameController,
                                 hintStyle: const TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black,
                                 ),
-                                readOnly: true,
                               ),
                             ),
                             const Text(
@@ -133,12 +139,12 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 hintText:
                                     authProviderState.userWhatsAppNumber ??
                                         "Please Enter WhatsApp Number",
+                                controller: whatsAppNumberController,
                                 hintStyle: const TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black,
                                 ),
-                                readOnly: true,
                               ),
                             ),
                             const Text(
@@ -155,6 +161,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 hintText:
                                     authProviderState.userLocation!.localArea ??
                                         'Please Enter Your Location',
+                                controller: locationController,
                                 hintStyle: const TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
@@ -243,6 +250,13 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   showProgress(context);
                   state.uploadPropertyToFireStore(
                       propertyModel: PropertyModel(
+                        phoneNumber: authProviderState.userPhoneNumber,
+                        whatsAppNumber: whatsAppNumberController.text.isEmpty
+                            ? authProviderState.userWhatsAppNumber
+                            : whatsAppNumberController.text,
+                        userId: authProviderState.userId,
+
+                        /////////////////////
                         createDate: Timestamp.now(),
                         updateDate: Timestamp.now(),
                         bathRooms: selectedBathroom,
@@ -277,8 +291,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         totalFloors:
                             int.tryParse(state.totalFloorsController.text),
                         washRoom: int.tryParse(state.washRoomController.text),
-                        phoneNumber: "+91 7356723212",
-                        whatsAppNumber: "+91 7356723212",
+                        propertyImage: state.imageFile,
                       ),
                       onSuccess: () {
                         state.addTitleController.clear();
@@ -306,19 +319,51 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         state.totalFloorsController.clear();
                         state.typeController.clear();
                         state.washRoomController.clear();
-                        showToast("Success");
+                        showToast("Upload Property Success");
 
-                        Navigator.pop(context);
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  const BottomNavigationWidget(),
-                            ),
-                            (route) => false);
+                        Provider.of<ProfileProvider>(context, listen: false)
+                            .updateUserDetils(
+                                userModel: UserModel(
+                                  id: authProviderState.id,
+                                  isBlocked: authProviderState.isBlocked,
+                                  notificationToken:
+                                      authProviderState.notificationToken,
+                                  partnership: authProviderState.partnership,
+                                  startedDate: authProviderState.startedDate,
+                                  totalPosts: authProviderState.totalPosts,
+                                  userId: authProviderState.userId,
+                                  userImage: authProviderState.userImage,
+                                  userLocation: authProviderState.userLocation,
+                                  userName: nameController.text.isEmpty
+                                      ? authProviderState.userName
+                                      : nameController.text,
+                                  userPhoneNumber:
+                                      authProviderState.userPhoneNumber,
+                                  userWhatsAppNumber:
+                                      whatsAppNumberController.text.isEmpty
+                                          ? authProviderState.userWhatsAppNumber
+                                          : whatsAppNumberController.text,
+                                ),
+                                onSuccess: () {
+                                  showToast(
+                                    "Edit Profile Success",
+                                  );
+
+                                  Navigator.pop(context);
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const BottomNavigationWidget(),
+                                      ),
+                                      (route) => false);
+                                },
+                                onFailure: () {
+                                  showToast("Edit Profile Failed");
+                                });
                       },
                       onFailure: () {
-                        showToast("Failed");
+                        showToast("pload Property Failed");
                         Navigator.pop(context);
                       });
                 },
