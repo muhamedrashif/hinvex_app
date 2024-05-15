@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -16,11 +15,12 @@ class ImageService {
   FutureResult<File> getGalleryImage() async {
     final XFile? pickedImageFile;
     final File? imageFile;
+    // String url;
     try {
       pickedImageFile = await picker.pickImage(source: ImageSource.gallery);
       if (pickedImageFile != null) {
         imageFile = File(pickedImageFile.path);
-        // saveImage(imageFile: imageFile);
+        // url = saveImage(imageFile: imageFile).toString();
         return right(imageFile);
       } else {
         return left(
@@ -34,7 +34,7 @@ class ImageService {
 
 //save image
 
-  FutureResult saveImage({
+  Future<Either<MainFailure, String>> saveImage({
     required File imageFile,
   }) async {
     final String imageName =
@@ -67,18 +67,4 @@ class ImageService {
 //       onFailure.call(BText.imageDeleteError);
 //     }
 //   }
-
-// DELETE IMAGE FROM STORAGE
-
-  Future<void> deleteUrl({
-    required String url,
-  }) async {
-    log(url);
-    final imageRef = _storage.refFromURL(url);
-    try {
-      await imageRef.delete();
-    } catch (e) {
-      log(e.toString());
-    }
-  }
 }

@@ -54,17 +54,30 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Align(
-                              alignment: Alignment.center,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: CircleAvatar(
-                                  backgroundImage:
-                                      AssetImage(ImageConstant.defaultProfile),
-                                  radius: 28,
-                                ),
-                              ),
-                            ),
+                            authProviderState!.userImage != null
+                                ? Align(
+                                    alignment: Alignment.center,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: CircleAvatar(
+                                        backgroundImage: NetworkImage(
+                                            authProviderState.userImage
+                                                .toString()),
+                                        radius: 28,
+                                      ),
+                                    ),
+                                  )
+                                : Align(
+                                    alignment: Alignment.center,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: CircleAvatar(
+                                        backgroundImage: AssetImage(
+                                            ImageConstant.defaultProfile),
+                                        radius: 28,
+                                      ),
+                                    ),
+                                  ),
                             const Text(
                               "Your Name*",
                               style: TextStyle(
@@ -76,8 +89,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                               padding:
                                   const EdgeInsets.symmetric(vertical: 12.0),
                               child: CustomTextFormFieldWidget(
-                                hintText:
-                                    authProviderState!.userName ?? "HinveX",
+                                hintText: authProviderState.userName ??
+                                    "Please Entre Your Name",
                                 hintStyle: const TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,

@@ -27,6 +27,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final profileProviderState = Provider.of<ProfileProvider>(context);
+
     return Consumer<AuthProvider>(builder: (context, state, _) {
       return Scaffold(
         backgroundColor: AppColors.backgroundColor,
@@ -59,18 +61,50 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             width: 85,
                             child: Stack(
                               children: [
-                                CircleAvatar(
-                                  backgroundImage:
-                                      AssetImage(ImageConstant.userProfile),
-                                  radius: 38,
-                                ),
+                                profileProviderState.imageUrl != null
+                                    ? CircleAvatar(
+                                        backgroundImage: NetworkImage(
+                                            profileProviderState.imageUrl!),
+                                        radius: 38,
+                                      )
+                                    : state.userModel!.userImage != null
+                                        ? CircleAvatar(
+                                            backgroundImage: NetworkImage(state
+                                                .userModel!.userImage
+                                                .toString()),
+                                            radius: 38,
+                                          )
+                                        : CircleAvatar(
+                                            backgroundImage: AssetImage(
+                                                ImageConstant.userProfile),
+                                            radius: 38,
+                                          ),
                                 Positioned(
                                   bottom: -2,
                                   right: -61,
-                                  child: CustumImage(
-                                    image: ImageConstant.cameraIcon,
-                                    height: 20,
-                                    width: 200,
+                                  child: InkWell(
+                                    onTap: () async {
+                                      await profileProviderState.getImage();
+                                      // ignore: use_build_context_synchronously
+                                      showProgress(context);
+
+                                      await profileProviderState.saveImage(
+                                        onSuccess: () {
+                                          Navigator.pop(context);
+                                          Navigator.pop(context);
+                                        },
+                                        onFailure: () {
+                                          Navigator.pop(context);
+                                        },
+                                      );
+                                      // ignore: use_build_context_synchronously
+                                      Navigator.pop(context);
+                                    },
+                                    child: CustumImage(
+                                      image: ImageConstant.cameraIcon,
+                                      height: 20,
+                                      width: 200,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -255,39 +289,38 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             textColor: AppColors.buttonTextColor,
             onTap: () {
               showProgress(context);
-              Provider.of<ProfileProvider>(context, listen: false)
-                  .updateUserDetils(
-                      userModel: UserModel(
-                        id: state.userModel!.id,
-                        isBlocked: state.userModel!.isBlocked,
-                        notificationToken: state.userModel!.notificationToken,
-                        partnership: state.userModel!.partnership,
-                        startedDate: state.userModel!.startedDate,
-                        totalPosts: state.userModel!.totalPosts,
-                        userId: state.userModel!.userId,
-                        userImage: state.userModel!.userImage,
-                        userLocation:
-                            Provider.of<ProfileProvider>(context, listen: false)
-                                    .placeCellUserUpdatedLocation ??
-                                state.userModel!.userLocation,
-                        userName: nameController.text.isEmpty
-                            ? state.userModel!.userName
-                            : nameController.text,
-                        userPhoneNumber: state.userModel!.userPhoneNumber,
-                        userWhatsAppNumber:
-                            whatsAppNumberController.text.isEmpty
-                                ? state.userModel!.userWhatsAppNumber
-                                : whatsAppNumberController.text,
-                      ),
-                      onSuccess: () {
-                        showToast(
-                          "Edit Success",
-                        );
-                        Navigator.pop(context);
-                      },
-                      onFailure: () {
-                        showToast("Edit Failed");
-                      });
+              profileProviderState.updateUserDetils(
+                  userModel: UserModel(
+                    id: state.userModel!.id,
+                    isBlocked: state.userModel!.isBlocked,
+                    notificationToken: state.userModel!.notificationToken,
+                    partnership: state.userModel!.partnership,
+                    startedDate: state.userModel!.startedDate,
+                    totalPosts: state.userModel!.totalPosts,
+                    userId: state.userModel!.userId,
+                    userImage: profileProviderState.imageUrl ??
+                        state.userModel!.userImage,
+                    userLocation:
+                        profileProviderState.placeCellUserUpdatedLocation ??
+                            state.userModel!.userLocation,
+                    userName: nameController.text.isEmpty
+                        ? state.userModel!.userName
+                        : nameController.text,
+                    userPhoneNumber: state.userModel!.userPhoneNumber,
+                    userWhatsAppNumber: whatsAppNumberController.text.isEmpty
+                        ? state.userModel!.userWhatsAppNumber
+                        : whatsAppNumberController.text,
+                  ),
+                  onSuccess: () {
+                    showToast(
+                      "Edit Success",
+                    );
+                    Navigator.pop(context);
+                    profileProviderState.clearImage();
+                  },
+                  onFailure: () {
+                    showToast("Edit Failed");
+                  });
             },
           ),
         ),

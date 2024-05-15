@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -15,6 +16,10 @@ class ProfileProvider with ChangeNotifier {
   bool updateLoading = false;
   PlaceCell? placeCellUserUpdatedLocation;
   UserModel? userModel;
+  String? imageUrl;
+  File? imageFile;
+  bool saveImageloading = false;
+
   // FETCH USER DETAILS
 
   // Future<void> fetchUser() async {
@@ -93,8 +98,51 @@ class ProfileProvider with ChangeNotifier {
     });
   }
 
+  // GET IMAGE
+
+  Future<void> getImage() async {
+    final result = await iProfileFacade.getImage();
+    result.fold((error) {
+      log("Fialed To Pick Image $error");
+    }, (success) {
+      imageFile = success;
+      notifyListeners();
+    });
+    notifyListeners();
+  }
+
+  Future saveImage({
+    required VoidCallback onSuccess,
+    required VoidCallback onFailure,
+  }) async {
+    // log(imageFile.toString());
+    saveImageloading = true;
+    notifyListeners();
+    final result = await iProfileFacade.saveImage(imageFile: imageFile!);
+    result.fold((error) {
+      log(error.errorMsg);
+      onFailure;
+      saveImageloading = false;
+    }, (success) {
+      log(success);
+      imageUrl = success;
+
+      notifyListeners();
+
+      onSuccess;
+    });
+    saveImageloading = false;
+    notifyListeners();
+  }
+
   void clearSuggestions() {
     suggestions.clear();
+    notifyListeners();
+  }
+
+  void clearImage() {
+    imageFile = null;
+    imageUrl = null;
     notifyListeners();
   }
 }

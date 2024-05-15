@@ -5,10 +5,12 @@ import 'package:hinvex_app/features/location/data/model/location_model_main.dart
 import 'package:hinvex_app/features/location/data/model/search_location_model/search_location_model.dart';
 import 'package:hinvex_app/features/sell/data/i_sell_facade.dart';
 import 'package:hinvex_app/features/sell/data/model/property_model.dart';
+import 'package:hinvex_app/general/services/multi_image_pick_service.dart';
 import 'package:hinvex_app/general/utils/enums/enums.dart';
 
 class SellProvider with ChangeNotifier {
   final ISellFacade iSellFacade;
+
   SellProvider({required this.iSellFacade});
 
   final TextEditingController addTitleController = TextEditingController();
@@ -42,6 +44,8 @@ class SellProvider with ChangeNotifier {
 
   List<PlaceResult> suggestions = [];
   bool sendLoading = false;
+
+  List<String> imageFile = [];
   // SEARCH LOCATION
 
   Future<void> getLocations(String query) async {
@@ -77,6 +81,39 @@ class SellProvider with ChangeNotifier {
       },
     );
   }
+  // GET IMAGE
+
+  Future<void> getImage({
+    required VoidCallback onSuccess,
+    required VoidCallback onFailure,
+  }) async {
+    final result = await pickMultipleImages(maxImages: 7 - imageFile.length);
+
+    result.fold((l) {
+      onFailure();
+    }, (r) {
+      if (r.isNotEmpty) {
+        imageFile.addAll(r);
+      }
+      onSuccess();
+      notifyListeners();
+    });
+    log("imageFile::::::::::::${imageFile.toString()}");
+    log("imageFile length::::::::::::${imageFile.length}");
+    notifyListeners();
+  }
+
+  // Method to remove image based on index
+  void removeImageAtIndex(int index) async {
+    await deleteUrl(url: imageFile[index]);
+
+    if (index >= 0 && index < imageFile.length) {
+      imageFile.removeAt(index);
+
+      notifyListeners();
+    }
+  }
+
   // STORE PROPERTY TO FIRESTORE
 
   Future<void> uploadPropertyToFireStore(

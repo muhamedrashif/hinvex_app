@@ -19,6 +19,8 @@ import 'package:hinvex_app/features/sell/presentation/view/upload_property_detai
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_button_widget.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
 import 'package:hinvex_app/general/utils/enums/enums.dart';
+import 'package:hinvex_app/general/utils/progress_indicator_widget/progress_indicator_widget.dart';
+import 'package:hinvex_app/general/utils/toast/toast.dart';
 import 'package:provider/provider.dart';
 import '../widgets/addTitle_widget.dart';
 import '../widgets/bathroom_widget.dart';
@@ -70,7 +72,7 @@ class _PropertyUploadingScreenState extends State<PropertyUploadingScreen> {
               SliverToBoxAdapter(
                 child: SafeArea(
                     child: Padding(
-                  padding: EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,21 +85,21 @@ class _PropertyUploadingScreenState extends State<PropertyUploadingScreen> {
                       ),
                       if (widget.categoryName == 'House' ||
                           widget.categoryName == 'Apartments')
-                        BedRoomInputWidget(),
+                        const BedRoomInputWidget(),
                       if (widget.categoryName == 'House' ||
                           widget.categoryName == 'Apartments')
-                        BathRoomInputWidget(),
+                        const BathRoomInputWidget(),
                       if (widget.categoryName == 'House' ||
                           widget.categoryName == 'Apartments' ||
                           widget.categoryName == 'Commercial' ||
                           widget.categoryName == 'Co-Working Space' ||
                           widget.categoryName == 'PG & Guest House')
-                        FurnishingInputWidget(),
+                        const FurnishingInputWidget(),
                       if (widget.categoryName == 'House' ||
                           widget.categoryName == 'Apartments' ||
                           widget.categoryName == 'Co-Working Space' ||
                           widget.categoryName == 'Commercial')
-                        ConstructionStatusInputWidget(),
+                        const ConstructionStatusInputWidget(),
                       ListedByInputWidget(
                         formKey: formKey,
                       ),
@@ -134,16 +136,16 @@ class _PropertyUploadingScreenState extends State<PropertyUploadingScreen> {
                           widget.categoryName == 'Commercial' ||
                           widget.categoryName == 'Co-Working Space' ||
                           widget.categoryName == 'PG & Guest House')
-                        CarParkingInputWidget(),
+                        const CarParkingInputWidget(),
                       if (widget.categoryName == 'House' ||
                           widget.categoryName == 'Apartments')
-                        BHKInputWidget(),
+                        const BHKInputWidget(),
                       if (widget.categoryName == 'House' ||
                           widget.categoryName == 'Apartments' ||
                           widget.categoryName == 'Commercial' ||
                           widget.categoryName == 'Co-Working Space' ||
                           widget.categoryName == 'Lands/Plots')
-                        ProjectNameInputWidget(),
+                        const ProjectNameInputWidget(),
                       AddTitleInputWidget(
                         formKey: formKey,
                       ),
@@ -161,11 +163,29 @@ class _PropertyUploadingScreenState extends State<PropertyUploadingScreen> {
                           onTap: () {
                             if (formKey.currentState!.validate()) {
                               formKey.currentState!.save();
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => PriceScreen(),
-                                  ));
+
+                              if (state.imageFile.length > 7) {
+                                showToast(
+                                  "Maximum Allowed Images 7",
+                                );
+                                return;
+                              }
+
+                              showProgress(context);
+
+                              state.getImage(onSuccess: () {
+                                Navigator.pop(context);
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const PriceScreen(),
+                                    ));
+                              }, onFailure: () {
+                                showToast(
+                                  "Maximum Allowed Images 7",
+                                );
+                                Navigator.pop(context);
+                              });
                             }
                           },
                         ),

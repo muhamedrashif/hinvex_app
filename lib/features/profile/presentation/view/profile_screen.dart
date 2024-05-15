@@ -74,14 +74,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 SliverToBoxAdapter(
                   child: Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: CircleAvatar(
-                          backgroundImage:
-                              AssetImage(ImageConstant.userProfile),
-                          radius: 38,
-                        ),
-                      ),
+                      state.userModel!.userImage != null
+                          ? Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: CircleAvatar(
+                                backgroundImage: NetworkImage(
+                                    state.userModel!.userImage.toString()),
+                                radius: 38,
+                              ),
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: CircleAvatar(
+                                backgroundImage:
+                                    AssetImage(ImageConstant.userProfile),
+                                radius: 38,
+                              ),
+                            ),
                       Text(
                         "Hello, ${state.userModel!.userName ?? ''}",
                         style: const TextStyle(
