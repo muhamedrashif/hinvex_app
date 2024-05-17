@@ -4,7 +4,8 @@ import 'package:hinvex_app/general/utils/textformfeild_widget/textFormField_widg
 import 'package:provider/provider.dart';
 
 class ProjectNameInputWidget extends StatelessWidget {
-  const ProjectNameInputWidget({super.key});
+  final GlobalKey<FormState> formKey;
+  const ProjectNameInputWidget({super.key, required this.formKey});
   @override
   Widget build(BuildContext context) {
     return Consumer<SellProvider>(builder: (context, state, _) {
@@ -24,6 +25,12 @@ class ProjectNameInputWidget extends StatelessWidget {
             child: CustomTextFormFieldWidget(
               hintText: "Enter Your Project Name",
               controller: state.projectNameController,
+              validator: (text) {
+                if (text == null || text.isEmpty) {
+                  return 'Please Enter Your Project Name';
+                }
+                return null;
+              },
             ),
           ),
         ],

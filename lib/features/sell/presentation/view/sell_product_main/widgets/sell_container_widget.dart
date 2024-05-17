@@ -130,7 +130,7 @@ class _SellContainerWidgetState extends State<SellContainerWidget> {
     {
       "image": ImageConstant.sellcowork,
       "name": "Co-Working Space",
-      "category": SelectedCategory.coWorkingSoace
+      "category": SelectedCategory.coWorkingSpace
     },
     {
       "image": ImageConstant.sellpgguesthouse,

@@ -5,7 +5,8 @@ import 'package:hinvex_app/general/utils/textformfeild_widget/textFormField_widg
 import 'package:provider/provider.dart';
 
 class ConstructionStatusInputWidget extends StatefulWidget {
-  const ConstructionStatusInputWidget({super.key});
+  final GlobalKey<FormState> formKey;
+  const ConstructionStatusInputWidget({super.key, required this.formKey});
 
   @override
   State<ConstructionStatusInputWidget> createState() =>
@@ -66,6 +67,12 @@ class _ConstructionStatusInputWidgetState
                 );
               },
               readOnly: true,
+              validator: (text) {
+                if (text == null || text.isEmpty) {
+                  return 'Please Choose One';
+                }
+                return null;
+              },
             ),
           ),
         ],

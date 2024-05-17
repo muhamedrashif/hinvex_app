@@ -4,6 +4,8 @@ import 'package:hinvex_app/features/authentication/data/i_auth_facade.dart';
 import 'package:hinvex_app/features/authentication/presentation/provider/auth_provider.dart';
 import 'package:hinvex_app/features/location/data/i_location_facade.dart';
 import 'package:hinvex_app/features/location/presentation/provider/location_provider.dart';
+import 'package:hinvex_app/features/myads/data/i_myads_facade.dart';
+import 'package:hinvex_app/features/myads/presentation/provider/myads_provider.dart';
 import 'package:hinvex_app/features/profile/data/i_profile_facade.dart';
 import 'package:hinvex_app/features/profile/presentation/provider/profile_provider.dart';
 import 'package:hinvex_app/features/sell/data/i_sell_facade.dart';
@@ -41,6 +43,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => ProfileProvider(iProfileFacade: sl<IProfileFacade>()),
         ),
+        ChangeNotifierProvider(
+          create: (_) => MyAdsProvider(iMyAdsFacade: sl<IMyAdsFacade>()),
+        )
       ],
       child: MaterialApp(
         title: 'HinveX App',

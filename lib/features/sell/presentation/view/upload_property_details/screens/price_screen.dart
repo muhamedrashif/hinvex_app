@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hinvex_app/features/authentication/presentation/provider/auth_provider.dart';
+import 'package:hinvex_app/features/bottomNavigationBar/presentation/view/bottom_navigation_widget.dart';
+import 'package:hinvex_app/features/sell/data/model/property_model.dart';
 import 'package:hinvex_app/features/sell/presentation/provider/sell_provider.dart';
-import 'package:hinvex_app/features/sell/presentation/view/upload_property_details/screens/user_profile_screen.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_button_widget.dart';
 import 'package:hinvex_app/general/utils/Customwidgets/CustomNetworkImageWidget.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
@@ -35,6 +38,8 @@ class _PriceScreenState extends State<PriceScreen> {
         ),
       ),
       body: Consumer<SellProvider>(builder: (context, state, _) {
+        final authProviderState =
+            Provider.of<AuthProvider>(context, listen: false).userModel;
         return Form(
           key: _formKey,
           child: Column(
@@ -50,113 +55,181 @@ class _PriceScreenState extends State<PriceScreen> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      if (state.imageFile.length > 7) {
-                                        showToast(
-                                          "Maximum Allowed Images 7",
-                                        );
-                                        return;
-                                      }
+                              state.imageFile.isNotEmpty
+                                  ? Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            if (state.imageFile.length > 7) {
+                                              showToast(
+                                                "Maximum Allowed Images 7",
+                                              );
+                                              return;
+                                            }
 
-                                      showProgress(context);
+                                            showProgress(context);
 
-                                      state.getImage(onSuccess: () {
-                                        Navigator.pop(context);
-                                      }, onFailure: () {
-                                        showToast(
-                                          "Maximum Allowed Images 7",
-                                        );
-                                        Navigator.pop(context);
-                                      });
-                                    },
-                                    child: const SizedBox(
-                                      child: Row(
-                                        children: [
-                                          Icon(
-                                            Icons.image,
-                                            size: 16,
-                                            color: Colors.grey,
+                                            state.getImage(onSuccess: () {
+                                              Navigator.pop(context);
+                                            }, onFailure: () {
+                                              showToast(
+                                                "Maximum Allowed Images 7",
+                                              );
+                                              Navigator.pop(context);
+                                            });
+                                          },
+                                          child: const SizedBox(
+                                            child: Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.image,
+                                                  size: 16,
+                                                  color: Colors.grey,
+                                                ),
+                                                Text(
+                                                  "Edit",
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 12,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                          Text(
-                                            "Edit",
+                                        ),
+                                      ],
+                                    )
+                                  : const SizedBox(),
+                              state.imageFile.isEmpty
+                                  ? Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          const Text(
+                                            "Pick your image from here",
                                             style: TextStyle(
                                               fontWeight: FontWeight.w600,
                                               fontSize: 12,
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 10.0),
-                                child: SizedBox(
-                                  height: 200,
-                                  width: MediaQuery.of(context).size.width,
-                                  // decoration: BoxDecoration(
-                                  //   color: AppColors.backgroundColor,
-                                  //   borderRadius: BorderRadius.circular(6),
-                                  //   boxShadow: [
-                                  //     BoxShadow(
-                                  //       color: Colors.black.withOpacity(0.2),
-                                  //       blurRadius: 3,
-                                  //       spreadRadius: 0,
-                                  //       offset: const Offset(0, 0),
-                                  //     ),
-                                  //   ],
-                                  // ),
-                                  child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: state.imageFile.length,
-                                    itemBuilder: (context, index) {
-                                      return Center(
-                                        child: Stack(
-                                          children: [
-                                            CustomNetworkImageWidget(
-                                              imageUrl: state.imageFile[index]
-                                                  .toString(),
-                                              width: 300,
-                                              height: 200,
-                                            ),
-                                            Positioned(
-                                                top: 10,
-                                                right: 10,
-                                                child: InkWell(
-                                                  onTap: () {
-                                                    state.removeImageAtIndex(
-                                                        index);
-                                                  },
-                                                  child: const Icon(
-                                                    Icons.cancel,
-                                                    size: 20,
-                                                  ),
-                                                )),
-                                            Positioned(
-                                              bottom: 10,
-                                              left: 10,
-                                              child: Text(
-                                                "${index + 1}/${state.imageFile.length}",
-                                                style: const TextStyle(
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: 12,
-                                                  color: Colors.white,
+                                          InkWell(
+                                            onTap: () {
+                                              if (state.imageFile.length > 7) {
+                                                showToast(
+                                                  "Maximum Allowed Images 7",
+                                                );
+                                                return;
+                                              }
+
+                                              showProgress(context);
+
+                                              state.getImage(onSuccess: () {
+                                                Navigator.pop(context);
+                                              }, onFailure: () {
+                                                showToast(
+                                                  "Maximum Allowed Images 7",
+                                                );
+                                                Navigator.pop(context);
+                                              });
+                                            },
+                                            child: const SizedBox(
+                                              child: Padding(
+                                                padding: EdgeInsets.all(8.0),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.image,
+                                                      size: 16,
+                                                      color: Colors.grey,
+                                                    ),
+                                                    Text(
+                                                      "Image",
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontSize: 12,
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
                                             ),
-                                          ],
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  : Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 10.0),
+                                      child: SizedBox(
+                                        height: 200,
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        // decoration: BoxDecoration(
+                                        //   color: AppColors.backgroundColor,
+                                        //   borderRadius: BorderRadius.circular(6),
+                                        //   boxShadow: [
+                                        //     BoxShadow(
+                                        //       color: Colors.black.withOpacity(0.2),
+                                        //       blurRadius: 3,
+                                        //       spreadRadius: 0,
+                                        //       offset: const Offset(0, 0),
+                                        //     ),
+                                        //   ],
+                                        // ),
+                                        child: ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: state.imageFile.length,
+                                          itemBuilder: (context, index) {
+                                            return Center(
+                                              child: Stack(
+                                                children: [
+                                                  CustomNetworkImageWidget(
+                                                    imageUrl: state
+                                                        .imageFile[index]
+                                                        .toString(),
+                                                    width: 300,
+                                                    height: 200,
+                                                  ),
+                                                  Positioned(
+                                                      top: 10,
+                                                      right: 10,
+                                                      child: InkWell(
+                                                        onTap: () {
+                                                          state
+                                                              .removeImageAtIndex(
+                                                                  index);
+                                                        },
+                                                        child: const Icon(
+                                                          Icons.cancel,
+                                                          size: 20,
+                                                        ),
+                                                      )),
+                                                  Positioned(
+                                                    bottom: 10,
+                                                    left: 10,
+                                                    child: Text(
+                                                      "${index + 1}/${state.imageFile.length}",
+                                                      style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontSize: 12,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
                                         ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ),
+                                      ),
+                                    ),
                               const Text(
                                 "Define Your Price*",
                                 style: TextStyle(
@@ -198,12 +271,115 @@ class _PriceScreenState extends State<PriceScreen> {
                   onTap: () {
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const UserProfileScreen(),
-                        ),
-                      );
+                      if (state.imageFile.isNotEmpty) {
+                        int? selectedBedroom;
+
+                        if (state.bedRoomController.text.isNotEmpty) {
+                          if (state.bedRoomController.text == '+4') {
+                            selectedBedroom = 5;
+                          } else {
+                            selectedBedroom =
+                                int.tryParse(state.bedRoomController.text);
+                          }
+                        }
+
+                        int? selectedBathroom;
+
+                        if (state.bathRoomController.text.isNotEmpty) {
+                          if (state.bathRoomController.text == '+4') {
+                            selectedBathroom = 5;
+                          } else {
+                            selectedBathroom =
+                                int.tryParse(state.bathRoomController.text);
+                          }
+                        }
+
+                        int? selectedCarParking;
+
+                        if (state.carParkingController.text.isNotEmpty) {
+                          if (state.carParkingController.text == '+4') {
+                            selectedCarParking = 5;
+                          } else {
+                            selectedCarParking =
+                                int.tryParse(state.carParkingController.text);
+                          }
+                        }
+
+                        showProgress(context);
+                        state.uploadPropertyToFireStore(
+                            propertyModel: PropertyModel(
+                              phoneNumber: authProviderState!.userPhoneNumber,
+                              whatsAppNumber:
+                                  authProviderState.userWhatsAppNumber,
+
+                              userId: authProviderState.userId,
+
+                              /////////////////////
+                              createDate: Timestamp.now(),
+                              updateDate: Timestamp.now(),
+                              bathRooms: selectedBathroom,
+                              bedRooms: selectedBedroom,
+                              bhk: state.selectedBHKValue,
+                              carParking: selectedCarParking,
+                              carpetAreaft:
+                                  int.tryParse(state.carpetAreaController.text),
+                              constructionStatus:
+                                  PropertyModel.getConstructionStatus(
+                                      state.constructionStatusController.text),
+
+                              floorNo:
+                                  int.tryParse(state.floorNoController.text),
+                              furnishing: PropertyModel.getSelectedFurnisher(
+                                  state.furnishingController.text),
+                              listedBy: PropertyModel.getSelectedListedBy(
+                                  state.listedByController.text),
+                              noOfReports: 0,
+                              plotArea:
+                                  int.tryParse(state.plotAreaController.text),
+                              plotBreadth:
+                                  int.tryParse(state.breadthController.text),
+                              plotLength:
+                                  int.tryParse(state.lengthController.text),
+                              pricePerstft: int.tryParse(
+                                  state.pricePersqftController.text),
+                              projectName: state.projectNameController.text,
+                              propertyCategory: state.selectedCategory,
+                              propertyLocation: state.placeCellUploadLocation,
+                              propertyPrice:
+                                  int.tryParse(state.priceController.text),
+                              propertyTitle: state.addTitleController.text,
+                              propertyType: PropertyModel.getSelectedType(
+                                  state.typeController.text),
+                              propertyDetils: state.describeController.text,
+                              description: state.descriptionController.text,
+                              superBuiltupAreaft: int.tryParse(
+                                  state.superBuilupAreaController.text),
+                              totalFloors: int.tryParse(
+                                  state.totalFloorsController.text),
+                              washRoom:
+                                  int.tryParse(state.washRoomController.text),
+                              propertyImage: state.imageFile,
+                            ),
+                            onSuccess: () {
+                              state
+                                ..clearData()
+                                ..imageFile.clear();
+                              showToast("Upload Property Success");
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const BottomNavigationWidget(),
+                                  ),
+                                  (route) => false);
+                            },
+                            onFailure: () {
+                              showToast("pload Property Failed");
+                              Navigator.pop(context);
+                            });
+                      } else {
+                        showToast("Please Select Image");
+                      }
                     }
                   },
                 ),

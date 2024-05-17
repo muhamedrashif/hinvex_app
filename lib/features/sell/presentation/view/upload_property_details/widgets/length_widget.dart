@@ -4,7 +4,8 @@ import 'package:hinvex_app/general/utils/textformfeild_widget/textFormField_widg
 import 'package:provider/provider.dart';
 
 class LengthInputWidget extends StatelessWidget {
-  LengthInputWidget({super.key});
+  final GlobalKey<FormState> formKey;
+  const LengthInputWidget({super.key, required this.formKey});
   @override
   Widget build(BuildContext context) {
     return Consumer<SellProvider>(builder: (context, state, _) {
@@ -25,6 +26,12 @@ class LengthInputWidget extends StatelessWidget {
               hintText: "Enter Here",
               controller: state.lengthController,
               keyboardType: TextInputType.number,
+              validator: (text) {
+                if (text == null || text.isEmpty) {
+                  return 'Please Enter Length';
+                }
+                return null;
+              },
             ),
           ),
         ],

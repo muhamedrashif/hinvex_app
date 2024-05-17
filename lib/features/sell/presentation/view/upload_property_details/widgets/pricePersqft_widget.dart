@@ -4,7 +4,8 @@ import 'package:hinvex_app/general/utils/textformfeild_widget/textFormField_widg
 import 'package:provider/provider.dart';
 
 class PricePersqftInputWidget extends StatelessWidget {
-  PricePersqftInputWidget({super.key});
+  final GlobalKey<FormState> formKey;
+  PricePersqftInputWidget({super.key, required this.formKey});
   @override
   Widget build(BuildContext context) {
     return Consumer<SellProvider>(builder: (context, state, _) {
@@ -25,6 +26,12 @@ class PricePersqftInputWidget extends StatelessWidget {
               hintText: "Enter Here",
               controller: state.pricePersqftController,
               keyboardType: TextInputType.number,
+              validator: (text) {
+                if (text == null || text.isEmpty) {
+                  return 'Please Enter Price Per sq.ft';
+                }
+                return null;
+              },
             ),
           ),
         ],

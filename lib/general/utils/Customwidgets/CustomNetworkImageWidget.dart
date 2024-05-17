@@ -32,7 +32,7 @@ class CustomNetworkImageWidget extends StatelessWidget {
                 height: 220,
                 width: 120,
                 child: Transform.scale(
-                  scale: .7,
+                  scale: .4,
                   child: Image.asset(ImageConstant.hinvexAppLogo),
                 ),
               ),

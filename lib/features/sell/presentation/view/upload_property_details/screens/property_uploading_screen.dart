@@ -6,6 +6,7 @@ import 'package:hinvex_app/features/sell/presentation/view/upload_property_detai
 import 'package:hinvex_app/features/sell/presentation/view/upload_property_details/widgets/breadth_widget.dart';
 import 'package:hinvex_app/features/sell/presentation/view/upload_property_details/widgets/carParking_widget.dart';
 import 'package:hinvex_app/features/sell/presentation/view/upload_property_details/widgets/carpetArea_widget.dart';
+import 'package:hinvex_app/features/sell/presentation/view/upload_property_details/widgets/description_widget.dart';
 import 'package:hinvex_app/features/sell/presentation/view/upload_property_details/widgets/floorNo_widget.dart';
 import 'package:hinvex_app/features/sell/presentation/view/upload_property_details/widgets/length_widget.dart';
 import 'package:hinvex_app/features/sell/presentation/view/upload_property_details/widgets/listedBy_widget.dart';
@@ -27,7 +28,7 @@ import '../widgets/bathroom_widget.dart';
 import '../widgets/bedroom_widget.dart';
 import '../widgets/bhk_widget.dart';
 import '../widgets/construction_Status_widget.dart';
-import '../widgets/description_widget.dart';
+import '../widgets/describe_widget.dart';
 import '../widgets/furnishing_widget.dart';
 import '../widgets/superBuilupArea_widget.dart';
 
@@ -51,159 +52,203 @@ class _PropertyUploadingScreenState extends State<PropertyUploadingScreen> {
   @override
   Widget build(BuildContext context) {
     log("${widget.categoryName}+${widget.selectedCategory}");
-    return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
-      appBar: AppBar(
+    return PopScope(
+      onPopInvoked: (didPop) {
+        Provider.of<SellProvider>(context, listen: false)
+          ..clearData()
+          ..imageFile.clear();
+      },
+      child: Scaffold(
         backgroundColor: AppColors.backgroundColor,
-        iconTheme: IconThemeData(color: AppColors.titleTextColor),
-        title: Text(
-          "Upload Your Property",
-          style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-              color: AppColors.titleTextColor),
-        ),
-      ),
-      body: Consumer<SellProvider>(builder: (context, state, _) {
-        return Form(
-          key: formKey,
-          child: CustomScrollView(
-            slivers: [
-              SliverToBoxAdapter(
-                child: SafeArea(
-                    child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      LocationInputWidget(
-                        formKey: formKey,
-                      ),
-                      TypeInputWidget(
-                        formKey: formKey,
-                      ),
-                      if (widget.categoryName == 'House' ||
-                          widget.categoryName == 'Apartments')
-                        const BedRoomInputWidget(),
-                      if (widget.categoryName == 'House' ||
-                          widget.categoryName == 'Apartments')
-                        const BathRoomInputWidget(),
-                      if (widget.categoryName == 'House' ||
-                          widget.categoryName == 'Apartments' ||
-                          widget.categoryName == 'Commercial' ||
-                          widget.categoryName == 'Co-Working Space' ||
-                          widget.categoryName == 'PG & Guest House')
-                        const FurnishingInputWidget(),
-                      if (widget.categoryName == 'House' ||
-                          widget.categoryName == 'Apartments' ||
-                          widget.categoryName == 'Co-Working Space' ||
-                          widget.categoryName == 'Commercial')
-                        const ConstructionStatusInputWidget(),
-                      ListedByInputWidget(
-                        formKey: formKey,
-                      ),
-                      if (widget.categoryName == 'House' ||
-                          widget.categoryName == 'Apartments' ||
-                          widget.categoryName == 'Co-Working Space' ||
-                          widget.categoryName == 'Commercial')
-                        SuperBuilupAreaInputWidget(),
-                      if (widget.categoryName == 'House' ||
-                          widget.categoryName == 'Apartments')
-                        PricePersqftInputWidget(),
-                      if (widget.categoryName == 'House' ||
-                          widget.categoryName == 'Apartments' ||
-                          widget.categoryName == 'Co-Working Space' ||
-                          widget.categoryName == 'Commercial')
-                        CarpetAreaInputWidget(),
-                      if (widget.categoryName == 'Commercial' ||
-                          widget.categoryName == 'Co-Working Space')
-                        WashRoomInputWidget(),
-                      if (widget.categoryName == 'Lands/Plots')
-                        PlotAreaInputWidget(),
-                      if (widget.categoryName == 'Lands/Plots')
-                        LengthInputWidget(),
-                      if (widget.categoryName == 'Lands/Plots')
-                        BreadthInputWidget(),
-                      if (widget.categoryName == 'House' ||
-                          widget.categoryName == 'Apartments')
-                        TotalFloorsInputWidget(),
-                      if (widget.categoryName == 'House' ||
-                          widget.categoryName == 'Apartments')
-                        FloorNoInputWidget(),
-                      if (widget.categoryName == 'House' ||
-                          widget.categoryName == 'Apartments' ||
-                          widget.categoryName == 'Commercial' ||
-                          widget.categoryName == 'Co-Working Space' ||
-                          widget.categoryName == 'PG & Guest House')
-                        const CarParkingInputWidget(),
-                      if (widget.categoryName == 'House' ||
-                          widget.categoryName == 'Apartments')
-                        const BHKInputWidget(),
-                      if (widget.categoryName == 'House' ||
-                          widget.categoryName == 'Apartments' ||
-                          widget.categoryName == 'Commercial' ||
-                          widget.categoryName == 'Co-Working Space' ||
-                          widget.categoryName == 'Lands/Plots')
-                        const ProjectNameInputWidget(),
-                      AddTitleInputWidget(
-                        formKey: formKey,
-                      ),
-                      DescribeInputWidget(
-                        formKey: formKey,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: CustomButtonWidget(
-                          height: 44,
-                          width: MediaQuery.of(context).size.width,
-                          buttonColor: AppColors.textButtonColor,
-                          text: "Next",
-                          textColor: AppColors.buttonTextColor,
-                          onTap: () {
-                            // if (formKey.currentState!.validate()) {
-                            //   formKey.currentState!.save();
-
-                            if (state.imageFile.length > 7) {
-                              showToast(
-                                "Maximum Allowed Images 7",
-                              );
-
-                              return;
-                            }
-
-                            showProgress(context);
-
-                            state.getImage(onSuccess: () {
-                              Navigator.pop(context);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const PriceScreen(),
-                                  ));
-                            }, onFailure: () {
-                              showToast(
-                                "Maximum Allowed Images 7",
-                              );
-                              Navigator.pop(context);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const PriceScreen(),
-                                  ));
-                            });
-                            // }
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                )),
-              ),
-            ],
+        appBar: AppBar(
+          backgroundColor: AppColors.backgroundColor,
+          iconTheme: IconThemeData(color: AppColors.titleTextColor),
+          title: Text(
+            "Upload Your Property",
+            style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: AppColors.titleTextColor),
           ),
-        );
-      }),
+        ),
+        body: Consumer<SellProvider>(builder: (context, state, _) {
+          return Form(
+            key: formKey,
+            child: CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                  child: SafeArea(
+                      child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        LocationInputWidget(
+                          formKey: formKey,
+                        ),
+                        TypeInputWidget(
+                          formKey: formKey,
+                        ),
+                        if (widget.categoryName == 'House' ||
+                            widget.categoryName == 'Apartments')
+                          BedRoomInputWidget(
+                            formKey: formKey,
+                          ),
+                        if (widget.categoryName == 'House' ||
+                            widget.categoryName == 'Apartments')
+                          BathRoomInputWidget(
+                            formKey: formKey,
+                          ),
+                        if (widget.categoryName == 'House' ||
+                            widget.categoryName == 'Apartments' ||
+                            widget.categoryName == 'Commercial' ||
+                            widget.categoryName == 'Co-Working Space' ||
+                            widget.categoryName == 'PG & Guest House')
+                          FurnishingInputWidget(
+                            formKey: formKey,
+                          ),
+                        if (widget.categoryName == 'House' ||
+                            widget.categoryName == 'Apartments' ||
+                            widget.categoryName == 'Co-Working Space' ||
+                            widget.categoryName == 'Commercial')
+                          ConstructionStatusInputWidget(
+                            formKey: formKey,
+                          ),
+                        ListedByInputWidget(
+                          formKey: formKey,
+                        ),
+                        if (widget.categoryName == 'House' ||
+                            widget.categoryName == 'Apartments' ||
+                            widget.categoryName == 'Co-Working Space' ||
+                            widget.categoryName == 'Commercial')
+                          SuperBuilupAreaInputWidget(
+                            formKey: formKey,
+                          ),
+                        if (widget.categoryName == 'House' ||
+                            widget.categoryName == 'Apartments')
+                          PricePersqftInputWidget(
+                            formKey: formKey,
+                          ),
+                        if (widget.categoryName == 'House' ||
+                            widget.categoryName == 'Apartments' ||
+                            widget.categoryName == 'Co-Working Space' ||
+                            widget.categoryName == 'Commercial')
+                          CarpetAreaInputWidget(
+                            formKey: formKey,
+                          ),
+                        if (widget.categoryName == 'Commercial' ||
+                            widget.categoryName == 'Co-Working Space')
+                          WashRoomInputWidget(
+                            formKey: formKey,
+                          ),
+                        if (widget.categoryName == 'Lands/Plots')
+                          PlotAreaInputWidget(
+                            formKey: formKey,
+                          ),
+                        if (widget.categoryName == 'Lands/Plots')
+                          LengthInputWidget(
+                            formKey: formKey,
+                          ),
+                        if (widget.categoryName == 'Lands/Plots')
+                          BreadthInputWidget(
+                            formKey: formKey,
+                          ),
+                        if (widget.categoryName == 'House' ||
+                            widget.categoryName == 'Apartments')
+                          TotalFloorsInputWidget(
+                            formKey: formKey,
+                          ),
+                        if (widget.categoryName == 'House' ||
+                            widget.categoryName == 'Apartments')
+                          FloorNoInputWidget(
+                            formKey: formKey,
+                          ),
+                        if (widget.categoryName == 'House' ||
+                            widget.categoryName == 'Apartments' ||
+                            widget.categoryName == 'Commercial' ||
+                            widget.categoryName == 'Co-Working Space' ||
+                            widget.categoryName == 'PG & Guest House')
+                          CarParkingInputWidget(
+                            formKey: formKey,
+                          ),
+                        if (widget.categoryName == 'House' ||
+                            widget.categoryName == 'Apartments')
+                          BHKInputWidget(
+                            formKey: formKey,
+                          ),
+                        if (widget.categoryName == 'House' ||
+                            widget.categoryName == 'Apartments' ||
+                            widget.categoryName == 'Commercial' ||
+                            widget.categoryName == 'Co-Working Space' ||
+                            widget.categoryName == 'Lands/Plots')
+                          ProjectNameInputWidget(
+                            formKey: formKey,
+                          ),
+                        AddTitleInputWidget(
+                          formKey: formKey,
+                        ),
+                        DescribeInputWidget(
+                          formKey: formKey,
+                        ),
+                        DescriptionInputWidget(
+                          formKey: formKey,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: CustomButtonWidget(
+                            height: 44,
+                            width: MediaQuery.of(context).size.width,
+                            buttonColor: AppColors.textButtonColor,
+                            text: "Next",
+                            textColor: AppColors.buttonTextColor,
+                            onTap: () {
+                              if (formKey.currentState!.validate()) {
+                                formKey.currentState!.save();
+
+                                if (state.imageFile.length > 7) {
+                                  showToast(
+                                    "Maximum Allowed Images 7",
+                                  );
+
+                                  return;
+                                }
+
+                                showProgress(context);
+
+                                state.getImage(onSuccess: () {
+                                  Navigator.pop(context);
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const PriceScreen(),
+                                      ));
+                                }, onFailure: () {
+                                  showToast(
+                                    "Maximum Allowed Images 7",
+                                  );
+                                  Navigator.pop(context);
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const PriceScreen(),
+                                      ));
+                                });
+                              }
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  )),
+                ),
+              ],
+            ),
+          );
+        }),
+      ),
     );
   }
 }

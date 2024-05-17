@@ -84,21 +84,31 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   right: -61,
                                   child: InkWell(
                                     onTap: () async {
-                                      await profileProviderState.getImage();
-                                      // ignore: use_build_context_synchronously
-                                      showProgress(context);
-
-                                      await profileProviderState.saveImage(
-                                        onSuccess: () {
-                                          Navigator.pop(context);
-                                          Navigator.pop(context);
-                                        },
-                                        onFailure: () {
-                                          Navigator.pop(context);
-                                        },
-                                      );
-                                      // ignore: use_build_context_synchronously
-                                      Navigator.pop(context);
+                                      await profileProviderState.getImage(
+                                          onFailure: () {
+                                        Navigator.pop(context);
+                                        Navigator.pop(context);
+                                      }, onSuccess: () {
+                                        Navigator.pop(context);
+                                        Navigator.pop(context);
+                                      });
+                                      if (profileProviderState.imageFile !=
+                                          null) {
+                                        // ignore: use_build_context_synchronously
+                                        showProgress(context);
+                                        await profileProviderState.saveImage(
+                                          onSuccess: () {
+                                            Navigator.pop(context);
+                                            Navigator.pop(context);
+                                          },
+                                          onFailure: () {
+                                            Navigator.pop(context);
+                                            Navigator.pop(context);
+                                          },
+                                        );
+                                        // ignore: use_build_context_synchronously
+                                        Navigator.pop(context);
+                                      }
                                     },
                                     child: CustumImage(
                                       image: ImageConstant.cameraIcon,
@@ -320,6 +330,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   },
                   onFailure: () {
                     showToast("Edit Profile Failed");
+                    Navigator.pop(context);
                   });
             },
           ),

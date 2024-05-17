@@ -40,6 +40,7 @@ class PropertyModel {
   final String? webBannerId;
   List? reportReasons;
   final String? mobileBannerId;
+
   PropertyModel({
     this.id,
     this.userId,
@@ -224,7 +225,7 @@ class PropertyModel {
       case 'Commercial':
         return SelectedCategory.commercial;
       case 'Co-Working Space':
-        return SelectedCategory.coWorkingSoace;
+        return SelectedCategory.coWorkingSpace;
       case 'PG & Guest House':
         return SelectedCategory.pGGuestHouse;
     }
@@ -242,8 +243,8 @@ class PropertyModel {
         return SelectedCategory.landsPlots;
       case 'commercial':
         return SelectedCategory.commercial;
-      case 'coWorkingSoace':
-        return SelectedCategory.coWorkingSoace;
+      case 'coWorkingSpace':
+        return SelectedCategory.coWorkingSpace;
       case 'pGGuestHouse':
         return SelectedCategory.pGGuestHouse;
     }
@@ -260,8 +261,8 @@ class PropertyModel {
         return 'Lands/Plots';
       case 'commercial':
         return 'Commercial';
-      case 'coWorkingSoace':
-        return 'Co-Working Soace';
+      case 'coWorkingSpace':
+        return 'Co-Working Space';
       case 'pGGuestHouse':
         return 'PG & Guest House';
     }

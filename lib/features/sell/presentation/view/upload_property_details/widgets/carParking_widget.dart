@@ -5,7 +5,8 @@ import 'package:hinvex_app/general/utils/textformfeild_widget/textFormField_widg
 import 'package:provider/provider.dart';
 
 class CarParkingInputWidget extends StatefulWidget {
-  const CarParkingInputWidget({super.key});
+  final GlobalKey<FormState> formKey;
+  const CarParkingInputWidget({super.key, required this.formKey});
 
   @override
   State<CarParkingInputWidget> createState() => _CarParkingInputWidgetState();
@@ -59,6 +60,12 @@ class _CarParkingInputWidgetState extends State<CarParkingInputWidget> {
                 );
               },
               readOnly: true,
+              validator: (text) {
+                if (text == null || text.isEmpty) {
+                  return 'Please Choose One';
+                }
+                return null;
+              },
             ),
           ),
         ],

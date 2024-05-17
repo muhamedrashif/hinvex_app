@@ -17,6 +17,7 @@ class _SellScreenState extends State<SellScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
+      // ignore: deprecated_member_use
       body: WillPopScope(
         onWillPop: () {
           Navigator.push(context, MaterialPageRoute(

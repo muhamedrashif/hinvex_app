@@ -4,7 +4,8 @@ import 'package:hinvex_app/general/utils/textformfeild_widget/textFormField_widg
 import 'package:provider/provider.dart';
 
 class WashRoomInputWidget extends StatelessWidget {
-  WashRoomInputWidget({super.key});
+  final GlobalKey<FormState> formKey;
+  const WashRoomInputWidget({super.key, required this.formKey});
   @override
   Widget build(BuildContext context) {
     return Consumer<SellProvider>(builder: (context, state, _) {
@@ -25,6 +26,12 @@ class WashRoomInputWidget extends StatelessWidget {
               hintText: "Enter Here",
               controller: state.washRoomController,
               keyboardType: TextInputType.number,
+              validator: (text) {
+                if (text == null || text.isEmpty) {
+                  return 'Please Enter Wash Room';
+                }
+                return null;
+              },
             ),
           ),
         ],

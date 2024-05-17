@@ -5,7 +5,8 @@ import 'package:hinvex_app/general/utils/textformfeild_widget/textFormField_widg
 import 'package:provider/provider.dart';
 
 class FurnishingInputWidget extends StatefulWidget {
-  const FurnishingInputWidget({super.key});
+  final GlobalKey<FormState> formKey;
+  const FurnishingInputWidget({super.key, required this.formKey});
 
   @override
   State<FurnishingInputWidget> createState() => _FurnishingInputWidgetState();
@@ -59,6 +60,12 @@ class _FurnishingInputWidgetState extends State<FurnishingInputWidget> {
                 );
               },
               readOnly: true,
+              validator: (text) {
+                if (text == null || text.isEmpty) {
+                  return 'Please Choose One';
+                }
+                return null;
+              },
             ),
           ),
         ],

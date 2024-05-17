@@ -23,6 +23,7 @@ class SellProvider with ChangeNotifier {
   final TextEditingController constructionStatusController =
       TextEditingController();
   final TextEditingController describeController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
   final TextEditingController floorNoController = TextEditingController();
   final TextEditingController furnishingController = TextEditingController();
   final TextEditingController lengthController = TextEditingController();
@@ -139,6 +140,36 @@ class SellProvider with ChangeNotifier {
 
   void clearSuggestions() {
     suggestions.clear();
+    notifyListeners();
+  }
+
+  void clearData() {
+    addTitleController.clear();
+    bHKController.clear();
+    bathRoomController.clear();
+    bedRoomController.clear();
+    breadthController.clear();
+    carParkingController.clear();
+    constructionStatusController.clear();
+    carpetAreaController.clear();
+    describeController.clear();
+    descriptionController.clear();
+    floorNoController.clear();
+    furnishingController.clear();
+    lengthController.clear();
+    listedByController.clear();
+    locationController.clear();
+    placeCellUploadLocation = null;
+    plotAreaController.clear();
+    priceController.clear();
+    pricePersqftController.clear();
+    projectNameController.clear();
+    selectedBHKValue = 0;
+    selectedCategory = null;
+    superBuilupAreaController.clear();
+    totalFloorsController.clear();
+    typeController.clear();
+    washRoomController.clear();
     notifyListeners();
   }
 }

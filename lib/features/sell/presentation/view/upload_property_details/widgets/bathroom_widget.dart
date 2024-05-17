@@ -5,7 +5,8 @@ import 'package:hinvex_app/general/utils/textformfeild_widget/textFormField_widg
 import 'package:provider/provider.dart';
 
 class BathRoomInputWidget extends StatefulWidget {
-  const BathRoomInputWidget({super.key});
+  final GlobalKey<FormState> formKey;
+  const BathRoomInputWidget({super.key, required this.formKey});
 
   @override
   State<BathRoomInputWidget> createState() => _BathRoomInputWidgetState();
@@ -55,6 +56,12 @@ class _BathRoomInputWidgetState extends State<BathRoomInputWidget> {
                 );
               },
               readOnly: true,
+              validator: (text) {
+                if (text == null || text.isEmpty) {
+                  return 'Please Choose One';
+                }
+                return null;
+              },
             ),
           ),
         ],

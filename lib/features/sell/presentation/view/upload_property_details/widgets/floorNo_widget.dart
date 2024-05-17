@@ -4,7 +4,8 @@ import 'package:hinvex_app/general/utils/textformfeild_widget/textFormField_widg
 import 'package:provider/provider.dart';
 
 class FloorNoInputWidget extends StatelessWidget {
-  FloorNoInputWidget({super.key});
+  final GlobalKey<FormState> formKey;
+  const FloorNoInputWidget({super.key, required this.formKey});
   @override
   Widget build(BuildContext context) {
     return Consumer<SellProvider>(builder: (context, state, _) {
@@ -25,6 +26,12 @@ class FloorNoInputWidget extends StatelessWidget {
               hintText: "Enter Here",
               controller: state.floorNoController,
               keyboardType: TextInputType.number,
+              validator: (text) {
+                if (text == null || text.isEmpty) {
+                  return 'Please Enter Floor No';
+                }
+                return null;
+              },
             ),
           ),
         ],

@@ -79,10 +79,12 @@ class ISellImpl implements ISellFacade {
         '${propertyModel.propertyTitle} ${propertyModel.description} ${propertyModel.propertyDetils}');
     final keywords = builder.build();
     try {
-      final response = await _firestore
+      final id = _firestore.collection('posts').doc().id;
+      await _firestore
           .collection('posts')
-          .add(propertyModel.copyWith(keywords: keywords).toJson());
-      return right(propertyModel.copyWith(id: response.id));
+          .doc(id)
+          .set(propertyModel.copyWith(keywords: keywords, id: id).toJson());
+      return right(propertyModel.copyWith(id: id));
     } on CustomExeception catch (e) {
       return left(MainFailure.imageUploadFailure(errorMsg: e.errorMsg));
     }

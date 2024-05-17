@@ -5,7 +5,8 @@ import 'package:hinvex_app/general/utils/textformfeild_widget/textFormField_widg
 import 'package:provider/provider.dart';
 
 class BedRoomInputWidget extends StatefulWidget {
-  const BedRoomInputWidget({super.key});
+  final GlobalKey<FormState> formKey;
+  const BedRoomInputWidget({super.key, required this.formKey});
 
   @override
   State<BedRoomInputWidget> createState() => _BedRoomInputWidgetState();
@@ -55,6 +56,12 @@ class _BedRoomInputWidgetState extends State<BedRoomInputWidget> {
                 );
               },
               readOnly: true,
+              validator: (text) {
+                if (text == null || text.isEmpty) {
+                  return 'Please Choose One';
+                }
+                return null;
+              },
             ),
           ),
         ],

@@ -16,10 +16,7 @@ class _ListedByInputWidgetState extends State<ListedByInputWidget> {
   // ListedBy
   String? _selectedListedBy;
 
-  final List<String> _listedBy = [
-    'Builder',
-    'Dealer',
-  ];
+  final List<String> _listedBy = ['Builder', 'Dealer', 'Owner'];
 
   @override
   Widget build(BuildContext context) {

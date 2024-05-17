@@ -100,13 +100,18 @@ class ProfileProvider with ChangeNotifier {
 
   // GET IMAGE
 
-  Future<void> getImage() async {
+  Future<void> getImage({
+    required VoidCallback onSuccess,
+    required VoidCallback onFailure,
+  }) async {
     final result = await iProfileFacade.getImage();
     result.fold((error) {
       log("Fialed To Pick Image $error");
+      onFailure;
     }, (success) {
       imageFile = success;
       notifyListeners();
+      onSuccess;
     });
     notifyListeners();
   }

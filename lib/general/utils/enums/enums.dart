@@ -5,7 +5,7 @@ enum SelectedCategory {
   apartments,
   landsPlots,
   commercial,
-  coWorkingSoace,
+  coWorkingSpace,
   pGGuestHouse
 }
 

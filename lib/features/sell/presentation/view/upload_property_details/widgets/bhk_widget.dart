@@ -7,7 +7,8 @@ import 'package:hinvex_app/general/utils/textformfeild_widget/textFormField_widg
 import 'package:provider/provider.dart';
 
 class BHKInputWidget extends StatefulWidget {
-  const BHKInputWidget({super.key});
+  final GlobalKey<FormState> formKey;
+  const BHKInputWidget({super.key, required this.formKey});
 
   @override
   State<BHKInputWidget> createState() => _BHKInputWidgetState();
@@ -81,6 +82,12 @@ class _BHKInputWidgetState extends State<BHKInputWidget> {
                 );
               },
               readOnly: true,
+              validator: (text) {
+                if (text == null || text.isEmpty) {
+                  return 'Please Choose One';
+                }
+                return null;
+              },
             ),
           ),
         ],
