@@ -8,7 +8,7 @@ class MyAdsProvider with ChangeNotifier {
   final IMyAdsFacade iMyAdsFacade;
   MyAdsProvider({required this.iMyAdsFacade});
 
-  List<PropertyModel> filteredUploadedPropertiesList = [];
+  List<PropertyModel> myAdsList = [];
 
   bool fetchProductsLoading = true;
   final scrollController = ScrollController();
@@ -24,15 +24,34 @@ class MyAdsProvider with ChangeNotifier {
         notifyListeners();
       },
       (success) {
-        filteredUploadedPropertiesList.addAll(success);
+        myAdsList.addAll(success);
         fetchProductsLoading = false;
         notifyListeners();
       },
     );
   }
 
+  Future deleteUploadedPosts({
+    required String id,
+    required VoidCallback onSuccess,
+    required VoidCallback onFailure,
+  }) async {
+    final result = await iMyAdsFacade.deleteUploadedPosts(id);
+    result.fold((error) {
+      onFailure();
+      log(error.errorMsg);
+    }, (success) {
+      onSuccess.call();
+    });
+    notifyListeners();
+  }
+
+  void removeFromMyAdsList(String id) {
+    myAdsList = myAdsList.where((element) => element.id != id).toList();
+  }
+
   Future<void> init() async {
-    if (filteredUploadedPropertiesList.isEmpty) {
+    if (myAdsList.isEmpty) {
       iMyAdsFacade.clearData();
       fetchProducts();
     }

@@ -24,4 +24,8 @@ abstract class ISellFacade {
   }) {
     throw UnimplementedError('uploadPropertyToFireStore() not impl');
   }
+
+  FutureResult<void> updateUploadedPosts(PropertyModel propertyModel) {
+    throw UnimplementedError('updateUploadedPosts() not impl');
+  }
 }

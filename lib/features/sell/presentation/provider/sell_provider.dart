@@ -45,7 +45,7 @@ class SellProvider with ChangeNotifier {
 
   List<PlaceResult> suggestions = [];
   bool sendLoading = false;
-
+  bool updateLoading = false;
   List<String> imageFile = [];
   // SEARCH LOCATION
 
@@ -125,17 +125,68 @@ class SellProvider with ChangeNotifier {
     notifyListeners();
     final result = await iSellFacade.uploadPropertyToFireStore(
       propertyModel: propertyModel,
-      // imageByte: imageFile,
     );
     result.fold((error) {
       onFailure();
       log(error.errorMsg);
     }, (success) {
-      // imageFile.clear();
       sendLoading = false;
       notifyListeners();
       onSuccess.call();
     });
+  }
+
+  Future<void> updateUploadedPosts({
+    required PropertyModel propertyModel,
+    required VoidCallback onSuccess,
+    required VoidCallback onFailure,
+  }) async {
+    updateLoading = true;
+    notifyListeners();
+    final result = await iSellFacade.updateUploadedPosts(propertyModel);
+    result.fold((error) {
+      log(error.errorMsg);
+    }, (success) {
+      updateLoading = false;
+      // _filteredUploadedPropertiesList[
+      //         _filteredUploadedPropertiesList.indexWhere(
+      //             (element) => element.id == propertyModel.id)] =
+      //     propertyModel;
+      notifyListeners();
+      onSuccess.call();
+    });
+  }
+
+  void editPost({PropertyModel? editProperty}) {
+    addTitleController.text = editProperty!.propertyTitle!;
+    bHKController.text = editProperty.bhk.toString();
+    bathRoomController.text = editProperty.bathRooms.toString();
+    bedRoomController.text = editProperty.bedRooms.toString();
+    breadthController.text = editProperty.plotBreadth.toString();
+    carParkingController.text = editProperty.carParking.toString();
+    constructionStatusController.text =
+        editProperty.getConstructionStatusString;
+    carpetAreaController.text = editProperty.carpetAreaft.toString();
+    describeController.text = editProperty.propertyDetils!;
+    descriptionController.text = editProperty.description!;
+    floorNoController.text = editProperty.floorNo.toString();
+    furnishingController.text = editProperty.getSelectedFurnisherString;
+    lengthController.text = editProperty.plotLength.toString();
+    listedByController.text = editProperty.getSelectedListedByString;
+    locationController.text = editProperty.propertyLocation!.localArea!;
+    placeCellUploadLocation = editProperty.propertyLocation;
+    plotAreaController.text = editProperty.plotArea.toString();
+    priceController.text = editProperty.propertyPrice.toString();
+    pricePersqftController.text = editProperty.pricePerstft.toString();
+    projectNameController.text = editProperty.projectName!;
+    selectedBHKValue = editProperty.bhk;
+    selectedCategory = editProperty.propertyCategory;
+    superBuilupAreaController.text = editProperty.superBuiltupAreaft.toString();
+    totalFloorsController.text = editProperty.totalFloors.toString();
+    typeController.text = editProperty.getSelectedTypeString;
+    washRoomController.text = editProperty.washRoom.toString();
+
+    notifyListeners();
   }
 
   void clearSuggestions() {

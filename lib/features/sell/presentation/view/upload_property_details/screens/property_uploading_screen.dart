@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:hinvex_app/features/sell/data/model/property_model.dart';
 import 'package:hinvex_app/features/sell/presentation/provider/sell_provider.dart';
 import 'package:hinvex_app/features/sell/presentation/view/upload_property_details/screens/price_screen.dart';
 import 'package:hinvex_app/features/sell/presentation/view/upload_property_details/widgets/breadth_widget.dart';
@@ -33,12 +34,13 @@ import '../widgets/furnishing_widget.dart';
 import '../widgets/superBuilupArea_widget.dart';
 
 class PropertyUploadingScreen extends StatefulWidget {
-  final String categoryName;
-  final SelectedCategory selectedCategory;
+  final String? categoryName;
+  final PropertyModel? propertyModel;
+  // final SelectedCategory selectedCategory;
   const PropertyUploadingScreen({
     super.key,
-    required this.categoryName,
-    required this.selectedCategory,
+    this.categoryName,
+    this.propertyModel,
   });
 
   @override
@@ -50,8 +52,19 @@ class _PropertyUploadingScreenState extends State<PropertyUploadingScreen> {
   final formKey = GlobalKey<FormState>();
 
   @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (widget.propertyModel != null) {
+        Provider.of<SellProvider>(context, listen: false)
+            .editPost(editProperty: widget.propertyModel);
+      }
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    log("${widget.categoryName}+${widget.selectedCategory}");
+    // log("${widget.categoryName}+${widget.selectedCategory}");
     return PopScope(
       onPopInvoked: (didPop) {
         Provider.of<SellProvider>(context, listen: false)
@@ -64,7 +77,9 @@ class _PropertyUploadingScreenState extends State<PropertyUploadingScreen> {
           backgroundColor: AppColors.backgroundColor,
           iconTheme: IconThemeData(color: AppColors.titleTextColor),
           title: Text(
-            "Upload Your Property",
+            widget.propertyModel != null
+                ? "Edit Your Property"
+                : "Upload Your Property",
             style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
@@ -205,37 +220,46 @@ class _PropertyUploadingScreenState extends State<PropertyUploadingScreen> {
                             onTap: () {
                               if (formKey.currentState!.validate()) {
                                 formKey.currentState!.save();
+                                if (widget.propertyModel != null) {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => PriceScreen(
+                                          propertyModel: widget.propertyModel,
+                                        ),
+                                      ));
+                                } else {
+                                  if (state.imageFile.length > 7) {
+                                    showToast(
+                                      "Maximum Allowed Images 7",
+                                    );
 
-                                if (state.imageFile.length > 7) {
-                                  showToast(
-                                    "Maximum Allowed Images 7",
-                                  );
+                                    return;
+                                  }
 
-                                  return;
+                                  showProgress(context);
+
+                                  state.getImage(onSuccess: () {
+                                    Navigator.pop(context);
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const PriceScreen(),
+                                        ));
+                                  }, onFailure: () {
+                                    showToast(
+                                      "Maximum Allowed Images 7",
+                                    );
+                                    Navigator.pop(context);
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const PriceScreen(),
+                                        ));
+                                  });
                                 }
-
-                                showProgress(context);
-
-                                state.getImage(onSuccess: () {
-                                  Navigator.pop(context);
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const PriceScreen(),
-                                      ));
-                                }, onFailure: () {
-                                  showToast(
-                                    "Maximum Allowed Images 7",
-                                  );
-                                  Navigator.pop(context);
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const PriceScreen(),
-                                      ));
-                                });
                               }
                             },
                           ),

@@ -70,8 +70,10 @@ Future<_i1.GetIt> init(
         gh<_i5.FirebaseFirestore>(),
         gh<_i8.FirebaseMessaging>(),
       ));
-  gh.lazySingleton<_i14.IMyAdsFacade>(
-      () => _i15.IMyAdsImpl(gh<_i5.FirebaseFirestore>()));
+  gh.lazySingleton<_i14.IMyAdsFacade>(() => _i15.IMyAdsImpl(
+        gh<_i5.FirebaseFirestore>(),
+        gh<_i7.FirebaseAuth>(),
+      ));
   gh.lazySingleton<_i16.GetCurrentPosition>(() => _i16.GetCurrentPosition(
         gh<_i9.GetPosition>(),
         gh<_i3.SharedPreferences>(),

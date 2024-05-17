@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/location/data/model/location_model_main.dart/location_model_main.dart';
 import 'package:hinvex_app/features/location/data/model/search_location_model/search_location_model.dart';
 import 'package:hinvex_app/features/location/repo/i_location_impl.dart';
@@ -87,6 +88,20 @@ class ISellImpl implements ISellFacade {
       return right(propertyModel.copyWith(id: id));
     } on CustomExeception catch (e) {
       return left(MainFailure.imageUploadFailure(errorMsg: e.errorMsg));
+    }
+  }
+
+  @override
+  FutureResult<void> updateUploadedPosts(PropertyModel propertyModel) async {
+    try {
+      debugPrint("Updating post in Firestore with ID: ${propertyModel.id}");
+      await _firestore
+          .collection('posts')
+          .doc(propertyModel.id)
+          .update(propertyModel.toJson());
+      return right(null);
+    } on CustomExeception catch (e) {
+      return left(MainFailure.serverFailure(errorMsg: e.errorMsg));
     }
   }
 }
