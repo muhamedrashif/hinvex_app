@@ -236,15 +236,13 @@ class MyAddPropertyCardWidget extends StatelessWidget {
                             height: 5,
                           ),
                           Text(
-                            propertyModel.propertyTitle.toString().length > 43
-                                ? '${propertyModel.propertyTitle.toString().substring(0, 43)}...'
-                                : propertyModel.propertyTitle.toString(),
+                            propertyModel.propertyTitle.toString(),
+                            overflow: TextOverflow.ellipsis,
                             style: const TextStyle(fontWeight: FontWeight.w600),
                           ),
                           Text(
-                            propertyModel.propertyDetils.toString().length > 55
-                                ? '${propertyModel.propertyDetils.toString().substring(0, 55)}...'
-                                : propertyModel.propertyDetils.toString(),
+                            propertyModel.propertyDetils.toString(),
+                            overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
                               fontSize: 12,
                             ),

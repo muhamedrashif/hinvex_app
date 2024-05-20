@@ -18,18 +18,21 @@ import 'package:shared_preferences/shared_preferences.dart' as _i3;
 
 import '../../features/authentication/data/i_auth_facade.dart' as _i12;
 import '../../features/authentication/repo/i_auth_imlp.dart' as _i13;
+import '../../features/edit_Uploaded_Property/data/i_edit_facade.dart' as _i18;
+import '../../features/edit_Uploaded_Property/repo/i_edit_property_impl.dart'
+    as _i19;
 import '../../features/location/data/i_location_facade.dart' as _i17;
 import '../../features/location/repo/i_location_impl.dart' as _i16;
 import '../../features/myads/data/i_myads_facade.dart' as _i14;
 import '../../features/myads/repo/i_myads_impl.dart' as _i15;
-import '../../features/profile/data/i_profile_facade.dart' as _i18;
-import '../../features/profile/repo/i_profile_impl.dart' as _i19;
-import '../../features/sell/data/i_sell_facade.dart' as _i20;
-import '../../features/sell/repo/i_sell_impl.dart' as _i21;
+import '../../features/profile/data/i_profile_facade.dart' as _i20;
+import '../../features/profile/repo/i_profile_impl.dart' as _i21;
+import '../../features/sell/data/i_sell_facade.dart' as _i22;
+import '../../features/sell/repo/i_sell_impl.dart' as _i23;
 import '../services/image_pick_service.dart' as _i10;
 import '../services/location_service.dart' as _i9;
 import '../services/upload_location_services.dart' as _i11;
-import 'app_injectable_module.dart' as _i22;
+import 'app_injectable_module.dart' as _i24;
 import 'firebase_injectable_module.dart' as _i4;
 
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -85,13 +88,18 @@ Future<_i1.GetIt> init(
         gh<_i3.SharedPreferences>(),
         gh<_i11.UploadPlaceService>(),
       ));
-  gh.lazySingleton<_i18.IProfileFacade>(() => _i19.IProfileImpl(
+  gh.lazySingleton<_i18.IEditPropertyFacade>(() => _i19.IEditPropertyImpl(
+        gh<_i5.FirebaseFirestore>(),
+        gh<_i11.UploadPlaceService>(),
+        gh<_i16.GetCurrentPosition>(),
+      ));
+  gh.lazySingleton<_i20.IProfileFacade>(() => _i21.IProfileImpl(
         gh<_i5.FirebaseFirestore>(),
         gh<_i11.UploadPlaceService>(),
         gh<_i16.GetCurrentPosition>(),
         gh<_i10.ImageService>(),
       ));
-  gh.lazySingleton<_i20.ISellFacade>(() => _i21.ISellImpl(
+  gh.lazySingleton<_i22.ISellFacade>(() => _i23.ISellImpl(
         gh<_i5.FirebaseFirestore>(),
         gh<_i11.UploadPlaceService>(),
         gh<_i16.GetCurrentPosition>(),
@@ -99,6 +107,6 @@ Future<_i1.GetIt> init(
   return getIt;
 }
 
-class _$AppInjectableModule extends _i22.AppInjectableModule {}
+class _$AppInjectableModule extends _i24.AppInjectableModule {}
 
 class _$FirebaseInjectableModule extends _i4.FirebaseInjectableModule {}

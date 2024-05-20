@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/sell/presentation/provider/sell_provider.dart';
+import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
 import 'package:hinvex_app/general/utils/progress_indicator_widget/progress_indicator_widget.dart';
 import 'package:provider/provider.dart';
@@ -142,6 +143,63 @@ class _LocationSearchWidgetState extends State<LocationSearchWidget> {
                 );
               },
               itemCount: state.suggestions.length,
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: InkWell(
+                  onTap: () {
+                    showProgress(context);
+                    state.getUserCurrentPosition(onSuccess: (placecell) {
+                      log("Get current location Success");
+                      log("SUCCESS");
+                      log("placeCell$placecell");
+
+                      state.locationController.text =
+                          "${placecell.localArea},${placecell.district},${placecell.state},${placecell.pincode}";
+                      state.placeCellUploadLocation = placecell;
+                      state.clearSuggestions();
+
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                    }, onFailure: () {
+                      log("Get current location Failed");
+                      Navigator.pop(context);
+                    });
+                  },
+                  child: Row(
+                    children: [
+                      SizedBox(
+                          height: 28,
+                          width: 28,
+                          child: Image.asset(
+                            ImageConstant.locationIcon,
+                          )),
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Use Current Location",
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.blue),
+                            ),
+                            // Text(
+                            //   "Kunnamangalam, karanthur, 453345",
+                            //   style:
+                            //       TextStyle(fontSize: 10, color: Colors.blue),
+                            // ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
           ]);
         }));

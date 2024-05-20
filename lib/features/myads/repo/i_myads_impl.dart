@@ -58,7 +58,17 @@ class IMyAdsImpl implements IMyAdsFacade {
   @override
   FutureResult<Unit> deleteUploadedPosts(String id) async {
     try {
-      await _firestore.collection('posts').doc(id).delete();
+      final userId = _firebaseAuth.currentUser!.uid;
+      final batch = _firestore.batch();
+      batch.delete(_firestore.collection('posts').doc(id));
+      batch.update(
+        _firestore.collection('users').doc(userId),
+        {
+          "totalPosts": FieldValue.increment(-1),
+        },
+      );
+
+      await batch.commit();
       return right(unit);
     } on CustomExeception catch (e) {
       return left(MainFailure.serverFailure(errorMsg: e.errorMsg));

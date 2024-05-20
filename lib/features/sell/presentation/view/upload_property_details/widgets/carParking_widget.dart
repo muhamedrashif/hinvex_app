@@ -42,7 +42,7 @@ class _CarParkingInputWidgetState extends State<CarParkingInputWidget> {
                 size: 18,
                 color: Colors.black,
               ),
-              suffixIcononTap: () {
+              onTap: () {
                 showDialog(
                   context: context,
                   barrierDismissible: false,

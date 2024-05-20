@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/sell/data/model/property_model.dart';
 import 'package:hinvex_app/features/sell/presentation/provider/sell_provider.dart';
@@ -20,7 +18,6 @@ import 'package:hinvex_app/features/sell/presentation/view/upload_property_detai
 import 'package:hinvex_app/features/sell/presentation/view/upload_property_details/widgets/washroom_widget.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_button_widget.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
-import 'package:hinvex_app/general/utils/enums/enums.dart';
 import 'package:hinvex_app/general/utils/progress_indicator_widget/progress_indicator_widget.dart';
 import 'package:hinvex_app/general/utils/toast/toast.dart';
 import 'package:provider/provider.dart';
@@ -67,9 +64,8 @@ class _PropertyUploadingScreenState extends State<PropertyUploadingScreen> {
     // log("${widget.categoryName}+${widget.selectedCategory}");
     return PopScope(
       onPopInvoked: (didPop) {
-        Provider.of<SellProvider>(context, listen: false)
-          ..clearData()
-          ..imageFile.clear();
+        Provider.of<SellProvider>(context, listen: false).clearData();
+        // ..imageFile.clear();
       },
       child: Scaffold(
         backgroundColor: AppColors.backgroundColor,
@@ -229,7 +225,7 @@ class _PropertyUploadingScreenState extends State<PropertyUploadingScreen> {
                                         ),
                                       ));
                                 } else {
-                                  if (state.imageFile.length > 7) {
+                                  if (state.imageUrl.length > 7) {
                                     showToast(
                                       "Maximum Allowed Images 7",
                                     );
@@ -260,6 +256,10 @@ class _PropertyUploadingScreenState extends State<PropertyUploadingScreen> {
                                         ));
                                   });
                                 }
+                              } else {
+                                showToast(
+                                  "Please Enter All Details",
+                                );
                               }
                             },
                           ),

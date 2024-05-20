@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
 import 'package:shimmer/shimmer.dart';
 
 showShimmerCardWidget() {
@@ -107,14 +106,18 @@ showShimmerCardWidget() {
                                   itemBuilder: (context, index) {
                                     return Padding(
                                       padding: const EdgeInsets.all(4.0),
-                                      child: SizedBox(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(16)),
                                         height: 120,
                                         width: 120,
-                                        child: Transform.scale(
-                                          scale: 1,
-                                          child: Image.asset(
-                                              ImageConstant.hinvexAppLogo),
-                                        ),
+                                        // child: Transform.scale(
+                                        //   scale: 1,
+                                        //   child: Image.asset(
+                                        //       ImageConstant.hinvexAppLogo),
+                                        // ),
                                       ),
                                     );
                                   }),

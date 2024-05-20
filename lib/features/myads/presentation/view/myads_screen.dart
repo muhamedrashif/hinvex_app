@@ -40,8 +40,6 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
         return Future.value(true);
       },
       child: Consumer<MyAdsProvider>(builder: (context, state, _) {
-        log("message======${state.myAdsList.length.toString()}");
-
         return Scaffold(
           backgroundColor: AppColors.backgroundColor,
           body: SafeArea(

@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/authentication/data/i_auth_facade.dart';
 import 'package:hinvex_app/features/authentication/presentation/provider/auth_provider.dart';
+import 'package:hinvex_app/features/edit_Uploaded_Property/data/i_edit_facade.dart';
+import 'package:hinvex_app/features/edit_Uploaded_Property/presentation/provider/edit_proprty_provider.dart';
 import 'package:hinvex_app/features/location/data/i_location_facade.dart';
 import 'package:hinvex_app/features/location/presentation/provider/location_provider.dart';
 import 'package:hinvex_app/features/myads/data/i_myads_facade.dart';
@@ -13,7 +15,6 @@ import 'package:hinvex_app/features/sell/presentation/provider/sell_provider.dar
 import 'package:hinvex_app/general/di/injection.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
 import 'package:provider/provider.dart';
-
 import 'features/splash/presentation/view/splash_screen.dart';
 
 Future<void> main() async {
@@ -45,6 +46,10 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => MyAdsProvider(iMyAdsFacade: sl<IMyAdsFacade>()),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => EditPropertProvider(
+              iEditPropertyFacade: sl<IEditPropertyFacade>()),
         )
       ],
       child: MaterialApp(

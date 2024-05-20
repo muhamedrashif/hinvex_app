@@ -28,11 +28,20 @@ class LocationInputWidget extends StatelessWidget {
             child: CustomTextFormFieldWidget(
               hintText: "Enter The Selling Location",
               controller: state.locationController,
-              suffixIcon: Transform.scale(
-                scale: .75,
-                child: Image.asset(
-                  ImageConstant.locationIcon,
-                  fit: BoxFit.cover,
+              suffixIcon: InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LocationSearchWidget(),
+                      ));
+                },
+                child: Transform.scale(
+                  scale: .75,
+                  child: Image.asset(
+                    ImageConstant.locationIcon,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               validator: (text) {
@@ -42,13 +51,6 @@ class LocationInputWidget extends StatelessWidget {
                 return null;
               },
               readOnly: true,
-              suffixIcononTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => LocationSearchWidget(),
-                    ));
-              },
             ),
           ),
         ],

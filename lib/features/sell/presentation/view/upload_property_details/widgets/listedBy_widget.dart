@@ -49,7 +49,7 @@ class _ListedByInputWidgetState extends State<ListedByInputWidget> {
                 }
                 return null;
               },
-              suffixIcononTap: () {
+              onTap: () {
                 showDialog(
                   context: context,
                   barrierDismissible: false,

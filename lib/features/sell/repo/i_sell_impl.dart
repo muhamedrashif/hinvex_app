@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/location/data/model/location_model_main.dart/location_model_main.dart';
 import 'package:hinvex_app/features/location/data/model/search_location_model/search_location_model.dart';
@@ -23,6 +26,11 @@ class ISellImpl implements ISellFacade {
   final FirebaseFirestore _firestore;
   final UploadPlaceService uploadPlaceService;
   final GetCurrentPosition getCurrentPosition;
+
+  @override
+  Stream<Either<MainFailure, PlaceCell>> getUserCurrentPosition() {
+    return getCurrentPosition();
+  }
 
   @override
   FutureResult<PlaceCell> serchLocationByAddres({
@@ -76,15 +84,24 @@ class ISellImpl implements ISellFacade {
     required PropertyModel propertyModel,
   }) async {
     final builder = AlfabetKeywordsBuilder();
+    final userId = FirebaseAuth.instance.currentUser!.uid;
     builder.descriptionToKeywords(
         '${propertyModel.propertyTitle} ${propertyModel.description} ${propertyModel.propertyDetils}');
     final keywords = builder.build();
     try {
       final id = _firestore.collection('posts').doc().id;
-      await _firestore
-          .collection('posts')
-          .doc(id)
-          .set(propertyModel.copyWith(keywords: keywords, id: id).toJson());
+      final batch = _firestore.batch();
+      batch.set(_firestore.collection('posts').doc(id),
+          propertyModel.copyWith(keywords: keywords, id: id).toJson());
+
+      batch.update(
+        _firestore.collection("users").doc(userId),
+        {
+          "totalPosts": FieldValue.increment(1),
+        },
+      );
+      log("PROPERTY IMAGES:${propertyModel.propertyImage?.length}");
+      await batch.commit();
       return right(propertyModel.copyWith(id: id));
     } on CustomExeception catch (e) {
       return left(MainFailure.imageUploadFailure(errorMsg: e.errorMsg));

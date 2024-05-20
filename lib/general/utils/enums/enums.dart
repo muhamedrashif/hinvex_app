@@ -1,4 +1,4 @@
-enum ConstructionStatus { newLaunch, readyToMove, uderConstruction }
+enum ConstructionStatus { newLaunch, readyToMove, underConstruction }
 
 enum SelectedCategory {
   house,

@@ -58,13 +58,13 @@ class _PriceScreenState extends State<PriceScreen> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              state.imageFile.isNotEmpty
+                              state.imageUrl.isNotEmpty
                                   ? Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
                                         InkWell(
                                           onTap: () {
-                                            if (state.imageFile.length > 7) {
+                                            if (state.imageUrl.length > 7) {
                                               showToast(
                                                 "Maximum Allowed Images 7",
                                               );
@@ -104,7 +104,7 @@ class _PriceScreenState extends State<PriceScreen> {
                                       ],
                                     )
                                   : const SizedBox(),
-                              state.imageFile.isEmpty
+                              state.imageUrl.isEmpty
                                   ? Padding(
                                       padding: const EdgeInsets.all(10.0),
                                       child: Column(
@@ -120,7 +120,7 @@ class _PriceScreenState extends State<PriceScreen> {
                                           ),
                                           InkWell(
                                             onTap: () {
-                                              if (state.imageFile.length > 7) {
+                                              if (state.imageUrl.length > 7) {
                                                 showToast(
                                                   "Maximum Allowed Images 7",
                                                 );
@@ -187,14 +187,14 @@ class _PriceScreenState extends State<PriceScreen> {
                                         // ),
                                         child: ListView.builder(
                                           scrollDirection: Axis.horizontal,
-                                          itemCount: state.imageFile.length,
+                                          itemCount: state.imageUrl.length,
                                           itemBuilder: (context, index) {
                                             return Center(
                                               child: Stack(
                                                 children: [
                                                   CustomNetworkImageWidget(
                                                     imageUrl: state
-                                                        .imageFile[index]
+                                                        .imageUrl[index]
                                                         .toString(),
                                                     width: 300,
                                                     height: 200,
@@ -217,7 +217,7 @@ class _PriceScreenState extends State<PriceScreen> {
                                                     bottom: 10,
                                                     left: 10,
                                                     child: Text(
-                                                      "${index + 1}/${state.imageFile.length}",
+                                                      "${index + 1}/${state.imageUrl.length}",
                                                       style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.w600,
@@ -274,121 +274,8 @@ class _PriceScreenState extends State<PriceScreen> {
                     onTap: () {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
-
-                        // if (widget.propertyModel != null) {
-                        //   // if (state.imageFile.isNotEmpty) {
-                        //   int? selectedBedroom;
-
-                        //   if (state.bedRoomController.text.isNotEmpty) {
-                        //     if (state.bedRoomController.text == '+4') {
-                        //       selectedBedroom = 5;
-                        //     } else {
-                        //       selectedBedroom =
-                        //           int.tryParse(state.bedRoomController.text);
-                        //     }
-                        //   }
-
-                        //   int? selectedBathroom;
-
-                        //   if (state.bathRoomController.text.isNotEmpty) {
-                        //     if (state.bathRoomController.text == '+4') {
-                        //       selectedBathroom = 5;
-                        //     } else {
-                        //       selectedBathroom =
-                        //           int.tryParse(state.bathRoomController.text);
-                        //     }
-                        //   }
-
-                        //   int? selectedCarParking;
-
-                        //   if (state.carParkingController.text.isNotEmpty) {
-                        //     if (state.carParkingController.text == '+4') {
-                        //       selectedCarParking = 5;
-                        //     } else {
-                        //       selectedCarParking =
-                        //           int.tryParse(state.carParkingController.text);
-                        //     }
-                        //   }
-
-                        //   showProgress(context);
-                        //   state.updateUploadedPosts(
-                        //       propertyModel: PropertyModel(
-                        //         phoneNumber: authProviderState!.userPhoneNumber,
-                        //         whatsAppNumber:
-                        //             authProviderState.userWhatsAppNumber,
-
-                        //         userId: authProviderState.userId,
-
-                        //         /////////////////////
-                        //         createDate: Timestamp.now(),
-                        //         updateDate: Timestamp.now(),
-                        //         bathRooms: selectedBathroom,
-                        //         bedRooms: selectedBedroom,
-                        //         bhk: state.selectedBHKValue,
-                        //         carParking: selectedCarParking,
-                        //         carpetAreaft: int.tryParse(
-                        //             state.carpetAreaController.text),
-                        //         constructionStatus:
-                        //             PropertyModel.getConstructionStatus(state
-                        //                 .constructionStatusController.text),
-
-                        //         floorNo:
-                        //             int.tryParse(state.floorNoController.text),
-                        //         furnishing: PropertyModel.getSelectedFurnisher(
-                        //             state.furnishingController.text),
-                        //         listedBy: PropertyModel.getSelectedListedBy(
-                        //             state.listedByController.text),
-                        //         noOfReports: 0,
-                        //         plotArea:
-                        //             int.tryParse(state.plotAreaController.text),
-                        //         plotBreadth:
-                        //             int.tryParse(state.breadthController.text),
-                        //         plotLength:
-                        //             int.tryParse(state.lengthController.text),
-                        //         pricePerstft: int.tryParse(
-                        //             state.pricePersqftController.text),
-                        //         projectName: state.projectNameController.text,
-                        //         propertyCategory: state.selectedCategory,
-                        //         propertyLocation: state.placeCellUploadLocation,
-                        //         propertyPrice:
-                        //             int.tryParse(state.priceController.text),
-                        //         propertyTitle: state.addTitleController.text,
-                        //         propertyType: PropertyModel.getSelectedType(
-                        //             state.typeController.text),
-                        //         propertyDetils: state.describeController.text,
-                        //         description: state.descriptionController.text,
-                        //         superBuiltupAreaft: int.tryParse(
-                        //             state.superBuilupAreaController.text),
-                        //         totalFloors: int.tryParse(
-                        //             state.totalFloorsController.text),
-                        //         washRoom:
-                        //             int.tryParse(state.washRoomController.text),
-                        //         propertyImage:
-                        //             widget.propertyModel!.propertyImage,
-                        //       ),
-                        //       onSuccess: () {
-                        //         state
-                        //           ..clearData()
-                        //           ..imageFile.clear();
-                        //         showToast("Edit Property Success");
-                        //         Navigator.pushAndRemoveUntil(
-                        //             context,
-                        //             MaterialPageRoute(
-                        //               builder: (context) =>
-                        //                   const BottomNavigationWidget(),
-                        //             ),
-                        //             (route) => false);
-                        //       },
-                        //       onFailure: () {
-                        //         showToast("Edit Property Failed");
-                        //         Navigator.pop(context);
-                        //       });
-                        //   // } else {
-                        //   //   showToast("Please Select Image");
-                        //   // }
-                        // } else {
-
-                        if (state.imageFile.isNotEmpty) {
+                        if (widget.propertyModel != null) {
+                          // if (state.imageUrl.isNotEmpty) {
                           int? selectedBedroom;
 
                           if (state.bedRoomController.text.isNotEmpty) {
@@ -423,7 +310,8 @@ class _PriceScreenState extends State<PriceScreen> {
                           }
 
                           showProgress(context);
-                          state.uploadPropertyToFireStore(
+                          state.updateUploadedPosts(
+                              context: context,
                               propertyModel: PropertyModel(
                                 id: widget.propertyModel!.id,
                                 phoneNumber: authProviderState!.userPhoneNumber,
@@ -433,7 +321,7 @@ class _PriceScreenState extends State<PriceScreen> {
                                 userId: authProviderState.userId,
 
                                 /////////////////////
-                                createDate: Timestamp.now(),
+                                createDate: widget.propertyModel!.createDate,
                                 updateDate: Timestamp.now(),
                                 bathRooms: selectedBathroom,
                                 bedRooms: selectedBedroom,
@@ -476,13 +364,14 @@ class _PriceScreenState extends State<PriceScreen> {
                                     state.totalFloorsController.text),
                                 washRoom:
                                     int.tryParse(state.washRoomController.text),
-                                propertyImage: state.imageFile,
+                                propertyImage:
+                                    widget.propertyModel!.propertyImage,
                               ),
                               onSuccess: () {
                                 state
                                   ..clearData()
-                                  ..imageFile.clear();
-                                showToast("Upload Property Success");
+                                  ..imageUrl.clear();
+                                showToast("Edit Property Success");
                                 Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
@@ -492,14 +381,127 @@ class _PriceScreenState extends State<PriceScreen> {
                                     (route) => false);
                               },
                               onFailure: () {
-                                showToast("Upload Property Failed");
+                                showToast("Edit Property Failed");
                                 Navigator.pop(context);
                               });
+                          // } else {
+                          //   showToast("Please Select Image");
+                          // }
                         } else {
-                          showToast("Please Select Image");
+                          if (state.imageUrl.isNotEmpty) {
+                            int? selectedBedroom;
+
+                            if (state.bedRoomController.text.isNotEmpty) {
+                              if (state.bedRoomController.text == '+4') {
+                                selectedBedroom = 5;
+                              } else {
+                                selectedBedroom =
+                                    int.tryParse(state.bedRoomController.text);
+                              }
+                            }
+
+                            int? selectedBathroom;
+
+                            if (state.bathRoomController.text.isNotEmpty) {
+                              if (state.bathRoomController.text == '+4') {
+                                selectedBathroom = 5;
+                              } else {
+                                selectedBathroom =
+                                    int.tryParse(state.bathRoomController.text);
+                              }
+                            }
+
+                            int? selectedCarParking;
+
+                            if (state.carParkingController.text.isNotEmpty) {
+                              if (state.carParkingController.text == '+4') {
+                                selectedCarParking = 5;
+                              } else {
+                                selectedCarParking = int.tryParse(
+                                    state.carParkingController.text);
+                              }
+                            }
+
+                            showProgress(context);
+                            state.uploadPropertyToFireStore(
+                                context: context,
+                                propertyModel: PropertyModel(
+                                  phoneNumber:
+                                      authProviderState!.userPhoneNumber,
+                                  whatsAppNumber:
+                                      authProviderState.userWhatsAppNumber,
+
+                                  userId: authProviderState.userId,
+
+                                  /////////////////////
+                                  createDate: Timestamp.now(),
+                                  updateDate: Timestamp.now(),
+                                  bathRooms: selectedBathroom,
+                                  bedRooms: selectedBedroom,
+                                  bhk: state.selectedBHKValue,
+                                  carParking: selectedCarParking,
+                                  carpetAreaft: int.tryParse(
+                                      state.carpetAreaController.text),
+                                  constructionStatus:
+                                      PropertyModel.getConstructionStatus(state
+                                          .constructionStatusController.text),
+
+                                  floorNo: int.tryParse(
+                                      state.floorNoController.text),
+                                  furnishing:
+                                      PropertyModel.getSelectedFurnisher(
+                                          state.furnishingController.text),
+                                  listedBy: PropertyModel.getSelectedListedBy(
+                                      state.listedByController.text),
+                                  noOfReports: 0,
+                                  plotArea: int.tryParse(
+                                      state.plotAreaController.text),
+                                  plotBreadth: int.tryParse(
+                                      state.breadthController.text),
+                                  plotLength:
+                                      int.tryParse(state.lengthController.text),
+                                  pricePerstft: int.tryParse(
+                                      state.pricePersqftController.text),
+                                  projectName: state.projectNameController.text,
+                                  propertyCategory: state.selectedCategory,
+                                  propertyLocation:
+                                      state.placeCellUploadLocation,
+                                  propertyPrice:
+                                      int.tryParse(state.priceController.text),
+                                  propertyTitle: state.addTitleController.text,
+                                  propertyType: PropertyModel.getSelectedType(
+                                      state.typeController.text),
+                                  propertyDetils: state.describeController.text,
+                                  description: state.descriptionController.text,
+                                  superBuiltupAreaft: int.tryParse(
+                                      state.superBuilupAreaController.text),
+                                  totalFloors: int.tryParse(
+                                      state.totalFloorsController.text),
+                                  washRoom: int.tryParse(
+                                      state.washRoomController.text),
+                                  propertyImage: state.imageUrl,
+                                ),
+                                onSuccess: () {
+                                  state.clearData();
+                                  //   ..imageUrl.clear();
+                                  showToast("Upload Property Success");
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const BottomNavigationWidget(),
+                                      ),
+                                      (route) => false);
+                                },
+                                onFailure: () {
+                                  showToast("Upload Property Failed");
+                                  Navigator.pop(context);
+                                });
+                          } else {
+                            showToast("Please Select Image");
+                          }
                         }
                       }
-                      // }
                     }),
               ),
             ],

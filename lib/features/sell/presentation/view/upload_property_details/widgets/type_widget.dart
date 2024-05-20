@@ -52,7 +52,7 @@ class _TypeInputWidgetState extends State<TypeInputWidget> {
                 }
                 return null;
               },
-              suffixIcononTap: () {
+              onTap: () {
                 showDialog(
                   context: context,
                   barrierDismissible: false,

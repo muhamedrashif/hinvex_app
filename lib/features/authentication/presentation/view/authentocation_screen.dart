@@ -81,7 +81,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                       width: 10,
                     ),
                     Container(
-                      height: 44,
+                      height: 50,
                       width: MediaQuery.of(context).size.width / 1.36,
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey),
@@ -102,10 +102,11 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                               return 'Please Enter Phone Number';
                             }
 
-                            if (text.length < 10 || text.length > 10)
+                            if (text.length < 10 || text.length > 10) {
                               return 'Mobile Number must be of 10 digit';
-                            else
+                            } else {
                               return null;
+                            }
                           },
                         ),
                       ),
@@ -147,7 +148,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: CustomButtonWidget(
-                  height: 44,
+                  height: 50,
                   width: MediaQuery.of(context).size.width,
                   buttonColor: AppColors.textButtonColor,
                   text: "Get OTP",

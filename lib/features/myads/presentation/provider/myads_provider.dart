@@ -48,13 +48,25 @@ class MyAdsProvider with ChangeNotifier {
 
   void removeFromMyAdsList(String id) {
     myAdsList = myAdsList.where((element) => element.id != id).toList();
+    notifyListeners();
+  }
+
+  void addLocalyToMyAds(PropertyModel propertyModel) {
+    myAdsList.insert(0, propertyModel);
+    notifyListeners();
+  }
+
+  void updateMyads(PropertyModel propertyModel) {
+    myAdsList[
+            myAdsList.indexWhere((element) => element.id == propertyModel.id)] =
+        propertyModel;
+
+    notifyListeners();
   }
 
   Future<void> init() async {
-    if (myAdsList.isEmpty) {
-      iMyAdsFacade.clearData();
-      fetchProducts();
-    }
+    iMyAdsFacade.clearData();
+    await fetchProducts();
 
     scrollController.addListener(() {
       if (scrollController.position.maxScrollExtent != 0 &&
