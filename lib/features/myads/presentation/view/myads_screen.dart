@@ -8,7 +8,7 @@ import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
 import 'package:provider/provider.dart';
 
-import 'widget/myAddPropertyCard_widget.dart';
+import 'widget/myaddpropertycard_widget.dart';
 import 'widget/shimmer_card_widget.dart';
 
 class MyAdsScreen extends StatefulWidget {
@@ -89,6 +89,7 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
                       SliverList.builder(
                           itemCount: state.myAdsList.length,
                           itemBuilder: (context, index) {
+                            log("LENGTH: ${state.myAdsList.length.toString()}");
                             return MyAddPropertyCardWidget(
                                 propertyModel: state.myAdsList[index]);
                           }),
