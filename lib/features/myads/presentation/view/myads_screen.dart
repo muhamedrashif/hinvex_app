@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/bottomNavigationBar/presentation/view/bottom_navigation_widget.dart';
 import 'package:hinvex_app/features/myads/presentation/provider/myads_provider.dart';
+import 'package:hinvex_app/features/property_details_view/presentation/view/property_details_screen.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_image_widget.dart';
 import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
@@ -90,8 +91,20 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
                           itemCount: state.myAdsList.length,
                           itemBuilder: (context, index) {
                             log("LENGTH: ${state.myAdsList.length.toString()}");
-                            return MyAddPropertyCardWidget(
-                                propertyModel: state.myAdsList[index]);
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          PropertyDetailsScren(
+                                              propertyModel:
+                                                  state.myAdsList[index]),
+                                    ));
+                              },
+                              child: MyAddPropertyCardWidget(
+                                  propertyModel: state.myAdsList[index]),
+                            );
                           }),
                     if (state.myAdsList.isNotEmpty &&
                         state.fetchProductsLoading)

@@ -12,7 +12,7 @@ class UserModel {
   String? userImage;
   int? totalPosts;
   PlaceCell? userLocation;
-  String? partnership;
+  // String? partnership;
   bool? isBlocked;
   String? notificationToken;
   Timestamp? startedDate;
@@ -26,7 +26,7 @@ class UserModel {
     this.userImage,
     this.totalPosts,
     this.userLocation,
-    this.partnership,
+    // this.partnership,
     this.isBlocked,
     this.notificationToken,
     this.startedDate,
@@ -40,7 +40,7 @@ class UserModel {
         "userImage": userImage,
         "totalPosts": totalPosts,
         "userLocation": userLocation?.toMap(),
-        "partnership": partnership,
+        // // "partnership": partnership,
         "isBlocked": isBlocked,
         'notificationToken': notificationToken,
         'startedDate': startedDate,
@@ -56,7 +56,7 @@ class UserModel {
       userImage: snapshot['userImage'],
       totalPosts: snapshot['totalPosts'],
       userLocation: PlaceCell.fromMap(snapshot['userLocation']),
-      partnership: snapshot['partnership'],
+      // // partnership: snapshot['partnership'],
       isBlocked: snapshot['isBlocked'],
       notificationToken: snapshot['notificationToken'],
       startedDate: snapshot['startedDate'],
@@ -72,7 +72,7 @@ class UserModel {
     String? userImage,
     int? totalPosts,
     PlaceCell? userLocation,
-    String? partnership,
+    // String? partnership,
     bool? isBlocked,
     String? notificationToken,
     Timestamp? startedDate,
@@ -86,7 +86,7 @@ class UserModel {
       userImage: userImage ?? this.userImage,
       totalPosts: totalPosts ?? this.totalPosts,
       userLocation: userLocation ?? this.userLocation,
-      partnership: partnership ?? this.partnership,
+      // // // partnership: partnership ?? this.partnership,
       isBlocked: isBlocked ?? this.isBlocked,
       notificationToken: notificationToken ?? this.notificationToken,
       startedDate: startedDate ?? this.startedDate,
@@ -103,7 +103,7 @@ class UserModel {
       'userImage': userImage,
       'totalPosts': totalPosts,
       'userLocation': userLocation?.toMap(),
-      'partnership': partnership,
+      // // 'partnership': partnership,
       'isBlocked': isBlocked,
       'notificationToken': notificationToken,
       'startedDate': startedDate,
@@ -126,8 +126,8 @@ class UserModel {
       userLocation: map['userLocation'] != null
           ? PlaceCell.fromMap(map['userLocation'] as Map<String, dynamic>)
           : null,
-      partnership:
-          map['partnership'] != null ? map['partnership'] as String : null,
+      // partnership:
+      // // map['partnership'] != null ? map['partnership'] as String : null,
       isBlocked: map['isBlocked'] != null ? map['isBlocked'] as bool : null,
       notificationToken: map['notificationToken'] != null
           ? map['notificationToken'] as String

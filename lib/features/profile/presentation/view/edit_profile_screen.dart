@@ -304,7 +304,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     id: state.userModel!.id,
                     isBlocked: state.userModel!.isBlocked,
                     notificationToken: state.userModel!.notificationToken,
-                    partnership: state.userModel!.partnership,
                     startedDate: state.userModel!.startedDate,
                     totalPosts: state.userModel!.totalPosts,
                     userId: state.userModel!.userId,

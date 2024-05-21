@@ -18,15 +18,16 @@ import 'package:shared_preferences/shared_preferences.dart' as _i3;
 
 import '../../features/authentication/data/i_auth_facade.dart' as _i12;
 import '../../features/authentication/repo/i_auth_imlp.dart' as _i13;
-import '../../features/edit_Uploaded_Property/data/i_edit_facade.dart' as _i18;
-import '../../features/edit_Uploaded_Property/repo/i_edit_property_impl.dart'
-    as _i19;
-import '../../features/location/data/i_location_facade.dart' as _i17;
-import '../../features/location/repo/i_location_impl.dart' as _i16;
+import '../../features/location/data/i_location_facade.dart' as _i19;
+import '../../features/location/repo/i_location_impl.dart' as _i18;
 import '../../features/myads/data/i_myads_facade.dart' as _i14;
 import '../../features/myads/repo/i_myads_impl.dart' as _i15;
 import '../../features/profile/data/i_profile_facade.dart' as _i20;
 import '../../features/profile/repo/i_profile_impl.dart' as _i21;
+import '../../features/property_details_view/data/i_propertydetails_facade.dart'
+    as _i16;
+import '../../features/property_details_view/repo/i_propertydetails_impl.dart'
+    as _i17;
 import '../../features/sell/data/i_sell_facade.dart' as _i22;
 import '../../features/sell/repo/i_sell_impl.dart' as _i23;
 import '../services/image_pick_service.dart' as _i10;
@@ -77,32 +78,29 @@ Future<_i1.GetIt> init(
         gh<_i5.FirebaseFirestore>(),
         gh<_i7.FirebaseAuth>(),
       ));
-  gh.lazySingleton<_i16.GetCurrentPosition>(() => _i16.GetCurrentPosition(
+  gh.lazySingleton<_i16.IPropertyDetailsFacade>(
+      () => _i17.IPropertyDetailsImpl(gh<_i5.FirebaseFirestore>()));
+  gh.lazySingleton<_i18.GetCurrentPosition>(() => _i18.GetCurrentPosition(
         gh<_i9.GetPosition>(),
         gh<_i3.SharedPreferences>(),
         gh<_i11.UploadPlaceService>(),
       ));
-  gh.lazySingleton<_i17.ILocationFacade>(() => _i16.ILocationImpl(
+  gh.lazySingleton<_i19.ILocationFacade>(() => _i18.ILocationImpl(
         gh<_i5.FirebaseFirestore>(),
-        gh<_i16.GetCurrentPosition>(),
+        gh<_i18.GetCurrentPosition>(),
         gh<_i3.SharedPreferences>(),
         gh<_i11.UploadPlaceService>(),
-      ));
-  gh.lazySingleton<_i18.IEditPropertyFacade>(() => _i19.IEditPropertyImpl(
-        gh<_i5.FirebaseFirestore>(),
-        gh<_i11.UploadPlaceService>(),
-        gh<_i16.GetCurrentPosition>(),
       ));
   gh.lazySingleton<_i20.IProfileFacade>(() => _i21.IProfileImpl(
         gh<_i5.FirebaseFirestore>(),
         gh<_i11.UploadPlaceService>(),
-        gh<_i16.GetCurrentPosition>(),
+        gh<_i18.GetCurrentPosition>(),
         gh<_i10.ImageService>(),
       ));
   gh.lazySingleton<_i22.ISellFacade>(() => _i23.ISellImpl(
         gh<_i5.FirebaseFirestore>(),
         gh<_i11.UploadPlaceService>(),
-        gh<_i16.GetCurrentPosition>(),
+        gh<_i18.GetCurrentPosition>(),
       ));
   return getIt;
 }
