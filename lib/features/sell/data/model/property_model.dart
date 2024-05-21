@@ -11,7 +11,7 @@ class PropertyModel {
   final SelectedType? propertyType;
   final int? propertyPrice;
   // final String? propertyLink;
-  List? propertyImage;
+  List<dynamic>? propertyImage;
   final String? propertyTitle;
   final String? propertyDetils;
   final PlaceCell? propertyLocation;
@@ -182,8 +182,8 @@ class PropertyModel {
         return ConstructionStatus.newLaunch;
       case 'Ready To Move':
         return ConstructionStatus.readyToMove;
-      case 'Uder-Construction':
-        return ConstructionStatus.uderConstruction;
+      case 'Under-Construction':
+        return ConstructionStatus.underConstruction;
     }
 
     return null;
@@ -195,8 +195,8 @@ class PropertyModel {
         return ConstructionStatus.newLaunch;
       case 'readyToMove':
         return ConstructionStatus.readyToMove;
-      case 'uderConstruction':
-        return ConstructionStatus.uderConstruction;
+      case 'underConstruction':
+        return ConstructionStatus.underConstruction;
     }
 
     return null;
@@ -208,8 +208,8 @@ class PropertyModel {
         return 'New Launch';
       case 'readyToMove':
         return 'Ready To Move';
-      case 'uderConstruction':
-        return 'Uder-Construction';
+      case 'underConstruction':
+        return 'Under-Construction';
     }
     return '';
   }

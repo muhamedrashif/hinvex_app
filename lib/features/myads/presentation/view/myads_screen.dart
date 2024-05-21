@@ -40,8 +40,6 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
         return Future.value(true);
       },
       child: Consumer<MyAdsProvider>(builder: (context, state, _) {
-        log("message======${state.filteredUploadedPropertiesList.length.toString()}");
-
         return Scaffold(
           backgroundColor: AppColors.backgroundColor,
           body: SafeArea(
@@ -74,13 +72,12 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
                             ),
                           ]),
                     ),
-                    if (state.filteredUploadedPropertiesList.isEmpty &&
-                        state.fetchProductsLoading)
+                    if (state.myAdsList.isEmpty && state.fetchProductsLoading)
                       SliverFillRemaining(
                         hasScrollBody: false,
                         child: showShimmerCardWidget(),
                       )
-                    else if (state.filteredUploadedPropertiesList.isEmpty &&
+                    else if (state.myAdsList.isEmpty &&
                         state.fetchProductsLoading == false)
                       const SliverFillRemaining(
                         hasScrollBody: false,
@@ -90,14 +87,12 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
                       )
                     else
                       SliverList.builder(
-                          itemCount:
-                              state.filteredUploadedPropertiesList.length,
+                          itemCount: state.myAdsList.length,
                           itemBuilder: (context, index) {
                             return MyAddPropertyCardWidget(
-                                propertyModel: state
-                                    .filteredUploadedPropertiesList[index]);
+                                propertyModel: state.myAdsList[index]);
                           }),
-                    if (state.filteredUploadedPropertiesList.isNotEmpty &&
+                    if (state.myAdsList.isNotEmpty &&
                         state.fetchProductsLoading)
                       const SliverToBoxAdapter(
                         child: Center(

@@ -149,22 +149,16 @@ class _ShortListsScreenState extends State<ShortListsScreen> {
                                           const SizedBox(
                                             height: 5,
                                           ),
-                                          Text(
-                                            "3 Beds, 3 Bathrooms, Swimming Pool includedddddddddddddd"
-                                                        .length >
-                                                    43
-                                                ? '${"3 Beds, 3 Bathrooms, Swimming Pool includeddddddddddddd".substring(0, 43)}...'
-                                                : "3 Beds, 3 Bathrooms, Swimming Pool included...",
-                                            style: const TextStyle(
+                                          const Text(
+                                            "3 Beds, 3 Bathrooms, Swimming Pool includedddddddddddddd",
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
                                                 fontWeight: FontWeight.w600),
                                           ),
-                                          Text(
-                                            "House For Sale in prime location, exact in Kozhikode cccccccccccccc"
-                                                        .length >
-                                                    55
-                                                ? '${"House For Sale in prime location, exact in Kozhikode cccccccccc".substring(0, 55)}...'
-                                                : "House For Sale in prime location, exact in Kozhikode c...",
-                                            style: const TextStyle(
+                                          const Text(
+                                            "House For Sale in prime location, exact in Kozhikode cccccccccccccc",
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
                                               fontSize: 12,
                                             ),
                                           ),

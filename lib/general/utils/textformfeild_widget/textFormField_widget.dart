@@ -11,7 +11,7 @@ class CustomTextFormFieldWidget extends StatelessWidget {
   final int? maxLines;
   final double? height;
   final bool readOnly;
-  final Function()? suffixIcononTap;
+  final Function()? onTap;
   final TextStyle? hintStyle;
   final ValueChanged<String>? onChanged;
 
@@ -26,7 +26,7 @@ class CustomTextFormFieldWidget extends StatelessWidget {
     this.maxLines,
     this.height,
     this.readOnly = false,
-    this.suffixIcononTap,
+    this.onTap,
     this.hintStyle = const TextStyle(
         color: Colors.grey, fontSize: 12, fontWeight: FontWeight.normal),
     this.onChanged,
@@ -51,15 +51,13 @@ class CustomTextFormFieldWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: TextFormField(
+          onTap: onTap,
           decoration: InputDecoration(
             border: InputBorder.none,
-            suffixIcon: GestureDetector(
-              onTap: suffixIcononTap,
-              child: SizedBox(
-                height: 44,
-                width: 44,
-                child: suffixIcon,
-              ),
+            suffixIcon: SizedBox(
+              height: 44,
+              width: 44,
+              child: suffixIcon,
             ),
             hintText: hintText,
             hintStyle: hintStyle,

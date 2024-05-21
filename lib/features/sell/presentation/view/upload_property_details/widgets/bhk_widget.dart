@@ -48,7 +48,7 @@ class _BHKInputWidgetState extends State<BHKInputWidget> {
                 size: 18,
                 color: Colors.black,
               ),
-              suffixIcononTap: () {
+              onTap: () {
                 showDialog(
                   context: context,
                   barrierDismissible: false,

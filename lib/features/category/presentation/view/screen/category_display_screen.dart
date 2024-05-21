@@ -14,10 +14,12 @@ class CategoryDisplayScreen extends StatefulWidget {
 }
 
 class _CategoryDisplayScreenState extends State<CategoryDisplayScreen> {
+
+    ScrollController scrollController = ScrollController();
     @override
       void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<CategoryFilterProvider>().init();
+      context.read<CategoryFilterProvider>().init(scrollController);
     });
     super.initState();
   }
@@ -153,7 +155,7 @@ class _CategoryDisplayScreenState extends State<CategoryDisplayScreen> {
                       )
                     :Expanded(
                 child: ListView.separated(
-                  controller: state.scrollController,
+                  controller:scrollController,
                   itemCount: state.filteredUploadedPropertiesList.length,
                   itemBuilder: (context, index) {
                    final uplodedList= state.filteredUploadedPropertiesList[index];

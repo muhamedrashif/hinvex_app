@@ -39,7 +39,7 @@ class _BathRoomInputWidgetState extends State<BathRoomInputWidget> {
                 size: 18,
                 color: Colors.black,
               ),
-              suffixIcononTap: () {
+              onTap: () {
                 showDialog(
                   context: context,
                   barrierDismissible: false,

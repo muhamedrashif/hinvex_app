@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 class PricePersqftInputWidget extends StatelessWidget {
   final GlobalKey<FormState> formKey;
-  PricePersqftInputWidget({super.key, required this.formKey});
+  const PricePersqftInputWidget({super.key, required this.formKey});
   @override
   Widget build(BuildContext context) {
     return Consumer<SellProvider>(builder: (context, state, _) {

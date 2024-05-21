@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hinvex_app/features/myads/presentation/view/widget/deletePopup_widget.dart';
 import 'package:hinvex_app/features/sell/data/model/property_model.dart';
+import 'package:hinvex_app/features/sell/presentation/view/upload_property_details/screens/property_uploading_screen.dart';
 import 'package:hinvex_app/general/utils/Customwidgets/CustomNetworkImageWidget.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
 import 'package:intl/intl.dart';
@@ -121,12 +123,32 @@ class MyAddPropertyCardWidget extends StatelessWidget {
                         return [
                           PopupMenuItem(
                             height: 30,
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        PropertyUploadingScreen(
+                                      categoryName: propertyModel
+                                          .getSelectedCategoryString,
+                                      propertyModel: propertyModel,
+                                    ),
+                                  ));
+                            },
                             child: const Text("Edit"),
                           ),
                           PopupMenuItem(
                             height: 30,
-                            onTap: () {},
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (BuildContext context) {
+                                  return DeletePostConfirmationDialog(
+                                      postId: propertyModel.id.toString());
+                                },
+                              );
+                            },
                             child: const Text("Remove"),
                           ),
                         ];
@@ -214,15 +236,13 @@ class MyAddPropertyCardWidget extends StatelessWidget {
                             height: 5,
                           ),
                           Text(
-                            propertyModel.propertyTitle.toString().length > 43
-                                ? '${propertyModel.propertyTitle.toString().substring(0, 43)}...'
-                                : propertyModel.propertyTitle.toString(),
+                            propertyModel.propertyTitle.toString(),
+                            overflow: TextOverflow.ellipsis,
                             style: const TextStyle(fontWeight: FontWeight.w600),
                           ),
                           Text(
-                            propertyModel.propertyDetils.toString().length > 55
-                                ? '${propertyModel.propertyDetils.toString().substring(0, 55)}...'
-                                : propertyModel.propertyDetils.toString(),
+                            propertyModel.propertyDetils.toString(),
+                            overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
                               fontSize: 12,
                             ),

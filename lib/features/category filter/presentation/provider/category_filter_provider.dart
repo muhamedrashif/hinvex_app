@@ -17,7 +17,6 @@ class CategoryFilterProvider extends ChangeNotifier {
  CategoryFilterRepository categoryFilterRepository = CategoryFilterRepository();
   List<PropertyModel> filteredUploadedPropertiesList = [];
   bool isLoading = false;
-    final scrollController = ScrollController();
 
   void isBuyTapped(bool buy) {
     isBuy = buy;
@@ -75,7 +74,7 @@ class CategoryFilterProvider extends ChangeNotifier {
     });
   }
 
-    Future<void> init() async {
+    Future<void> init(ScrollController scrollController) async {
     if (filteredUploadedPropertiesList.isEmpty) {
       categoryFilterRepository.clearData();
       fetchPosts();

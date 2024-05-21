@@ -3,10 +3,12 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/location/data/model/location_model_main.dart/location_model_main.dart';
 import 'package:hinvex_app/features/location/data/model/search_location_model/search_location_model.dart';
+import 'package:hinvex_app/features/myads/presentation/provider/myads_provider.dart';
 import 'package:hinvex_app/features/sell/data/i_sell_facade.dart';
 import 'package:hinvex_app/features/sell/data/model/property_model.dart';
 import 'package:hinvex_app/general/services/multi_image_pick_service.dart';
 import 'package:hinvex_app/general/utils/enums/enums.dart';
+import 'package:provider/provider.dart';
 
 class SellProvider with ChangeNotifier {
   final ISellFacade iSellFacade;
@@ -45,8 +47,8 @@ class SellProvider with ChangeNotifier {
 
   List<PlaceResult> suggestions = [];
   bool sendLoading = false;
-
-  List<String> imageFile = [];
+  bool updateLoading = false;
+  List<String> imageUrl = [];
   // SEARCH LOCATION
 
   Future<void> getLocations(String query) async {
@@ -82,34 +84,51 @@ class SellProvider with ChangeNotifier {
       },
     );
   }
+
+  Future<void> getUserCurrentPosition({
+    required Function(PlaceCell) onSuccess,
+    required VoidCallback onFailure,
+  }) async {
+    iSellFacade.getUserCurrentPosition().listen((event) {
+      event.fold((l) {
+        log(l.toString());
+        onFailure();
+      }, (r) {
+        onSuccess(r);
+      });
+    }, onError: (error) {
+      log(error.toString());
+    });
+  }
+
   // GET IMAGE
 
   Future<void> getImage({
     required VoidCallback onSuccess,
     required VoidCallback onFailure,
   }) async {
-    final result = await pickMultipleImages(7 - imageFile.length);
+    final result = await pickMultipleImages(7 - imageUrl.length);
 
     result.fold((l) {
       onFailure();
     }, (r) {
       if (r.isNotEmpty) {
-        imageFile.addAll(r);
+        imageUrl.addAll(r);
       }
       onSuccess();
       notifyListeners();
     });
-    log("imageFile::::::::::::${imageFile.toString()}");
-    log("imageFile length::::::::::::${imageFile.length}");
+    log("imageUrl::::::::::::${imageUrl.toString()}");
+    log("imageUrl length::::::::::::${imageUrl.length}");
     notifyListeners();
   }
 
   // Method to remove image based on index
   void removeImageAtIndex(int index) async {
-    await deleteUrl(url: imageFile[index]);
+    await deleteUrl(url: imageUrl[index]);
 
-    if (index >= 0 && index < imageFile.length) {
-      imageFile.removeAt(index);
+    if (index >= 0 && index < imageUrl.length) {
+      imageUrl.removeAt(index);
 
       notifyListeners();
     }
@@ -118,24 +137,79 @@ class SellProvider with ChangeNotifier {
   // STORE PROPERTY TO FIRESTORE
 
   Future<void> uploadPropertyToFireStore(
-      {required PropertyModel propertyModel,
+      {required BuildContext context,
+      required PropertyModel propertyModel,
       required VoidCallback onSuccess,
       required VoidCallback onFailure}) async {
     sendLoading = true;
     notifyListeners();
+    log("propertyModel ${propertyModel.toString()}");
     final result = await iSellFacade.uploadPropertyToFireStore(
       propertyModel: propertyModel,
-      // imageByte: imageFile,
     );
     result.fold((error) {
-      onFailure();
       log(error.errorMsg);
+      onFailure();
     }, (success) {
-      // imageFile.clear();
+      log("-###------------${success.propertyImage!.toString()}--------------${success.propertyImage!.length.toString()}");
+
+      context.read<MyAdsProvider>().addLocalyToMyAds(success);
       sendLoading = false;
       notifyListeners();
       onSuccess.call();
     });
+  }
+// EDIT PROPERTY
+
+  Future<void> updateUploadedPosts({
+    required BuildContext context,
+    required PropertyModel propertyModel,
+    required VoidCallback onSuccess,
+    required VoidCallback onFailure,
+  }) async {
+    updateLoading = true;
+    notifyListeners();
+    final result = await iSellFacade.updateUploadedPosts(propertyModel);
+    result.fold((error) {
+      log(error.errorMsg);
+    }, (success) {
+      updateLoading = false;
+      context.read<MyAdsProvider>().updateMyads(propertyModel);
+      notifyListeners();
+      onSuccess.call();
+    });
+  }
+
+  void editPost({PropertyModel? editProperty}) {
+    addTitleController.text = editProperty!.propertyTitle!;
+    bHKController.text = editProperty.bhk.toString();
+    bathRoomController.text = editProperty.bathRooms.toString();
+    bedRoomController.text = editProperty.bedRooms.toString();
+    breadthController.text = editProperty.plotBreadth.toString();
+    carParkingController.text = editProperty.carParking.toString();
+    constructionStatusController.text =
+        editProperty.getConstructionStatusString;
+    carpetAreaController.text = editProperty.carpetAreaft.toString();
+    describeController.text = editProperty.propertyDetils!;
+    descriptionController.text = editProperty.description!;
+    floorNoController.text = editProperty.floorNo.toString();
+    furnishingController.text = editProperty.getSelectedFurnisherString;
+    lengthController.text = editProperty.plotLength.toString();
+    listedByController.text = editProperty.getSelectedListedByString;
+    locationController.text = editProperty.propertyLocation!.localArea!;
+    placeCellUploadLocation = editProperty.propertyLocation;
+    plotAreaController.text = editProperty.plotArea.toString();
+    priceController.text = editProperty.propertyPrice.toString();
+    pricePersqftController.text = editProperty.pricePerstft.toString();
+    projectNameController.text = editProperty.projectName!;
+    selectedBHKValue = editProperty.bhk;
+    selectedCategory = editProperty.propertyCategory;
+    superBuilupAreaController.text = editProperty.superBuiltupAreaft.toString();
+    totalFloorsController.text = editProperty.totalFloors.toString();
+    typeController.text = editProperty.getSelectedTypeString;
+    washRoomController.text = editProperty.washRoom.toString();
+
+    notifyListeners();
   }
 
   void clearSuggestions() {

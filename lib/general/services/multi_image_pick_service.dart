@@ -51,10 +51,12 @@ Future<void> deleteUrl({
 FutureResult<List<String>> pickMultipleImages(int maxImages) async {
   final ImagePicker imagePicker = ImagePicker();
   // ignore: unnecessary_nullable_for_final_variable_declarations
+  log("image max limit$maxImages");
   final List<XFile>? pickedImageFiles = await imagePicker.pickMultiImage(
     imageQuality: 70,
     maxHeight: 1280,
     maxWidth: 720,
+    limit: maxImages,
   );
   final List<File> imageBytesList = [];
   log("imageBytesList.toString()${imageBytesList.toString()}");

@@ -163,7 +163,7 @@ class _SellContainerWidgetState extends State<SellContainerWidget> {
                       MaterialPageRoute(
                         builder: (context) => PropertyUploadingScreen(
                           categoryName: categories[index]["name"],
-                          selectedCategory: state.selectedCategory!,
+                          // selectedCategory: state.selectedCategory!,
                         ),
                       ));
                 },

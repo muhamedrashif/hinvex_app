@@ -14,7 +14,6 @@ import 'package:hinvex_app/features/sell/presentation/provider/sell_provider.dar
 import 'package:hinvex_app/general/di/injection.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
 import 'package:provider/provider.dart';
-
 import 'features/splash/presentation/view/splash_screen.dart';
 
 Future<void> main() async {

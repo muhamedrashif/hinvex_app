@@ -8,7 +8,7 @@ class MyAdsProvider with ChangeNotifier {
   final IMyAdsFacade iMyAdsFacade;
   MyAdsProvider({required this.iMyAdsFacade});
 
-  List<PropertyModel> filteredUploadedPropertiesList = [];
+  List<PropertyModel> myAdsList = [];
 
   bool fetchProductsLoading = true;
   final scrollController = ScrollController();
@@ -24,18 +24,49 @@ class MyAdsProvider with ChangeNotifier {
         notifyListeners();
       },
       (success) {
-        filteredUploadedPropertiesList.addAll(success);
+        myAdsList.addAll(success);
         fetchProductsLoading = false;
         notifyListeners();
       },
     );
   }
 
+  Future deleteUploadedPosts({
+    required String id,
+    required VoidCallback onSuccess,
+    required VoidCallback onFailure,
+  }) async {
+    final result = await iMyAdsFacade.deleteUploadedPosts(id);
+    result.fold((error) {
+      onFailure();
+      log(error.errorMsg);
+    }, (success) {
+      onSuccess.call();
+    });
+    notifyListeners();
+  }
+
+  void removeFromMyAdsList(String id) {
+    myAdsList = myAdsList.where((element) => element.id != id).toList();
+    notifyListeners();
+  }
+
+  void addLocalyToMyAds(PropertyModel propertyModel) {
+    myAdsList.insert(0, propertyModel);
+    notifyListeners();
+  }
+
+  void updateMyads(PropertyModel propertyModel) {
+    myAdsList[
+            myAdsList.indexWhere((element) => element.id == propertyModel.id)] =
+        propertyModel;
+
+    notifyListeners();
+  }
+
   Future<void> init() async {
-    if (filteredUploadedPropertiesList.isEmpty) {
-      iMyAdsFacade.clearData();
-      fetchProducts();
-    }
+    iMyAdsFacade.clearData();
+    await fetchProducts();
 
     scrollController.addListener(() {
       if (scrollController.position.maxScrollExtent != 0 &&
