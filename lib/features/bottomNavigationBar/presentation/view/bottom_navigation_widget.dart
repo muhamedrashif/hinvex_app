@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hinvex_app/features/category/presentation/view/category_screen.dart';
+import 'package:hinvex_app/features/category/presentation/view/screen/category_screen.dart';
 import 'package:hinvex_app/features/home/presentation/view/home_screen.dart';
 import 'package:hinvex_app/features/myads/presentation/view/myads_screen.dart';
 import 'package:hinvex_app/features/sell/presentation/view/sell_product_main/screens/sell_screen.dart';
