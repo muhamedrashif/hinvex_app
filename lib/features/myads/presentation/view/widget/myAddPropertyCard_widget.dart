@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:hinvex_app/features/myads/presentation/view/widget/deletePopup_widget.dart';
 import 'package:hinvex_app/features/sell/data/model/property_model.dart';
 import 'package:hinvex_app/features/sell/presentation/view/upload_property_details/screens/property_uploading_screen.dart';
@@ -13,11 +14,12 @@ class MyAddPropertyCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DateTime postDate = propertyModel.createDate!.toDate();
-    String formattedDate = DateFormat('MM/dd/yyyy').format(postDate);
+    String formattedDate = DateFormat('dd/MM/yyyy').format(postDate);
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Stack(
             children: [
@@ -37,11 +39,12 @@ class MyAddPropertyCardWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                height: 93,
+                // height: 93,
                 width: MediaQuery.of(context).size.width,
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
@@ -63,28 +66,7 @@ class MyAddPropertyCardWidget extends StatelessWidget {
                           )
                         ],
                       ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8.0),
-                        child: Row(
-                          children: [
-                            SizedBox(
-                                width: 80,
-                                child: Text(
-                                  "VIEWS",
-                                  style: TextStyle(
-                                    fontSize: 11,
-                                    color: Colors.grey,
-                                  ),
-                                )),
-                            Text(
-                              "321",
-                              style: TextStyle(
-                                fontSize: 11,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
+                      const Gap(8),
                       const Row(
                         children: [
                           SizedBox(
@@ -177,6 +159,7 @@ class MyAddPropertyCardWidget extends StatelessWidget {
                 ),
                 width: MediaQuery.of(context).size.width,
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
@@ -195,7 +178,10 @@ class MyAddPropertyCardWidget extends StatelessWidget {
                               children: [
                                 CustomNetworkImageWidget(
                                   imageUrl: propertyModel.propertyImage![index],
-                                  width: 228, // Adjust the width as needed
+                                  width: propertyModel.propertyImage!.length ==
+                                          1
+                                      ? MediaQuery.of(context).size.width / 1.23
+                                      : 228,
                                   height: 156,
                                 ),
                                 Positioned(
@@ -262,15 +248,18 @@ class MyAddPropertyCardWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              const Positioned(
+              Positioned(
                 top: 28,
                 right: 22,
-                child: CircleAvatar(
-                  radius: 15,
-                  backgroundColor: Colors.white54,
-                  child: Icon(
-                    Icons.favorite,
-                    size: 20,
+                child: InkWell(
+                  onTap: () {},
+                  child: const CircleAvatar(
+                    radius: 15,
+                    backgroundColor: Colors.white54,
+                    child: Icon(
+                      Icons.favorite,
+                      size: 20,
+                    ),
                   ),
                 ),
               )

@@ -37,7 +37,7 @@ class CustomTextFormFieldWidget extends StatelessWidget {
     return Container(
       height: height,
       decoration: BoxDecoration(
-        color: AppColors.backgroundColor,
+        color: AppColors.containerColor,
         borderRadius: BorderRadius.circular(6),
         boxShadow: [
           BoxShadow(

@@ -23,6 +23,7 @@ class OTPVerificationSheet extends StatefulWidget {
 class _OTPVerificationSheetState extends State<OTPVerificationSheet> {
   TextEditingController otpController = TextEditingController();
 
+  // ignore: prefer_typing_uninitialized_variables
   var otp;
   @override
   Widget build(BuildContext context) {

@@ -34,7 +34,7 @@ showShimmerCardWidget() {
                         Row(
                           children: [
                             Container(
-                              height: 20,
+                              height: 15,
                               width: MediaQuery.of(context).size.width / 3,
                               decoration: BoxDecoration(
                                   color: Colors.white,
@@ -42,7 +42,7 @@ showShimmerCardWidget() {
                             ),
                             const Gap(4),
                             Container(
-                              height: 20,
+                              height: 15,
                               width: MediaQuery.of(context).size.width / 3,
                               decoration: BoxDecoration(
                                   color: Colors.white,
@@ -50,13 +50,11 @@ showShimmerCardWidget() {
                             ),
                           ],
                         ),
-                        const SizedBox(
-                          height: 5,
-                        ),
+                        const Gap(8),
                         Row(
                           children: [
                             Container(
-                              height: 20,
+                              height: 15,
                               width: MediaQuery.of(context).size.width / 3,
                               decoration: BoxDecoration(
                                   color: Colors.white,
@@ -64,7 +62,7 @@ showShimmerCardWidget() {
                             ),
                             const Gap(4),
                             Container(
-                              height: 20,
+                              height: 15,
                               width: MediaQuery.of(context).size.width / 3,
                               decoration: BoxDecoration(
                                   color: Colors.white,
@@ -123,28 +121,32 @@ showShimmerCardWidget() {
                                   }),
                             ),
                             Container(
-                              height: 30,
+                              height: 15,
+                              width: MediaQuery.of(context).size.width / 3,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(16)),
+                            ),
+                            const Gap(6),
+                            Container(
+                              height: 15,
                               width: MediaQuery.of(context).size.width,
                               decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(16)),
                             ),
-                            const SizedBox(
-                              height: 5,
-                            ),
+                            const Gap(4),
                             Container(
-                              height: 30,
+                              height: 15,
                               width: MediaQuery.of(context).size.width,
                               decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(16)),
                             ),
-                            const SizedBox(
-                              height: 5,
-                            ),
+                            const Gap(10),
                             Container(
-                              height: 30,
-                              width: MediaQuery.of(context).size.width,
+                              height: 15,
+                              width: MediaQuery.of(context).size.width / 2,
                               decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(16)),

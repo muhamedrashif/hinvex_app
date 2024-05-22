@@ -18,7 +18,7 @@ class UploaderDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DateTime postDate = propertyModel.createDate!.toDate();
-    String formattedDate = DateFormat('MM/dd/yyyy').format(postDate);
+    String formattedDate = DateFormat('dd/MM/yyyy').format(postDate);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Column(
@@ -26,18 +26,10 @@ class UploaderDetails extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: AppColors.containerColor,
               borderRadius: const BorderRadius.all(
                 Radius.circular(8),
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
-                  blurRadius: 1,
-                  spreadRadius: 1,
-                  offset: const Offset(0, 0),
-                ),
-              ],
             ),
             height: 103,
             width: MediaQuery.of(context).size.width,
@@ -96,23 +88,23 @@ class UploaderDetails extends StatelessWidget {
                                     )
                                   : Text(
                                       userModel!.userName!,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
                               Text(
                                 propertyModel.getSelectedListedByString,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
                               userModel == null
-                                  ? SizedBox()
+                                  ? const SizedBox()
                                   : Text(
                                       "Location; ${userModel!.userLocation!.localArea!}",
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 12,
                                       ),
                                     )
@@ -121,11 +113,11 @@ class UploaderDetails extends StatelessWidget {
                         ),
                         const Spacer(),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              Text(
+                              const Text(
                                 "POSTED",
                                 style: TextStyle(
                                   fontSize: 10,
@@ -134,7 +126,7 @@ class UploaderDetails extends StatelessWidget {
                               ),
                               Text(
                                 formattedDate,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 10,
                                 ),
                               )
