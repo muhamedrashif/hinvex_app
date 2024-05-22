@@ -13,6 +13,8 @@ import 'package:hinvex_app/features/property_details_view/data/i_propertydetails
 import 'package:hinvex_app/features/property_details_view/presentation/provider/propertydertails_provider.dart';
 import 'package:hinvex_app/features/sell/data/i_sell_facade.dart';
 import 'package:hinvex_app/features/sell/presentation/provider/sell_provider.dart';
+import 'package:hinvex_app/features/shortlists/data/i_shortlist_facade.dart';
+import 'package:hinvex_app/features/shortlists/presentation/provider/shortlist_provider.dart';
 import 'package:hinvex_app/general/di/injection.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
 import 'package:provider/provider.dart';
@@ -54,6 +56,10 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => CategoryFilterProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) =>
+              ShortListProvider(iShortListFacade: sl<IShortListFacade>()),
         )
       ],
       child: MaterialApp(

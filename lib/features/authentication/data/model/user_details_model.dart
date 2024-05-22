@@ -16,6 +16,7 @@ class UserModel {
   bool? isBlocked;
   String? notificationToken;
   Timestamp? startedDate;
+  List<String>? favoriteProducts;
 
   UserModel({
     this.id,
@@ -30,6 +31,7 @@ class UserModel {
     this.isBlocked,
     this.notificationToken,
     this.startedDate,
+    this.favoriteProducts,
   });
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -44,6 +46,7 @@ class UserModel {
         "isBlocked": isBlocked,
         'notificationToken': notificationToken,
         'startedDate': startedDate,
+        'favoriteProducts': favoriteProducts,
       };
   static UserModel fromSnap(DocumentSnapshot<Map<String, dynamic>> snap) {
     var snapshot = snap.data() as Map<String, dynamic>;
@@ -60,6 +63,7 @@ class UserModel {
       isBlocked: snapshot['isBlocked'],
       notificationToken: snapshot['notificationToken'],
       startedDate: snapshot['startedDate'],
+      favoriteProducts: snapshot['favoriteProducts'],
     );
   }
 
@@ -76,6 +80,7 @@ class UserModel {
     bool? isBlocked,
     String? notificationToken,
     Timestamp? startedDate,
+    List<String>? favoriteProducts,
   }) {
     return UserModel(
       id: id ?? this.id,
@@ -90,6 +95,7 @@ class UserModel {
       isBlocked: isBlocked ?? this.isBlocked,
       notificationToken: notificationToken ?? this.notificationToken,
       startedDate: startedDate ?? this.startedDate,
+      favoriteProducts: favoriteProducts ?? this.favoriteProducts,
     );
   }
 
@@ -107,6 +113,7 @@ class UserModel {
       'isBlocked': isBlocked,
       'notificationToken': notificationToken,
       'startedDate': startedDate,
+      'favoriteProducts': favoriteProducts,
     };
   }
 
@@ -134,6 +141,9 @@ class UserModel {
           : null,
       startedDate:
           map['startedDate'] != null ? map['startedDate'] as Timestamp : null,
+      favoriteProducts: map['favoriteProducts'] != null
+          ? List<String>.from(map['favoriteProducts'] as List<dynamic>)
+          : null,
     );
   }
 }
