@@ -319,6 +319,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     userWhatsAppNumber: whatsAppNumberController.text.isEmpty
                         ? state.userModel!.userWhatsAppNumber
                         : whatsAppNumberController.text,
+                    favoriteProducts: state.userModel!.favoriteProducts,
                   ),
                   onSuccess: () {
                     showToast(

@@ -80,8 +80,7 @@ class IAuthImpl implements IAuthFacade {
       });
       return;
     } else {
-      await _firestore.collection('users').doc(uid).set(UserModel()
-          .copyWith(
+      await _firestore.collection('users').doc(uid).set(UserModel().copyWith(
             userPhoneNumber: phoneNo,
             notificationToken: token,
             id: uid,
@@ -89,8 +88,8 @@ class IAuthImpl implements IAuthFacade {
             userId: uid,
             totalPosts: 0,
             userWhatsAppNumber: phoneNo,
-          )
-          .toJson());
+            favoriteProducts: [],
+          ).toJson());
     }
   }
 
