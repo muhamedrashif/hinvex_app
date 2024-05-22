@@ -1,37 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:hinvex_app/features/sell/data/model/property_model.dart';
 import 'package:hinvex_app/general/utils/Customwidgets/CustomNetworkImageWidget.dart';
 import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
+import 'package:intl/intl.dart';
 
 class CategoryCardItems extends StatelessWidget {
   const CategoryCardItems({
     super.key,
-    required this.count,
-    required this.price,
-    required this.title,
-    required this.details,
-    required this.location,
-    required this.uploaderName,
-    required this.uploaderCategory,
-    required this.uploaderLocation,
-    required this.uploadedDate, required this.image,
+    required this.postList,
   });
-
-  final int count;
-  final String price;
-  final String title;
-  final String details;
-  final String location;
-  final String uploaderName;
-  final String uploaderCategory;
-  final String uploaderLocation;
-  final String uploadedDate;
-  final List image;
+  final PropertyModel postList;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 5,right: 5),
+      padding: const EdgeInsets.only(
+        left: 16,
+        right: 16,
+        bottom: 10,
+      ),
       child: Column(
         children: [
           Stack(
@@ -66,20 +54,23 @@ class CategoryCardItems extends StatelessWidget {
                         height: 180, // Adjust the height as needed
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: count,
+                          itemCount: postList.propertyImage?.length ?? 0,
                           itemBuilder: (context, index) {
                             return Stack(
                               children: [
-                                 CustomNetworkImageWidget(
-                                  imageUrl: image[index],
-                                  width:count==1?275:228, // Adjust the width as needed
+                                CustomNetworkImageWidget(
+                                  imageUrl:
+                                      postList.propertyImage?[index] ?? "",
+                                  width: postList.propertyImage?.length == 1
+                                      ? 293
+                                      : 228, // Adjust the width as needed
                                   height: 180,
                                 ),
                                 Positioned(
                                   top: 12,
                                   right: 18,
                                   child: Text(
-                                    "${index + 1}/$count",
+                                    "${index + 1}/${postList.propertyImage?.length}",
                                     style: const TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 12,
@@ -103,7 +94,7 @@ class CategoryCardItems extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "\u{20B9} $price",
+                            "₹ ${postList.propertyPrice.toString()}",
                             style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 16,
@@ -113,12 +104,12 @@ class CategoryCardItems extends StatelessWidget {
                             height: 5,
                           ),
                           Text(
-                            title,
+                            postList.propertyTitle ?? "",
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(fontWeight: FontWeight.w600),
                           ),
                           Text(
-                            details,
+                            postList.propertyDetils ?? "",
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
                               fontSize: 12,
@@ -128,7 +119,7 @@ class CategoryCardItems extends StatelessWidget {
                             height: 10,
                           ),
                           Text(
-                            location,
+                            "${postList.propertyLocation?.localArea},${postList.propertyLocation?.district}",
                             style: const TextStyle(
                               fontWeight: FontWeight.w600,
                             ),
@@ -193,28 +184,21 @@ class CategoryCardItems extends StatelessWidget {
                           backgroundImage:
                               AssetImage(ImageConstant.defaultProfile),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                uploaderName,
-                                style: const TextStyle(
+                                "Sabastian Thomas",
+                                style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
                               Text(
-                                uploaderCategory,
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              Text(
-                                uploaderLocation,
-                                style: const TextStyle(
+                                "Location; Palakkad",
+                                style: TextStyle(
                                   fontSize: 12,
                                 ),
                               )
@@ -235,7 +219,9 @@ class CategoryCardItems extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                uploadedDate,
+                                DateFormat('dd-MM-yyyy').format(
+                                    postList.createDate?.toDate() ??
+                                        DateTime.now()),
                                 style: const TextStyle(
                                   fontSize: 10,
                                 ),

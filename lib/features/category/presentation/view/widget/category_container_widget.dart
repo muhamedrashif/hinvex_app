@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/category/data/local%20data/category_store.dart';
+import 'package:hinvex_app/features/category/presentation/provider/category_filter_provider.dart';
 import 'package:hinvex_app/features/category/presentation/view/screen/category_display_screen.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_image_widget.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
+import 'package:provider/provider.dart';
 
 class CategoryContainerWidget extends StatefulWidget {
   const CategoryContainerWidget({super.key});
@@ -35,6 +37,7 @@ class _CategoryContainerWidgetState extends State<CategoryContainerWidget> {
           final categories =categoryList[index];
             return GestureDetector(
               onTap: () {
+                Provider.of<CategoryFilterProvider>(context,listen: false).isCategoryTapped(index+1);
                 Navigator.push(
                   context,
                   MaterialPageRoute(
