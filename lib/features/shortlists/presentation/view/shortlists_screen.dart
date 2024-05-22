@@ -4,7 +4,6 @@ import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_imag
 import 'package:hinvex_app/general/utils/Customwidgets/CustomNetworkImageWidget.dart';
 import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ShortListsScreen extends StatefulWidget {
   const ShortListsScreen({super.key});
@@ -70,9 +69,8 @@ class _ShortListsScreenState extends State<ShortListsScreen> {
                               Container(
                                 decoration: BoxDecoration(
                                   color: AppColors.backgroundColor,
-                                  borderRadius: const BorderRadius.only(
-                                    topRight: Radius.circular(16),
-                                    topLeft: Radius.circular(16),
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(16),
                                   ),
                                   boxShadow: [
                                     BoxShadow(
@@ -190,185 +188,6 @@ class _ShortListsScreenState extends State<ShortListsScreen> {
                                 ),
                               )
                             ],
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white70,
-                              borderRadius: const BorderRadius.only(
-                                bottomLeft: Radius.circular(16),
-                                bottomRight: Radius.circular(16),
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.1),
-                                  blurRadius: 3,
-                                  spreadRadius: 3,
-                                  offset: const Offset(0, 4),
-                                ),
-                              ],
-                            ),
-                            height: 164,
-                            width: MediaQuery.of(context).size.width,
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Uploader Detail",
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.titleTextColor,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 8.0),
-                                    child: Row(
-                                      children: [
-                                        CircleAvatar(
-                                          radius: 25,
-                                          backgroundImage: AssetImage(
-                                              ImageConstant.defaultProfile),
-                                        ),
-                                        const Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 8.0),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Sabastian Thomas",
-                                                style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                              ),
-                                              Text(
-                                                "Dealer",
-                                                style: TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                              ),
-                                              Text(
-                                                "Location; Palakkad",
-                                                style: TextStyle(
-                                                  fontSize: 12,
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        const Spacer(),
-                                        const Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 8.0),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.end,
-                                            children: [
-                                              Text(
-                                                "POSTED",
-                                                style: TextStyle(
-                                                  fontSize: 10,
-                                                  color: Colors.grey,
-                                                ),
-                                              ),
-                                              Text(
-                                                "11/12/2023",
-                                                style: TextStyle(
-                                                  fontSize: 10,
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        height: 44.22,
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                2.7,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(7.22),
-                                          color: Colors.green,
-                                        ),
-                                        child: const Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            FaIcon(
-                                              FontAwesomeIcons.whatsapp,
-                                              color: Colors.white,
-                                              size: 22,
-                                            ),
-                                            SizedBox(width: 4),
-                                            Text(
-                                              "WhatsApp",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 14.44,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        width: 8,
-                                      ),
-                                      Container(
-                                        height: 44.22,
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                2.7,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(7.22),
-                                          color: AppColors.textButtonColor,
-                                        ),
-                                        child: const Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Icon(
-                                              Icons.call,
-                                              color: Colors.white,
-                                              size: 22,
-                                            ),
-                                            SizedBox(width: 2),
-                                            Text(
-                                              "Call",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 14.44,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
                           ),
                         ],
                       ),

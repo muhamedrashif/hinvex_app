@@ -3,12 +3,13 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/bottomNavigationBar/presentation/view/bottom_navigation_widget.dart';
 import 'package:hinvex_app/features/myads/presentation/provider/myads_provider.dart';
+import 'package:hinvex_app/features/property_details_view/presentation/view/property_details_screen.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_image_widget.dart';
 import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
 import 'package:provider/provider.dart';
 
-import 'widget/myAddPropertyCard_widget.dart';
+import 'widget/myaddpropertycard_widget.dart';
 import 'widget/shimmer_card_widget.dart';
 
 class MyAdsScreen extends StatefulWidget {
@@ -89,8 +90,21 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
                       SliverList.builder(
                           itemCount: state.myAdsList.length,
                           itemBuilder: (context, index) {
-                            return MyAddPropertyCardWidget(
-                                propertyModel: state.myAdsList[index]);
+                            log("LENGTH: ${state.myAdsList.length.toString()}");
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          PropertyDetailsScren(
+                                              propertyModel:
+                                                  state.myAdsList[index]),
+                                    ));
+                              },
+                              child: MyAddPropertyCardWidget(
+                                  propertyModel: state.myAdsList[index]),
+                            );
                           }),
                     if (state.myAdsList.isNotEmpty &&
                         state.fetchProductsLoading)
