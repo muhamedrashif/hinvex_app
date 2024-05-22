@@ -20,7 +20,6 @@ class IMyAdsImpl implements IMyAdsFacade {
   @override
   FutureResult<List<PropertyModel>> fetchProduct() async {
     String userId = _firebaseAuth.currentUser!.uid;
-
     if (noMoreData == true) return right([]); //THERE IS NOMORE DATA
     try {
       final result = lastDoc == null

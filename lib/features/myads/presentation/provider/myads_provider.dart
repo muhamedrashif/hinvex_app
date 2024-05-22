@@ -65,8 +65,11 @@ class MyAdsProvider with ChangeNotifier {
   }
 
   Future<void> init() async {
-    iMyAdsFacade.clearData();
-    await fetchProducts();
+    if (myAdsList.isEmpty) {
+      iMyAdsFacade.clearData();
+      myAdsList = [];
+      await fetchProducts();
+    }
 
     scrollController.addListener(() {
       if (scrollController.position.maxScrollExtent != 0 &&

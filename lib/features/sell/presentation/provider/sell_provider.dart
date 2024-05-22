@@ -208,7 +208,7 @@ class SellProvider with ChangeNotifier {
     totalFloorsController.text = editProperty.totalFloors.toString();
     typeController.text = editProperty.getSelectedTypeString;
     washRoomController.text = editProperty.washRoom.toString();
-
+    imageUrl = List<String>.from(editProperty.propertyImage ?? []);
     notifyListeners();
   }
 
@@ -244,6 +244,7 @@ class SellProvider with ChangeNotifier {
     totalFloorsController.clear();
     typeController.clear();
     washRoomController.clear();
+    imageUrl = [];
     notifyListeners();
   }
 }

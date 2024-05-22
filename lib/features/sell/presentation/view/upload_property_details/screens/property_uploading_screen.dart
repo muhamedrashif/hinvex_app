@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/sell/data/model/property_model.dart';
 import 'package:hinvex_app/features/sell/presentation/provider/sell_provider.dart';
-import 'package:hinvex_app/features/sell/presentation/view/upload_property_details/screens/price_screen.dart';
+import 'package:hinvex_app/features/sell/presentation/view/upload_property_details/screens/image_&_price_screen.dart';
 import 'package:hinvex_app/features/sell/presentation/view/upload_property_details/widgets/breadth_widget.dart';
 import 'package:hinvex_app/features/sell/presentation/view/upload_property_details/widgets/carParking_widget.dart';
 import 'package:hinvex_app/features/sell/presentation/view/upload_property_details/widgets/carpetArea_widget.dart';
@@ -61,11 +61,9 @@ class _PropertyUploadingScreenState extends State<PropertyUploadingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // log("${widget.categoryName}+${widget.selectedCategory}");
     return PopScope(
       onPopInvoked: (didPop) {
         Provider.of<SellProvider>(context, listen: false).clearData();
-        // ..imageFile.clear();
       },
       child: Scaffold(
         backgroundColor: AppColors.backgroundColor,

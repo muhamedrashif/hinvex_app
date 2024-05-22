@@ -5,6 +5,9 @@ class ImageConstant {
   // HINVEX APP LOGO
   static String hinvexAppLogo = '$imagePath/hinvexAppLogo.png';
 
+  // ASSURED
+  static String assured = '$imagePath/assured.png';
+
   // ONBOARD 1
   static String onBoard1 = '$imagePath/onBoard1.png';
 
@@ -120,4 +123,77 @@ class ImageConstant {
   static String whatsappWhite = '$imagePath/whatsappWhite.png';
 
   static String call = '$imagePath/call.png';
+
+  ///////////////
+  static String share = '$imagePath/share.png';
+
+  static String favoutline = '$imagePath/favoutline.png';
+
+  // DETAILS SCREEN ICON IMAGES
+
+  // detailtype
+  static String detailtype = '$imagePath/detailtype.png';
+
+  // detailbedroom
+  static String detailbedroom = '$imagePath/detailbedroom.png';
+
+  // detailbathroom
+  static String detailbathroom = '$imagePath/detailbathroom.png';
+
+  // detaillistedby
+  static String detaillistedby = '$imagePath/detaillistedby.png';
+
+  // detailfurnishing
+  static String detailfurnishing = '$imagePath/detailfurnishing.png';
+
+  // detailsuperbuiltuparea
+  static String detailsuperbuiltuparea =
+      '$imagePath/detailsuperbuiltuparea.png';
+
+  // detailcunstructionstatus
+  static String detailcunstructionstatus =
+      '$imagePath/detailcunstructionstatus.png';
+
+  // detailcarpetarea
+  static String detailcarpetarea = '$imagePath/detailcarpetarea.png';
+
+  // detailtotalfloor
+  static String detailtotalfloor = '$imagePath/detailtotalfloor.png';
+
+  // detailcarparking
+  static String detailcarparking = '$imagePath/detailcarparking.png';
+
+  // detailfacing
+  static String detailfacing = '$imagePath/detailfacing.png';
+
+  // detailfloorno
+  static String detailfloorno = '$imagePath/detailfloorno.png';
+
+  // detailprojectname
+  static String detailprojectname = '$imagePath/detailprojectname.png';
+
+  // detailwashroom
+  static String detailwashroom = '$imagePath/detailwashroom.png';
+
+  // detailpricepersqft
+  static String detailpricepersqft = '$imagePath/detailpricepersqft.png';
+
+  // detailbreadth
+  static String detailbreadth = '$imagePath/detailbreadth.png';
+
+  // detailplotarea
+  static String detailplotarea = '$imagePath/detailplotarea.png';
+
+  // detaillength
+  static String detaillength = '$imagePath/detaillength.png';
+
+  // detailbhk
+  static String detailbhk = '$imagePath/detailbhk.png';
+
+  ///////////////////
+  // adminprofile
+  static String adminprofile = '$imagePath/adminprofile.png';
+
+  // bluetick
+  static String bluetick = '$imagePath/bluetick.png';
 }
