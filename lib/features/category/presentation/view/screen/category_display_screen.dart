@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/category/presentation/provider/category_filter_provider.dart';
 import 'package:hinvex_app/features/category/presentation/view/screen/category_filter_screen.dart';
 import 'package:hinvex_app/features/category/presentation/view/widget/category_card_items.dart';
+import 'package:hinvex_app/features/property_details_view/presentation/view/property_details_screen.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
 import 'package:provider/provider.dart';
 
@@ -23,7 +24,6 @@ class _CategoryDisplayScreenState extends State<CategoryDisplayScreen> {
     super.initState();
   }
 
-  int count = 4;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -174,7 +174,20 @@ class _CategoryDisplayScreenState extends State<CategoryDisplayScreen> {
                                   state.filteredUploadedPropertiesList[index];
                               return Column(
                                 children: [
-                                  CategoryCardItems(postList: uplodedList),
+                                  InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  PropertyDetailsScren(
+                                                      propertyModel:
+                                                          uplodedList),
+                                            ));
+                                      },
+                                      child: CategoryCardItems(
+                                        postModel: uplodedList,
+                                      )),
                                   if (index ==
                                           state.filteredUploadedPropertiesList
                                                   .length -
