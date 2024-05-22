@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/authentication/data/i_auth_facade.dart';
 import 'package:hinvex_app/features/authentication/presentation/provider/auth_provider.dart';
-import 'package:hinvex_app/features/category%20filter/presentation/provider/category_filter_provider.dart';
+import 'package:hinvex_app/features/category/presentation/provider/category_filter_provider.dart';
 import 'package:hinvex_app/features/location/data/i_location_facade.dart';
 import 'package:hinvex_app/features/location/presentation/provider/location_provider.dart';
 import 'package:hinvex_app/features/myads/data/i_myads_facade.dart';

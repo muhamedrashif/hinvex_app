@@ -5,8 +5,6 @@ import 'package:hinvex_app/features/edit_Uploaded_Property/presentation/provider
 import 'package:hinvex_app/features/sell/data/model/property_model.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_button_widget.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
-import 'package:hinvex_app/general/utils/progress_indicator_widget/progress_indicator_widget.dart';
-import 'package:hinvex_app/general/utils/toast/toast.dart';
 import 'package:provider/provider.dart';
 
 import 'widget/addTitle_widget.dart';
