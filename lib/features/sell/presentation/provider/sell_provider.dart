@@ -62,6 +62,11 @@ class SellProvider with ChangeNotifier {
     );
   }
 
+  // void addLocation(PlaceCell value){
+  //   placeCellUploadLocation=value;
+  //   notifyListeners();
+  // }
+
   Future<void> searchLocationByAddress({
     required String latitude,
     required String longitude,
