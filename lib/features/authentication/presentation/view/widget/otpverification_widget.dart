@@ -95,7 +95,7 @@ class _OTPVerificationSheetState extends State<OTPVerificationSheet> {
                 textColor: AppColors.buttonTextColor,
                 onTap: () {
                   showProgress(context);
-                  context.read<AuthProvider>().verifySmsCode(
+                  context.read<AuthenticationProvider>().verifySmsCode(
                         phoneNumber: widget.phoneNumber,
                         smsCode: otpController.text,
                         onSuccess: () {

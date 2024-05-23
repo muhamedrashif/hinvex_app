@@ -1,9 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hinvex_app/features/authentication/presentation/provider/auth_provider.dart';
+import 'package:hinvex_app/features/authentication/presentation/view/authentocation_screen.dart';
 import 'package:hinvex_app/features/property_details_view/presentation/provider/propertydertails_provider.dart';
 import 'package:hinvex_app/features/property_details_view/presentation/view/widget/property_details_widget.dart';
 import 'package:hinvex_app/features/sell/data/model/property_model.dart';
+import 'package:hinvex_app/features/shortlists/presentation/provider/shortlist_provider.dart';
 import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -54,10 +57,37 @@ class _PropertyDetailsScrenState extends State<PropertyDetailsScren> {
                   child: Image.asset(ImageConstant.share),
                 ),
                 const SizedBox(width: 16),
-                const Icon(
-                  Icons.favorite_border,
-                  size: 25,
-                ),
+                Consumer<AuthenticationProvider>(
+                  builder: (context, state, child) {
+                    return InkWell(
+                      onTap: () {
+                        if (FirebaseAuth.instance.currentUser != null) {
+                          Provider.of<ShortListProvider>(context, listen: false)
+                              .uploadShortList(
+                                  widget.propertyModel, state.userModel!);
+                        } else {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const AuthenticationScreen(),
+                              ));
+                        }
+                      },
+                      child: CircleAvatar(
+                        radius: 15,
+                        backgroundColor: Colors.white54,
+                        child: Icon(
+                          state.userModel!.favoriteProducts!
+                                  .contains(widget.propertyModel.id)
+                              ? Icons.favorite
+                              : Icons.favorite_border,
+                          size: 20,
+                        ),
+                      ),
+                    );
+                  },
+                )
               ],
             ),
           )

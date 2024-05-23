@@ -63,7 +63,7 @@ class UserModel {
       isBlocked: snapshot['isBlocked'],
       notificationToken: snapshot['notificationToken'],
       startedDate: snapshot['startedDate'],
-      favoriteProducts: snapshot['favoriteProducts'],
+      favoriteProducts: List<String>.from(snapshot['favoriteProducts']),
     );
   }
 
@@ -142,7 +142,7 @@ class UserModel {
       startedDate:
           map['startedDate'] != null ? map['startedDate'] as Timestamp : null,
       favoriteProducts: map['favoriteProducts'] != null
-          ? List<String>.from(map['favoriteProducts'] as List<dynamic>)
+          ? List<String>.from(map['favoriteProducts'])
           : null,
     );
   }

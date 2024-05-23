@@ -31,7 +31,6 @@ class UploaderDetails extends StatelessWidget {
                 Radius.circular(8),
               ),
             ),
-            height: 103,
             width: MediaQuery.of(context).size.width,
             child: Padding(
               padding: const EdgeInsets.all(8.0),

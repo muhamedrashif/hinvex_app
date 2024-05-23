@@ -37,7 +37,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => AuthProvider(iAuthFacade: sl<IAuthFacade>()),
+          create: (context) =>
+              AuthenticationProvider(iAuthFacade: sl<IAuthFacade>()),
         ),
         ChangeNotifierProvider(
           create: (_) =>

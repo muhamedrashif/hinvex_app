@@ -1,11 +1,16 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:hinvex_app/features/authentication/presentation/provider/auth_provider.dart';
+import 'package:hinvex_app/features/authentication/presentation/view/authentocation_screen.dart';
 import 'package:hinvex_app/features/myads/presentation/view/widget/deletePopup_widget.dart';
 import 'package:hinvex_app/features/sell/data/model/property_model.dart';
 import 'package:hinvex_app/features/sell/presentation/view/upload_property_details/screens/property_uploading_screen.dart';
+import 'package:hinvex_app/features/shortlists/presentation/provider/shortlist_provider.dart';
 import 'package:hinvex_app/general/utils/Customwidgets/CustomNetworkImageWidget.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class MyAddPropertyCardWidget extends StatelessWidget {
   final PropertyModel propertyModel;
@@ -251,16 +256,35 @@ class MyAddPropertyCardWidget extends StatelessWidget {
               Positioned(
                 top: 28,
                 right: 22,
-                child: InkWell(
-                  onTap: () {},
-                  child: const CircleAvatar(
-                    radius: 15,
-                    backgroundColor: Colors.white54,
-                    child: Icon(
-                      Icons.favorite,
-                      size: 20,
-                    ),
-                  ),
+                child: Consumer<AuthenticationProvider>(
+                  builder: (context, state, child) {
+                    return InkWell(
+                      onTap: () {
+                        if (FirebaseAuth.instance.currentUser != null) {
+                          Provider.of<ShortListProvider>(context, listen: false)
+                              .uploadShortList(propertyModel, state.userModel!);
+                        } else {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const AuthenticationScreen(),
+                              ));
+                        }
+                      },
+                      child: CircleAvatar(
+                        radius: 15,
+                        backgroundColor: Colors.white54,
+                        child: Icon(
+                          state.userModel!.favoriteProducts!
+                                  .contains(propertyModel.id)
+                              ? Icons.favorite
+                              : Icons.favorite_border,
+                          size: 20,
+                        ),
+                      ),
+                    );
+                  },
                 ),
               )
             ],

@@ -8,9 +8,9 @@ import 'package:hinvex_app/features/authentication/data/i_auth_facade.dart';
 import 'package:hinvex_app/features/authentication/data/model/user_details_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AuthProvider with ChangeNotifier {
+class AuthenticationProvider with ChangeNotifier {
   final IAuthFacade iAuthFacade;
-  AuthProvider({required this.iAuthFacade});
+  AuthenticationProvider({required this.iAuthFacade});
 
   String? verificationId;
 

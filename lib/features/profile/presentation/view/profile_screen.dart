@@ -27,7 +27,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AuthProvider>(
+    return Consumer<AuthenticationProvider>(
       builder: (context, state, _) {
         log(state.userModel!.id!);
         DateTime postDate = state.userModel!.startedDate!.toDate();
