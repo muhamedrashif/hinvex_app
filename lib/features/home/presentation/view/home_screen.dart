@@ -15,6 +15,8 @@ import 'package:hinvex_app/features/notification/presentation/view/notification_
 import 'package:hinvex_app/features/profile/presentation/view/profile_screen.dart';
 import 'package:hinvex_app/features/property_details_view/presentation/view/property_details_screen.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_image_widget.dart';
+import 'package:hinvex_app/general/di/injection.dart';
+import 'package:hinvex_app/general/services/dynamic_link_services.dart';
 import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
 import 'package:hinvex_app/general/utils/showExitPopup_widget/showexitpopup_widget.dart';
@@ -34,6 +36,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
+    final dynamicLinkservice = sl<DynamicLinkServices>();
+    dynamicLinkservice.reciveDynamicLink(context);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // context.read<HomeProvider>().init();
     });

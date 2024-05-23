@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 // ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:hinvex_app/firebase_options.dart';
@@ -27,6 +28,9 @@ abstract class FirebaseInjectableModule {
 
   @lazySingleton
   FirebaseMessaging get messaging => FirebaseMessaging.instance;
+
+  @lazySingleton
+  FirebaseDynamicLinks get dynamicLink => FirebaseDynamicLinks.instance;
 }
 
 class FirebaseServeice {

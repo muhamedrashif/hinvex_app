@@ -23,8 +23,10 @@ class _ShortListsScreenState extends State<ShortListsScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final userFavoriteList =
           context.read<AuthenticationProvider>().userModel?.favoriteProducts;
-      if ((userFavoriteList ?? []).isNotEmpty) {
-        context.read<ShortListProvider>().init(userFavoriteList!);
+
+      final reverseList = userFavoriteList?.reversed.toList();
+      if ((reverseList ?? []).isNotEmpty) {
+        context.read<ShortListProvider>().init(reverseList!);
       }
     });
     super.initState();

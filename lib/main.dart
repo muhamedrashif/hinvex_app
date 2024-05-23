@@ -11,6 +11,8 @@ import 'package:hinvex_app/features/location/data/i_location_facade.dart';
 import 'package:hinvex_app/features/location/presentation/provider/location_provider.dart';
 import 'package:hinvex_app/features/myads/data/i_myads_facade.dart';
 import 'package:hinvex_app/features/myads/presentation/provider/myads_provider.dart';
+import 'package:hinvex_app/features/notification/data/i_notification_facade.dart';
+import 'package:hinvex_app/features/notification/presentation/provider/notification_provider.dart';
 import 'package:hinvex_app/features/profile/data/i_profile_facade.dart';
 import 'package:hinvex_app/features/profile/presentation/provider/profile_provider.dart';
 import 'package:hinvex_app/features/property_details_view/data/i_propertydetails_facade.dart';
@@ -20,15 +22,17 @@ import 'package:hinvex_app/features/sell/presentation/provider/sell_provider.dar
 import 'package:hinvex_app/features/shortlists/data/i_shortlist_facade.dart';
 import 'package:hinvex_app/features/shortlists/presentation/provider/shortlist_provider.dart';
 import 'package:hinvex_app/general/di/injection.dart';
+import 'package:hinvex_app/general/services/notification_services.dart';
 import 'package:hinvex_app/general/utils/app_details.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
 import 'package:provider/provider.dart';
 import 'features/splash/presentation/view/splash_screen.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await configureDependency();
+  NotificationServices().initializeNotifications();
   runApp(const MyApp());
 }
 
@@ -76,6 +80,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: AppDetails.appName,
+        navigatorKey: navigatorKey,
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primaryColor: AppColors.primaryColor,

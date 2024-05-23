@@ -7,6 +7,8 @@ import 'package:hinvex_app/features/property_details_view/presentation/provider/
 import 'package:hinvex_app/features/property_details_view/presentation/view/widget/property_details_widget.dart';
 import 'package:hinvex_app/features/sell/data/model/property_model.dart';
 import 'package:hinvex_app/features/shortlists/presentation/provider/shortlist_provider.dart';
+import 'package:hinvex_app/general/di/injection.dart';
+import 'package:hinvex_app/general/services/dynamic_link_services.dart';
 import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -41,6 +43,7 @@ class _PropertyDetailsScrenState extends State<PropertyDetailsScren> {
 
   @override
   Widget build(BuildContext context) {
+    final dynamicLinkServices = sl<DynamicLinkServices>();
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
@@ -54,7 +57,12 @@ class _PropertyDetailsScrenState extends State<PropertyDetailsScren> {
                 SizedBox(
                   height: 22,
                   width: 27,
-                  child: Image.asset(ImageConstant.share),
+                  child: InkWell(
+                      onTap: () {
+                        dynamicLinkServices.createShareLink(
+                            propertyModel: widget.propertyModel);
+                      },
+                      child: Image.asset(ImageConstant.share)),
                 ),
                 const SizedBox(width: 16),
                 Consumer<AuthenticationProvider>(

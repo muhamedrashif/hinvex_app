@@ -5,6 +5,7 @@ import 'package:hinvex_app/features/location/data/i_location_facade.dart';
 import 'package:hinvex_app/features/location/data/model/location_model_main.dart/location_model_main.dart';
 import 'package:hinvex_app/features/location/data/model/popular_cities_model/popularcities_model.dart';
 import 'package:hinvex_app/features/location/data/model/search_location_model/search_location_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LocationProvider with ChangeNotifier {
   final ILocationFacade iLocationFacade;

@@ -69,7 +69,6 @@ class IShortListImpl implements IShortListFacade {
     try {
       currentLastIndex += 8;
       List<Future<DocumentSnapshot<Map<String, dynamic>>>> futures = [];
-
       for (currentIndex; currentIndex < currentLastIndex; currentIndex++) {
         if (currentIndex < productIds.length) {
           futures.add(_firestore
