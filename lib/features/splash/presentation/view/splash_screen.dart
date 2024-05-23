@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/authentication/presentation/provider/auth_provider.dart';
 import 'package:hinvex_app/features/authentication/presentation/view/cheking_screen.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/text_widget.dart';
+import 'package:hinvex_app/general/di/injection.dart';
+import 'package:hinvex_app/general/services/dynamic_link_services.dart';
 import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +23,6 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   void initState() {
-    super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<AuthenticationProvider>(context, listen: false).fetchUser();
     });
@@ -44,6 +45,7 @@ class _SplashScreenState extends State<SplashScreen>
         ),
       );
     });
+    super.initState();
   }
 
   @override

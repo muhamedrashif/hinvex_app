@@ -5,17 +5,19 @@ import 'package:hinvex_app/features/location/data/i_location_facade.dart';
 import 'package:hinvex_app/features/location/data/model/location_model_main.dart/location_model_main.dart';
 import 'package:hinvex_app/features/location/data/model/popular_cities_model/popularcities_model.dart';
 import 'package:hinvex_app/features/location/data/model/search_location_model/search_location_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LocationProvider with ChangeNotifier {
   final ILocationFacade iLocationFacade;
   LocationProvider({required this.iLocationFacade});
 
   List<PlaceResult> suggestions = [];
-  // SharedPreferences? _prefs;
+  SharedPreferences? _prefs;
+  String? currentLocation;
 
-  // Future<void> initSharedPreferences() async {
-  //   _prefs = await SharedPreferences.getInstance();
-  // }
+  Future<void> initSharedPreferences() async {
+    _prefs = await SharedPreferences.getInstance();
+  }
 
   // SEARCH LOCATION
 
@@ -90,17 +92,20 @@ class LocationProvider with ChangeNotifier {
   //   _prefs!.setString('save_location', location.localArea!);
   // }
 
-  // void _saveLocationInSharedPreferences(PlaceCell location) {
-  //   log("SHAREDPREFERENCES CALLED");
-  //   if (_prefs != null) {
-  //     _prefs!.setString('save_location', location.localArea!);
-  //   }
-  // }
+  void saveLocationInSharedPreferences(PlaceCell location) {
+    log("SHAREDPREFERENCES CALLED");
+    if (_prefs != null) {
+      _prefs!.setString('save_location', location.localArea!);
+      currentLocation = location.localArea!;
+    }
+  }
 
-  // Future<String?> getSavedLocation() async {
-  //   await initSharedPreferences();
-  //   return _prefs!.getString('save_location');
-  // }
+  Future<String?> getSavedLocation() async {
+    await initSharedPreferences();
+    if (_prefs!.containsKey("save_location"))
+      currentLocation = _prefs!.getString('save_location')!;
+    return currentLocation;
+  }
 
   void clearSuggestions() {
     suggestions.clear();

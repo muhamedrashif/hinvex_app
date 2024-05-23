@@ -23,8 +23,10 @@ class _ShortListsScreenState extends State<ShortListsScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final userFavoriteList =
           context.read<AuthenticationProvider>().userModel?.favoriteProducts;
-      if ((userFavoriteList ?? []).isNotEmpty) {
-        context.read<ShortListProvider>().init(userFavoriteList!);
+
+      final reverseList = userFavoriteList?.reversed.toList();
+      if ((reverseList ?? []).isNotEmpty) {
+        context.read<ShortListProvider>().init(reverseList!);
       }
     });
     super.initState();
@@ -42,7 +44,7 @@ class _ShortListsScreenState extends State<ShortListsScreen> {
         return Future.value(true);
       },
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
         child: Consumer<ShortListProvider>(
           builder: (context, state, child) {
             return CustomScrollView(

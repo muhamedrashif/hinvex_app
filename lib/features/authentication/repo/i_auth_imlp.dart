@@ -117,7 +117,9 @@ class IAuthImpl implements IAuthFacade {
 
   @override
   Stream<UserModel?> fetchUser() async* {
-    String userId = _firebaseAuth.currentUser!.uid;
+    final userId = _firebaseAuth.currentUser?.uid;
+
+    if (userId == null) return;
     final snapshot = _firestore.collection('users').doc(userId).snapshots();
     yield* snapshot.map((doc) {
       if (doc.exists) {
