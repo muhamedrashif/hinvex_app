@@ -668,13 +668,18 @@ class PropertySubDetails extends StatelessWidget {
                     ],
                   ),
                 ),
-                Text(
-                  propertyModel.projectName.toString(),
-                  style: TextStyle(
+                Flexible(
+                  child: Text(
+                    propertyModel.projectName.toString(),
+                    style: TextStyle(
                       color: AppColors.titleTextColor,
                       fontSize: 12,
-                      fontWeight: FontWeight.w600),
-                )
+                      fontWeight: FontWeight.w600,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                  ),
+                ),
               ],
             ),
           ),

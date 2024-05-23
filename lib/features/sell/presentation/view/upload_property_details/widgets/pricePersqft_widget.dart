@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/sell/presentation/provider/sell_provider.dart';
-import 'package:hinvex_app/general/utils/textformfeild_widget/textFormField_widget.dart';
+import 'package:hinvex_app/general/utils/textformfeild_widget/textformfield_widget.dart';
 import 'package:provider/provider.dart';
 
 class PricePersqftInputWidget extends StatelessWidget {

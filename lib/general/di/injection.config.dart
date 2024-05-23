@@ -18,20 +18,35 @@ import 'package:shared_preferences/shared_preferences.dart' as _i3;
 
 import '../../features/authentication/data/i_auth_facade.dart' as _i12;
 import '../../features/authentication/repo/i_auth_imlp.dart' as _i13;
+<<<<<<< HEAD
+import '../../features/home/data/i_home_facade.dart' as _i18;
+import '../../features/home/repo/i_home_impl.dart' as _i19;
+import '../../features/location/data/i_location_facade.dart' as _i21;
+import '../../features/location/repo/i_location_impl.dart' as _i20;
+import '../../features/myads/data/i_myads_facade.dart' as _i14;
+import '../../features/myads/repo/i_myads_impl.dart' as _i15;
+=======
 import '../../features/location/data/i_location_facade.dart' as _i21;
 import '../../features/location/repo/i_location_impl.dart' as _i20;
 import '../../features/myads/data/i_myads_facade.dart' as _i16;
 import '../../features/myads/repo/i_myads_impl.dart' as _i17;
+>>>>>>> 20fd05e1d1c6138d8a2a099129ccf627585d6023
 import '../../features/profile/data/i_profile_facade.dart' as _i22;
 import '../../features/profile/repo/i_profile_impl.dart' as _i23;
 import '../../features/property_details_view/data/i_propertydetails_facade.dart'
     as _i18;
 import '../../features/property_details_view/repo/i_propertydetails_impl.dart'
+<<<<<<< HEAD
+    as _i17;
+import '../../features/sell/data/i_sell_facade.dart' as _i24;
+import '../../features/sell/repo/i_sell_impl.dart' as _i25;
+=======
     as _i19;
 import '../../features/sell/data/i_sell_facade.dart' as _i24;
 import '../../features/sell/repo/i_sell_impl.dart' as _i25;
 import '../../features/shortlists/data/i_shortlist_facade.dart' as _i14;
 import '../../features/shortlists/repo/i_shortlist_impl.dart' as _i15;
+>>>>>>> 20fd05e1d1c6138d8a2a099129ccf627585d6023
 import '../services/image_pick_service.dart' as _i10;
 import '../services/location_service.dart' as _i9;
 import '../services/upload_location_services.dart' as _i11;
@@ -82,8 +97,15 @@ Future<_i1.GetIt> init(
         gh<_i5.FirebaseFirestore>(),
         gh<_i7.FirebaseAuth>(),
       ));
+<<<<<<< HEAD
+  gh.lazySingleton<_i16.IPropertyDetailsFacade>(
+      () => _i17.IPropertyDetailsImpl(gh<_i5.FirebaseFirestore>()));
+  gh.lazySingleton<_i18.IHomeFacade>(
+      () => _i19.IHomeImpl(gh<_i5.FirebaseFirestore>()));
+=======
   gh.lazySingleton<_i18.IPropertyDetailsFacade>(
       () => _i19.IPropertyDetailsImpl(gh<_i5.FirebaseFirestore>()));
+>>>>>>> 20fd05e1d1c6138d8a2a099129ccf627585d6023
   gh.lazySingleton<_i20.GetCurrentPosition>(() => _i20.GetCurrentPosition(
         gh<_i9.GetPosition>(),
         gh<_i3.SharedPreferences>(),

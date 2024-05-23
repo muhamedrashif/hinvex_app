@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/bottomNavigationBar/presentation/view/bottom_navigation_widget.dart';
 import 'package:hinvex_app/features/myads/presentation/provider/myads_provider.dart';
@@ -108,9 +109,11 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
                           }),
                     if (state.myAdsList.isNotEmpty &&
                         state.fetchProductsLoading)
-                      const SliverToBoxAdapter(
+                      SliverToBoxAdapter(
                         child: Center(
-                          child: CircularProgressIndicator(),
+                          child: CupertinoActivityIndicator(
+                            color: AppColors.primaryColor,
+                          ),
                         ),
                       )
                   ]),

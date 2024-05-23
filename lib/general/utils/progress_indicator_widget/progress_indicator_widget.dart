@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
@@ -25,12 +26,11 @@ void showProgress<T>(BuildContext context) {
                   child: Row(
                     children: [
                       SizedBox(
-                        height: 30,
-                        width: 30,
-                        child: CircularProgressIndicator(
-                          color: AppColors.primaryColor,
-                        ),
-                      ),
+                          height: 30,
+                          width: 30,
+                          child: CupertinoActivityIndicator(
+                            color: AppColors.primaryColor,
+                          )),
                       const Gap(15),
                       const Text(
                         'Please wait...',

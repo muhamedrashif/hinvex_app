@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/property_details_view/presentation/provider/propertydertails_provider.dart';
 import 'package:hinvex_app/features/property_details_view/presentation/view/widget/property_details_widget.dart';
@@ -28,8 +29,7 @@ class _PropertyDetailsScrenState extends State<PropertyDetailsScren> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (widget.propertyModel.userId != 'owner' &&
-          widget.propertyModel.userId != currentUserId) {
+      if (widget.propertyModel.userId != 'owner') {
         Provider.of<PropertyDetailsProvider>(context, listen: false)
             .fetchUser(userId: widget.propertyModel.userId!);
       }
@@ -65,7 +65,10 @@ class _PropertyDetailsScrenState extends State<PropertyDetailsScren> {
       ),
       body: Consumer<PropertyDetailsProvider>(builder: (context, state, _) {
         return state.fetchUserLoading
-            ? const Center(child: CircularProgressIndicator())
+            ? Center(
+                child: CupertinoActivityIndicator(
+                color: AppColors.primaryColor,
+              ))
             : Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: CustomScrollView(slivers: [
@@ -85,17 +88,14 @@ class _PropertyDetailsScrenState extends State<PropertyDetailsScren> {
                       propertyModel: widget.propertyModel,
                     ),
                   ),
-                  if (widget.propertyModel.userId == currentUserId)
-                    const SliverToBoxAdapter(child: SizedBox())
-                  else
-                    SliverToBoxAdapter(
-                      child: UploaderDetails(
-                        propertyModel: widget.propertyModel,
-                        userModel: (widget.propertyModel.userId == 'owner'
-                            ? null
-                            : state.userModel),
-                      ),
+                  SliverToBoxAdapter(
+                    child: UploaderDetails(
+                      propertyModel: widget.propertyModel,
+                      userModel: (widget.propertyModel.userId == 'owner'
+                          ? null
+                          : state.userModel),
                     ),
+                  ),
                   SliverToBoxAdapter(
                       child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
