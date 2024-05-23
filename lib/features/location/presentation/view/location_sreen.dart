@@ -25,7 +25,7 @@ class _LocationScreenState extends State<LocationScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<AuthProvider>(context, listen: false).fetchUser();
+      Provider.of<AuthenticationProvider>(context, listen: false).fetchUser();
     });
   }
 

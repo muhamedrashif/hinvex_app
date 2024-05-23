@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/category/presentation/provider/category_filter_provider.dart';
 import 'package:hinvex_app/features/category/presentation/view/screen/category_filter_screen.dart';
-import 'package:hinvex_app/features/category/presentation/view/widget/category_card_items.dart';
 import 'package:hinvex_app/features/property_details_view/presentation/view/property_details_screen.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
+import 'package:hinvex_app/general/widgets/property_card_items.dart';
 import 'package:provider/provider.dart';
 
 class CategoryDisplayScreen extends StatefulWidget {
@@ -185,7 +185,7 @@ class _CategoryDisplayScreenState extends State<CategoryDisplayScreen> {
                                                           uplodedList),
                                             ));
                                       },
-                                      child: CategoryCardItems(
+                                      child: PropertyCardItems(
                                         postModel: uplodedList,
                                       )),
                                   if (index ==

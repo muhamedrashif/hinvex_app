@@ -29,7 +29,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     final profileProviderState = Provider.of<ProfileProvider>(context);
 
-    return Consumer<AuthProvider>(builder: (context, state, _) {
+    return Consumer<AuthenticationProvider>(builder: (context, state, _) {
       return Scaffold(
         backgroundColor: AppColors.backgroundColor,
         body: SafeArea(

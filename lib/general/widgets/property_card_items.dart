@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hinvex_app/features/authentication/presentation/provider/auth_provider.dart';
+import 'package:hinvex_app/features/authentication/presentation/view/authentocation_screen.dart';
 import 'package:hinvex_app/features/sell/data/model/property_model.dart';
 import 'package:hinvex_app/features/shortlists/presentation/provider/shortlist_provider.dart';
 import 'package:hinvex_app/general/utils/Customwidgets/CustomNetworkImageWidget.dart';
@@ -8,8 +10,8 @@ import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
 import 'package:provider/provider.dart';
 
-class CategoryCardItems extends StatelessWidget {
-  const CategoryCardItems({
+class PropertyCardItems extends StatelessWidget {
+  const PropertyCardItems({
     super.key,
     required this.postModel,
   });
@@ -132,21 +134,21 @@ class CategoryCardItems extends StatelessWidget {
               Positioned(
                 top: 28,
                 right: 22,
-                child: Consumer<AuthProvider>(
+                child: Consumer<AuthenticationProvider>(
                   builder: (context, state, child) {
                     return InkWell(
                       onTap: () {
-                        // if (FirebaseAuth.instance.currentUser != null) {
-                        Provider.of<ShortListProvider>(context, listen: false)
-                            .uploadShortList(postModel, state.userModel!);
-                        // } else {
-                        //   Navigator.push(
-                        //       context,
-                        //       MaterialPageRoute(
-                        //         builder: (context) =>
-                        //             const AuthenticationScreen(),
-                        //       ));
-                        // }
+                        if (FirebaseAuth.instance.currentUser != null) {
+                          Provider.of<ShortListProvider>(context, listen: false)
+                              .uploadShortList(postModel, state.userModel!);
+                        } else {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const AuthenticationScreen(),
+                              ));
+                        }
                       },
                       child: CircleAvatar(
                         radius: 15,

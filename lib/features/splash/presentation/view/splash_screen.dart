@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<AuthProvider>(context, listen: false).fetchUser();
+      Provider.of<AuthenticationProvider>(context, listen: false).fetchUser();
     });
     _controller = AnimationController(
       vsync: this,

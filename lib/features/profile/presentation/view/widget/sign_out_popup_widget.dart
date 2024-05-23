@@ -53,7 +53,8 @@ class SignOutConfirmationDialog extends StatelessWidget {
               // prefs.setString('phone_number', "");
               // prefs.setString('save_location', "");
 
-              Provider.of<AuthProvider>(context, listen: false).signOut();
+              Provider.of<AuthenticationProvider>(context, listen: false)
+                  .signOut();
 
               Navigator.pushAndRemoveUntil(
                 // ignore: use_build_context_synchronously

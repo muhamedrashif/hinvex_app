@@ -158,7 +158,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                       _formKey.currentState!.save();
 
                       showProgress(context);
-                      context.read<AuthProvider>().verifyPhoneNumber(
+                      context.read<AuthenticationProvider>().verifyPhoneNumber(
                             phoneNumber: '+91${_mobileNumberController.text}',
                             onSuccess: () {
                               Navigator.pop(context);

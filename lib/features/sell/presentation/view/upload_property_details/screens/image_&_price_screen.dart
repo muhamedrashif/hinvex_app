@@ -40,7 +40,8 @@ class _PriceScreenState extends State<PriceScreen> {
       ),
       body: Consumer<SellProvider>(builder: (context, state, _) {
         final authProviderState =
-            Provider.of<AuthProvider>(context, listen: false).userModel;
+            Provider.of<AuthenticationProvider>(context, listen: false)
+                .userModel;
         return Form(
           key: _formKey,
           child: Column(
