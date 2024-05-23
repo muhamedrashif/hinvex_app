@@ -1,6 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:hinvex_app/features/authentication/presentation/provider/auth_provider.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:hinvex_app/features/bottomNavigationBar/presentation/view/bottom_navigation_widget.dart';
 import 'package:hinvex_app/features/location/presentation/provider/location_provider.dart';
 import 'package:hinvex_app/features/location/presentation/view/widgets/search_location_widget.dart';
@@ -11,6 +11,7 @@ import 'package:hinvex_app/features/splash/presentation/view/widgets/text_widget
 import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
 import 'package:hinvex_app/general/utils/progress_indicator_widget/progress_indicator_widget.dart';
+import 'package:hinvex_app/general/utils/toast/toast.dart';
 import 'package:provider/provider.dart';
 
 class LocationScreen extends StatefulWidget {
@@ -21,13 +22,13 @@ class LocationScreen extends StatefulWidget {
 }
 
 class _LocationScreenState extends State<LocationScreen> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<AuthenticationProvider>(context, listen: false).fetchUser();
-    });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   WidgetsBinding.instance.addPostFrameCallback((_) {
+  //     Provider.of<AuthenticationProvider>(context, listen: false).fetchUser();
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -92,9 +93,12 @@ class _LocationScreenState extends State<LocationScreen> {
                           builder: (context) => const BottomNavigationWidget(),
                         ),
                         (route) => false);
-                  }, onFailure: () {
+                  }, onFailure: (failed) {
                     log("Get current location Failed");
+                    showToast(failed, backgroundColor: Colors.red);
+
                     Navigator.pop(context);
+                    Geolocator.openAppSettings();
                   });
                 },
               ),

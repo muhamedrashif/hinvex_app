@@ -5,8 +5,8 @@ import 'package:hinvex_app/general/utils/app_theme/colors.dart';
 import 'package:hinvex_app/general/utils/enums/enums.dart';
 
 // ignore: must_be_immutable
-class Bar extends StatelessWidget {
-  Bar({super.key});
+class TabBarWidget extends StatelessWidget {
+  TabBarWidget({super.key});
 
   List<Map<String, dynamic>> categories = [
     {

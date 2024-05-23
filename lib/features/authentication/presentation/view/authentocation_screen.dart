@@ -1,13 +1,18 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hinvex_app/features/authentication/presentation/provider/auth_provider.dart';
 import 'package:hinvex_app/features/location/presentation/view/location_sreen.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_button_widget.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_image_widget.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_outLines_button_widget.dart';
 import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
+import 'package:hinvex_app/general/utils/app_details.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
 import 'package:hinvex_app/general/utils/progress_indicator_widget/progress_indicator_widget.dart';
+import 'package:hinvex_app/general/utils/toast/toast.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import 'widget/otpverification_widget.dart';
 
@@ -59,6 +64,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                       height: 44,
@@ -80,20 +86,44 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                     const SizedBox(
                       width: 10,
                     ),
-                    Container(
-                      height: 50,
-                      width: MediaQuery.of(context).size.width / 1.36,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
+                    Expanded(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: TextFormField(
-                          decoration: const InputDecoration(
-                            border: InputBorder.none,
+                          maxLength: 10,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          decoration: InputDecoration(
+                            isDense: true,
+                            contentPadding:
+                                const EdgeInsets.fromLTRB(10, 14, 10, 8),
+                            border: OutlineInputBorder(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(8)),
+                              borderSide: BorderSide(
+                                color: AppColors.titleTextColor,
+                                width: .5,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(8)),
+                              borderSide: BorderSide(
+                                color: AppColors.titleTextColor,
+                                width: .5,
+                              ),
+                            ),
+                            errorBorder: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8)),
+                              borderSide: BorderSide(
+                                color: Colors.red,
+                                width: .5,
+                              ),
+                            ),
                             hintText: "Enter Phone Number",
-                            hintStyle: TextStyle(color: Colors.grey),
+                            hintStyle: const TextStyle(color: Colors.grey),
                           ),
                           controller: _mobileNumberController,
                           keyboardType: TextInputType.number,
@@ -133,11 +163,23 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                           TextSpan(
                             text: "Terms Of Use ",
                             style: TextStyle(color: Colors.blue[200]),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                launchUrlString(AppDetails.termsAndCondition,
+                                    mode: LaunchMode.externalApplication);
+                              },
                           ),
                           const TextSpan(text: "& "),
                           TextSpan(
                             text: "privacy policy",
                             style: TextStyle(color: Colors.blue[200]),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                launchUrlString(
+                                  AppDetails.privacyAndPolicy,
+                                  mode: LaunchMode.externalApplication,
+                                );
+                              },
                           ),
                         ],
                       ),
@@ -180,13 +222,14 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                     ),
                                     child: OTPVerificationSheet(
                                       phoneNumber:
-                                          '+91${_mobileNumberController.text}',
+                                          '${AppDetails.contryCode}${_mobileNumberController.text}',
                                     ),
                                   );
                                 },
                               );
                             },
-                            onFailure: () {
+                            onFailure: (value) {
+                              showToast(value, backgroundColor: Colors.red);
                               Navigator.pop(context);
                             },
                           );

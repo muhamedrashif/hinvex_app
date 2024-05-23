@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/myads/data/i_myads_facade.dart';
 import 'package:hinvex_app/features/sell/data/model/property_model.dart';
@@ -65,6 +66,12 @@ class MyAdsProvider with ChangeNotifier {
   }
 
   Future<void> init() async {
+    if (FirebaseAuth.instance.currentUser == null) {
+      fetchProductsLoading = false;
+      notifyListeners();
+      return;
+    }
+
     if (myAdsList.isEmpty) {
       iMyAdsFacade.clearData();
       myAdsList = [];

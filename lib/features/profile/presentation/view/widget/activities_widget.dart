@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hinvex_app/features/authentication/presentation/view/authentocation_screen.dart';
+import 'package:hinvex_app/features/myads/presentation/view/myads_screen.dart';
+import 'package:hinvex_app/features/shortlists/presentation/view/shortlists_screen.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
 
 class ActivitiesWidget extends StatelessWidget {
@@ -37,40 +41,78 @@ class ActivitiesWidget extends StatelessWidget {
                     fontSize: 14,
                     color: AppColors.titleTextColor),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 14.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "My Ads",
-                      style: TextStyle(
-                          fontSize: 14, color: AppColors.subtitleTextColor),
-                    ),
-                    Icon(
-                      Icons.arrow_forward_ios_rounded,
-                      size: 12,
-                      color: AppColors.titleTextColor,
-                    ),
-                  ],
+              InkWell(
+                onTap: () {
+                  if (FirebaseAuth.instance.currentUser == null) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AuthenticationScreen(),
+                      ),
+                    );
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const MyAdsScreen(),
+                      ),
+                    );
+                  }
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 14.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "My Ads",
+                        style: TextStyle(
+                            fontSize: 14, color: AppColors.subtitleTextColor),
+                      ),
+                      Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        size: 12,
+                        color: AppColors.titleTextColor,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 14.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "My Shortlists",
-                      style: TextStyle(
-                          fontSize: 14, color: AppColors.subtitleTextColor),
-                    ),
-                    Icon(
-                      Icons.arrow_forward_ios_rounded,
-                      size: 12,
-                      color: AppColors.titleTextColor,
-                    ),
-                  ],
+              InkWell(
+                onTap: () {
+                  if (FirebaseAuth.instance.currentUser == null) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ShortListsScreen(),
+                      ),
+                    );
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const MyAdsScreen(),
+                      ),
+                    );
+                  }
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 14.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "My Shortlists",
+                        style: TextStyle(
+                            fontSize: 14, color: AppColors.subtitleTextColor),
+                      ),
+                      Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        size: 12,
+                        color: AppColors.titleTextColor,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

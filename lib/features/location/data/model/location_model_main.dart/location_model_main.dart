@@ -247,7 +247,7 @@ class LocationService {
 
     try {
       final response = await http.get(Uri.parse(url));
-      log(response.body.toString());
+      // log(response.body.toString());
 
       if (response.statusCode == 200) {
         final address = LocationModel.fromMap(json.decode(response.body));

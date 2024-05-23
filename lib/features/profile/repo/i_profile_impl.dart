@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
@@ -24,21 +23,6 @@ class IProfileImpl implements IProfileFacade {
   final UploadPlaceService uploadPlaceService;
   final GetCurrentPosition getCurrentPosition;
   final ImageService imageService;
-
-  // @override
-  // Future<QuerySnapshot<Map<String, dynamic>>> fetchUser() async {
-  //   try {
-  //     String userId = FirebaseAuth.instance.currentUser!.uid;
-  //     final result = await _firebaseFirestore
-  //         .collection('users')
-  //         .where('userId', isEqualTo: userId)
-  //         .get();
-  //     return result;
-  //   } catch (e) {
-  //     log("Error fetching user: $e");
-  //     return Future.error(e);
-  //   }
-  // }
 
   @override
   FutureResult<PlaceCell> serchLocationByAddres({

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -46,7 +45,7 @@ class IAuthImpl implements IAuthFacade {
     required String smsCode,
     required String verificationId,
   }) async {
-    log('$smsCode, $verificationId');
+    // log('$smsCode, $verificationId');
     try {
       final PhoneAuthCredential phoneAuthCredential =
           PhoneAuthProvider.credential(
@@ -93,28 +92,6 @@ class IAuthImpl implements IAuthFacade {
     }
   }
 
-  // @override
-  // Stream<QuerySnapshot<UserModel>> fetchUser() {
-  //   log('called impl');
-  //   String userId = _firebaseAuth.currentUser!.uid;
-  //   final result = _firestore
-  //       .collection('users')
-  //       .doc(userId)
-  //       .snapshots();
-  //   return result;
-  // }
-
-  // @override
-  // Future<UserModel?> getUser() async {
-  //   String userId = _firebaseAuth.currentUser!.uid;
-
-  //   final responce = await _firestore.collection('users').doc(userId).get();
-
-  //   final users = UserModel.fromMap(responce.data()!).copyWith(id: responce.id);
-
-  //   return users;
-  // }
-
   @override
   Stream<UserModel?> fetchUser() async* {
     final userId = _firebaseAuth.currentUser?.uid;
@@ -128,5 +105,17 @@ class IAuthImpl implements IAuthFacade {
         return null;
       }
     });
+  }
+
+  @override
+  FutureResult<Unit> signOut() async {
+    try {
+      await _firebaseAuth.signOut();
+      return right(unit);
+    } on Exception catch (e) {
+      return left(
+        MainFailure.userAuthenticatorError(errorMsg: '$e'),
+      );
+    }
   }
 }

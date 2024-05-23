@@ -43,91 +43,93 @@ class _ShortListsScreenState extends State<ShortListsScreen> {
         ));
         return Future.value(true);
       },
-      child: Padding(
-        padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
-        child: Consumer<ShortListProvider>(
-          builder: (context, state, child) {
-            return CustomScrollView(
-              controller: state.scrollController,
-              slivers: [
-                SliverAppBar(
-                  pinned: true,
-                  backgroundColor: AppColors.backgroundColor,
-                  surfaceTintColor: AppColors.backgroundColor,
-                  automaticallyImplyLeading: false,
-                  titleSpacing: 2,
-                  title: CustumImage(
-                    image: ImageConstant.hinvexAppLogo,
-                    height: 15.87,
-                    width: 72.66,
-                    alignment: Alignment.topLeft,
-                  ),
-                  bottom: PreferredSize(
-                    preferredSize: const Size(double.infinity, 20),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Text(
-                            "My Shortlist",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 18,
-                              color: AppColors.titleTextColor,
+      child: Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Consumer<ShortListProvider>(
+            builder: (context, state, child) {
+              return CustomScrollView(
+                controller: state.scrollController,
+                slivers: [
+                  SliverAppBar(
+                    pinned: true,
+                    backgroundColor: AppColors.backgroundColor,
+                    surfaceTintColor: AppColors.backgroundColor,
+                    automaticallyImplyLeading: false,
+                    titleSpacing: 2,
+                    title: CustumImage(
+                      image: ImageConstant.hinvexAppLogo,
+                      height: 15.87,
+                      width: 72.66,
+                      alignment: Alignment.topLeft,
+                    ),
+                    bottom: PreferredSize(
+                      preferredSize: const Size(double.infinity, 20),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Text(
+                              "My Shortlist",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18,
+                                color: AppColors.titleTextColor,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-                if (state.propertiesList.isEmpty && state.isLoading)
-                  const SliverFillRemaining(
-                    hasScrollBody: false,
-                    child: Padding(
-                      padding: EdgeInsets.all(15.0),
+                  if (state.propertiesList.isEmpty && state.isLoading)
+                    const SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: Padding(
+                        padding: EdgeInsets.all(15.0),
+                        child: Center(
+                          child: CupertinoActivityIndicator(),
+                        ),
+                      ),
+                    )
+                  else if (state.propertiesList.isEmpty &&
+                      state.isLoading == false)
+                    const SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: Center(
+                        child: Text(
+                          "No Data.!",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    )
+                  else
+                    SliverList.builder(
+                      itemCount: state.propertiesList.length,
+                      itemBuilder: (context, index) => InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PropertyDetailsScren(
+                                    propertyModel: state.propertiesList[index]),
+                              ));
+                        },
+                        child: PropertyCardItems(
+                          postModel: state.propertiesList[index],
+                        ),
+                      ),
+                    ),
+                  if (state.isLoading && state.propertiesList.isNotEmpty)
+                    const SliverToBoxAdapter(
                       child: Center(
                         child: CupertinoActivityIndicator(),
                       ),
-                    ),
-                  )
-                else if (state.propertiesList.isEmpty &&
-                    state.isLoading == false)
-                  const SliverFillRemaining(
-                    hasScrollBody: false,
-                    child: Center(
-                      child: Text(
-                        "No Data.!",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  )
-                else
-                  SliverList.builder(
-                    itemCount: state.propertiesList.length,
-                    itemBuilder: (context, index) => InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => PropertyDetailsScren(
-                                  propertyModel: state.propertiesList[index]),
-                            ));
-                      },
-                      child: PropertyCardItems(
-                        postModel: state.propertiesList[index],
-                      ),
-                    ),
-                  ),
-                if (state.isLoading && state.propertiesList.isNotEmpty)
-                  const SliverToBoxAdapter(
-                    child: Center(
-                      child: CupertinoActivityIndicator(),
-                    ),
-                  )
-              ],
-            );
-          },
+                    )
+                ],
+              );
+            },
+          ),
         ),
       ),
     );

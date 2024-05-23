@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hinvex_app/general/utils/app_theme/colors.dart';
 
-showToast(String message) {
+showToast(
+  String message, {
+  Color textColor = Colors.white,
+  Color backgroundColor = Colors.black,
+}) {
   Fluttertoast.showToast(
     msg: message,
     toastLength: Toast.LENGTH_SHORT,
     gravity: ToastGravity.BOTTOM,
     timeInSecForIosWeb: 1,
-    textColor: Colors.white,
+    textColor: textColor,
     fontSize: 16.0,
-    backgroundColor: AppColors.textButtonColor,
+    backgroundColor: backgroundColor,
   );
 }

@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/authentication/data/i_auth_facade.dart';
 import 'package:hinvex_app/features/authentication/presentation/provider/auth_provider.dart';
+import 'package:hinvex_app/features/banner/data/i_banner_facade.dart';
+import 'package:hinvex_app/features/banner/presentation/provider/banner_provider.dart';
 import 'package:hinvex_app/features/category/presentation/provider/category_filter_provider.dart';
 import 'package:hinvex_app/features/home/data/i_home_facade.dart';
 import 'package:hinvex_app/features/home/presentation/provider/home_provider.dart';
@@ -21,6 +23,7 @@ import 'package:hinvex_app/features/shortlists/data/i_shortlist_facade.dart';
 import 'package:hinvex_app/features/shortlists/presentation/provider/shortlist_provider.dart';
 import 'package:hinvex_app/general/di/injection.dart';
 import 'package:hinvex_app/general/services/notification_services.dart';
+import 'package:hinvex_app/general/utils/app_details.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
 import 'package:provider/provider.dart';
 import 'features/splash/presentation/view/splash_screen.dart';
@@ -72,12 +75,11 @@ class MyApp extends StatelessWidget {
               ShortListProvider(iShortListFacade: sl<IShortListFacade>()),
         ),
         ChangeNotifierProvider(
-          create: (_) => NotificationProvider(
-              iNotificationFacade: sl<INotificationFacade>()),
-        ),
+          create: (_) => BannerProvider(iBannerFacade: sl<IBannerFacade>()),
+        )
       ],
       child: MaterialApp(
-        title: 'HinveX App',
+        title: AppDetails.appName,
         navigatorKey: navigatorKey,
         debugShowCheckedModeBanner: false,
         theme: ThemeData(

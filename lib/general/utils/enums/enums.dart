@@ -14,3 +14,11 @@ enum SelectedType { sell, rent }
 enum SelectedFurnisher { furnished, semiFurnished, unFurnished }
 
 enum SelectedListedBy { builder, dealer, owner }
+
+enum LocationSortEnum {
+  localArea,
+  district,
+  state,
+  contrary,
+  noDataFound,
+}
