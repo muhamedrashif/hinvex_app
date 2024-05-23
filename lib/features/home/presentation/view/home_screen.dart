@@ -200,9 +200,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       if (state.propertyList.isEmpty &&
                           state.fetchProductsLoading)
-                        SliverFillRemaining(
+                        const SliverFillRemaining(
                           hasScrollBody: false,
-                          child: propertyShimmerCardWidget(),
+                          child: PropertyShimmerCardWidget(),
                         )
                       else if (state.propertyList.isEmpty &&
                           state.fetchProductsLoading == false)

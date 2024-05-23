@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/home/data/i_home_facade.dart';
-import 'package:hinvex_app/features/banner/data/model/banner_model.dart';
 import 'package:hinvex_app/features/location/data/model/search_location_model/search_location_model.dart';
 import 'package:hinvex_app/features/sell/data/model/property_model.dart';
 
