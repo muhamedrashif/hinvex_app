@@ -1,17 +1,28 @@
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:hinvex_app/features/authentication/presentation/view/authentocation_screen.dart';
+import 'package:hinvex_app/features/banner/presentation/provider/banner_provider.dart';
 import 'package:hinvex_app/features/home/presentation/provider/home_provider.dart';
-import 'package:hinvex_app/features/home/presentation/view/widgets/banner_widget.dart';
+import 'package:hinvex_app/features/banner/presentation/view/banner_screen.dart';
+import 'package:hinvex_app/features/banner/presentation/view/widget/banner_shimmer.dart';
+import 'package:hinvex_app/features/location/presentation/provider/location_provider.dart';
+import 'package:hinvex_app/features/location/presentation/view/widgets/search_location_widget.dart';
 import 'package:hinvex_app/features/notification/presentation/view/notification_screen.dart';
 import 'package:hinvex_app/features/profile/presentation/view/profile_screen.dart';
+import 'package:hinvex_app/features/property_details_view/presentation/view/property_details_screen.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_image_widget.dart';
 import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
 import 'package:hinvex_app/general/utils/showExitPopup_widget/showexitpopup_widget.dart';
 import 'package:hinvex_app/general/utils/textformfeild_widget/textformfield_widget.dart';
+import 'package:hinvex_app/general/widgets/property_card_items.dart';
 import 'package:provider/provider.dart';
-
-import 'widgets/s.dart';
+import 'widgets/property_card_simmer.dart';
+import 'widgets/tabbar_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -24,13 +35,16 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<HomeProvider>().init();
+      // context.read<HomeProvider>().init();
     });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final banneProvider = Provider.of<BannerProvider>(context, listen: false);
+    final locationProvider =
+        Provider.of<LocationProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: Consumer<HomeProvider>(builder: (context, state, _) {
@@ -60,26 +74,40 @@ class _HomeScreenState extends State<HomeScreen> {
                                 width: 72.66,
                                 alignment: Alignment.topLeft,
                               ),
-                              const Padding(
-                                padding: EdgeInsets.symmetric(vertical: 8.0),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.location_on_rounded,
-                                      color: Colors.blue,
-                                      size: 20,
-                                    ),
-                                    Gap(4),
-                                    Text(
-                                      "Kunnamangalam",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
+                              InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const SearchLocationWidget(),
+                                      ));
+                                },
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 8.0),
+                                  child: Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.location_on_rounded,
+                                        color: Colors.blue,
+                                        size: 20,
                                       ),
-                                    ),
-                                    Icon(
-                                      Icons.keyboard_arrow_down_outlined,
-                                    )
-                                  ],
+                                      const Gap(4),
+                                      Text(
+                                        locationProvider
+                                                .currentPlaceCell.localArea ??
+                                            locationProvider
+                                                .currentPlaceCell.district,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                      const Icon(
+                                        Icons.keyboard_arrow_down_outlined,
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],
@@ -109,6 +137,16 @@ class _HomeScreenState extends State<HomeScreen> {
                               alignment: Alignment.topLeft,
                             ),
                             onTap: () {
+                              if (FirebaseAuth.instance.currentUser == null) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const AuthenticationScreen(),
+                                  ),
+                                );
+                                return;
+                              }
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -132,28 +170,78 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 // Scrollable Content Section
                 Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: CustomScrollView(
-                      slivers: [
-                        SliverToBoxAdapter(
-                          child: state.fetchBannerLoading
-                              ? const CircularProgressIndicator()
+                  child: CustomScrollView(
+                    controller: state.scrollController,
+                    slivers: [
+                      SliverToBoxAdapter(
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: banneProvider.fetchBannerloading
+                              ? const BannerShimmerWidget()
                               : BannerCarouselWidget(
-                                  bannerList: state.bannerList),
+                                  bannerList: banneProvider.bannerList),
                         ),
-                        SliverToBoxAdapter(
-                          child: Bar(),
+                      ),
+                      SliverToBoxAdapter(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: TabBarWidget(),
                         ),
-                        const SliverToBoxAdapter(
+                      ),
+                      const SliverToBoxAdapter(
+                        child: Padding(
+                          padding: EdgeInsets.all(16.0),
                           child: Text(
                             "Fresh Recommendation",
                             style: TextStyle(
                                 fontWeight: FontWeight.w600, fontSize: 16),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                      if (state.propertyList.isEmpty &&
+                          state.fetchProductsLoading)
+                        SliverFillRemaining(
+                          hasScrollBody: false,
+                          child: propertyShimmerCardWidget(),
+                        )
+                      else if (state.propertyList.isEmpty &&
+                          state.fetchProductsLoading == false)
+                        const SliverFillRemaining(
+                          hasScrollBody: false,
+                          child: Center(
+                            child: Text("No My Ads"),
+                          ),
+                        )
+                      else
+                        SliverList.builder(
+                            itemCount: state.propertyList.length,
+                            itemBuilder: (context, index) {
+                              log("LENGTH: ${state.propertyList.length.toString()}");
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            PropertyDetailsScren(
+                                                propertyModel:
+                                                    state.propertyList[index]),
+                                      ));
+                                },
+                                child: PropertyCardItems(
+                                    postModel: state.propertyList[index]),
+                              );
+                            }),
+                      if (state.propertyList.isNotEmpty &&
+                          state.fetchProductsLoading)
+                        SliverToBoxAdapter(
+                          child: Center(
+                            child: CupertinoActivityIndicator(
+                              color: AppColors.primaryColor,
+                            ),
+                          ),
+                        )
+                    ],
                   ),
                 ),
               ],

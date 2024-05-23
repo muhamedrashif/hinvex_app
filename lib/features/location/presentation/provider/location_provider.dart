@@ -11,13 +11,8 @@ class LocationProvider with ChangeNotifier {
   LocationProvider({required this.iLocationFacade});
 
   List<PlaceResult> suggestions = [];
-  // SharedPreferences? _prefs;
 
-  // Future<void> initSharedPreferences() async {
-  //   _prefs = await SharedPreferences.getInstance();
-  // }
-
-  // SEARCH LOCATION
+  late PlaceCell currentPlaceCell;
 
   Future<void> getLocations(String query) async {
     final reult = await iLocationFacade.pickLocationFromSearch(query);
@@ -56,13 +51,15 @@ class LocationProvider with ChangeNotifier {
 
   Future<void> getUserCurrentPosition({
     required VoidCallback onSuccess,
-    required VoidCallback onFailure,
+    required void Function(String) onFailure,
   }) async {
     iLocationFacade.getUserCurrentPosition().listen((event) {
       event.fold((l) {
         log(l.toString());
-        onFailure();
-      }, (r) {
+        onFailure(l.errorMsg);
+      }, (placeCell) {
+        currentPlaceCell = placeCell;
+        notifyListeners();
         onSuccess();
       });
     }, onError: (error) {
@@ -85,25 +82,13 @@ class LocationProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  // void _saveLocationInSharedPreferences(PlaceCell location) {
-  //   log("SHAREDPREFERENCES CALLED");
-  //   _prefs!.setString('save_location', location.localArea!);
-  // }
-
-  // void _saveLocationInSharedPreferences(PlaceCell location) {
-  //   log("SHAREDPREFERENCES CALLED");
-  //   if (_prefs != null) {
-  //     _prefs!.setString('save_location', location.localArea!);
-  //   }
-  // }
-
-  // Future<String?> getSavedLocation() async {
-  //   await initSharedPreferences();
-  //   return _prefs!.getString('save_location');
-  // }
-
   void clearSuggestions() {
     suggestions.clear();
+    notifyListeners();
+  }
+
+  void selectPlaceCell(PlaceCell placeCell) {
+    currentPlaceCell = placeCell;
     notifyListeners();
   }
 }

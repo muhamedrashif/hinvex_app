@@ -8,12 +8,15 @@ abstract class IAuthFacade {
   FutureResult<String> verifySmsCode({
     required String smsCode,
     required String verificationId,
-  });
+  }) {
+    throw UnimplementedError('verifyPhoneNumber() is not implemented, ');
+  }
 
-  // Stream<QuerySnapshot<UserModel>> fetchUser() {
-  //   throw UnimplementedError('fetchUser() not impl');
-  // }
+  Stream<UserModel?> fetchUser() {
+    throw UnimplementedError('fetchUser() is not implemented ');
+  }
 
-  // Future<UserModel?> getUser();
-  Stream<UserModel?> fetchUser();
+  FutureResult<Unit> signOut() {
+    throw UnimplementedError('signOut() is not implemented ');
+  }
 }

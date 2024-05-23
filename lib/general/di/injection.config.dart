@@ -16,28 +16,30 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:shared_preferences/shared_preferences.dart' as _i3;
 
-import '../../features/authentication/data/i_auth_facade.dart' as _i12;
-import '../../features/authentication/repo/i_auth_imlp.dart' as _i13;
-import '../../features/home/data/i_home_facade.dart' as _i20;
-import '../../features/home/repo/i_home_impl.dart' as _i21;
-import '../../features/location/data/i_location_facade.dart' as _i23;
-import '../../features/location/repo/i_location_impl.dart' as _i22;
-import '../../features/myads/data/i_myads_facade.dart' as _i16;
-import '../../features/myads/repo/i_myads_impl.dart' as _i17;
-import '../../features/profile/data/i_profile_facade.dart' as _i24;
-import '../../features/profile/repo/i_profile_impl.dart' as _i25;
+import '../../features/authentication/data/i_auth_facade.dart' as _i14;
+import '../../features/authentication/repo/i_auth_imlp.dart' as _i15;
+import '../../features/banner/data/i_banner_facade.dart' as _i20;
+import '../../features/banner/repo/i_banner_impl.dart' as _i21;
+import '../../features/home/data/i_home_facade.dart' as _i11;
+import '../../features/home/repo/i_home_impl.dart' as _i12;
+import '../../features/location/data/i_location_facade.dart' as _i25;
+import '../../features/location/repo/i_location_impl.dart' as _i24;
+import '../../features/myads/data/i_myads_facade.dart' as _i18;
+import '../../features/myads/repo/i_myads_impl.dart' as _i19;
+import '../../features/profile/data/i_profile_facade.dart' as _i26;
+import '../../features/profile/repo/i_profile_impl.dart' as _i27;
 import '../../features/property_details_view/data/i_propertydetails_facade.dart'
-    as _i18;
+    as _i22;
 import '../../features/property_details_view/repo/i_propertydetails_impl.dart'
-    as _i19;
-import '../../features/sell/data/i_sell_facade.dart' as _i26;
-import '../../features/sell/repo/i_sell_impl.dart' as _i27;
-import '../../features/shortlists/data/i_shortlist_facade.dart' as _i14;
-import '../../features/shortlists/repo/i_shortlist_impl.dart' as _i15;
+    as _i23;
+import '../../features/sell/data/i_sell_facade.dart' as _i28;
+import '../../features/sell/repo/i_sell_impl.dart' as _i29;
+import '../../features/shortlists/data/i_shortlist_facade.dart' as _i16;
+import '../../features/shortlists/repo/i_shortlist_impl.dart' as _i17;
 import '../services/image_pick_service.dart' as _i10;
 import '../services/location_service.dart' as _i9;
-import '../services/upload_location_services.dart' as _i11;
-import 'app_injectable_module.dart' as _i28;
+import '../services/upload_location_services.dart' as _i13;
+import 'app_injectable_module.dart' as _i30;
 import 'firebase_injectable_module.dart' as _i4;
 
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -71,48 +73,50 @@ Future<_i1.GetIt> init(
   gh.lazySingleton<_i9.GetPosition>(() => _i9.GetPosition());
   gh.lazySingleton<_i10.ImageService>(
       () => _i10.ImageService(gh<_i6.FirebaseStorage>()));
-  gh.lazySingleton<_i11.UploadPlaceService>(
-      () => _i11.UploadPlaceService(gh<_i5.FirebaseFirestore>()));
-  gh.lazySingleton<_i12.IAuthFacade>(() => _i13.IAuthImpl(
+  gh.lazySingleton<_i11.IHomeFacade>(
+      () => _i12.IHomeImpl(gh<_i5.FirebaseFirestore>()));
+  gh.lazySingleton<_i13.UploadPlaceService>(
+      () => _i13.UploadPlaceService(gh<_i5.FirebaseFirestore>()));
+  gh.lazySingleton<_i14.IAuthFacade>(() => _i15.IAuthImpl(
         gh<_i7.FirebaseAuth>(),
         gh<_i5.FirebaseFirestore>(),
         gh<_i8.FirebaseMessaging>(),
       ));
-  gh.lazySingleton<_i14.IShortListFacade>(
-      () => _i15.IShortListImpl(gh<_i5.FirebaseFirestore>()));
-  gh.lazySingleton<_i16.IMyAdsFacade>(() => _i17.IMyAdsImpl(
+  gh.lazySingleton<_i16.IShortListFacade>(
+      () => _i17.IShortListImpl(gh<_i5.FirebaseFirestore>()));
+  gh.lazySingleton<_i18.IMyAdsFacade>(() => _i19.IMyAdsImpl(
         gh<_i5.FirebaseFirestore>(),
         gh<_i7.FirebaseAuth>(),
       ));
-  gh.lazySingleton<_i18.IPropertyDetailsFacade>(
-      () => _i19.IPropertyDetailsImpl(gh<_i5.FirebaseFirestore>()));
-  gh.lazySingleton<_i20.IHomeFacade>(
-      () => _i21.IHomeImpl(gh<_i5.FirebaseFirestore>()));
-  gh.lazySingleton<_i22.GetCurrentPosition>(() => _i22.GetCurrentPosition(
+  gh.lazySingleton<_i20.IBannerFacade>(
+      () => _i21.IBannerImpl(gh<_i5.FirebaseFirestore>()));
+  gh.lazySingleton<_i22.IPropertyDetailsFacade>(
+      () => _i23.IPropertyDetailsImpl(gh<_i5.FirebaseFirestore>()));
+  gh.lazySingleton<_i24.GetCurrentPosition>(() => _i24.GetCurrentPosition(
         gh<_i9.GetPosition>(),
         gh<_i3.SharedPreferences>(),
-        gh<_i11.UploadPlaceService>(),
+        gh<_i13.UploadPlaceService>(),
       ));
-  gh.lazySingleton<_i23.ILocationFacade>(() => _i22.ILocationImpl(
+  gh.lazySingleton<_i25.ILocationFacade>(() => _i24.ILocationImpl(
         gh<_i5.FirebaseFirestore>(),
-        gh<_i22.GetCurrentPosition>(),
+        gh<_i24.GetCurrentPosition>(),
         gh<_i3.SharedPreferences>(),
-        gh<_i11.UploadPlaceService>(),
+        gh<_i13.UploadPlaceService>(),
       ));
-  gh.lazySingleton<_i24.IProfileFacade>(() => _i25.IProfileImpl(
+  gh.lazySingleton<_i26.IProfileFacade>(() => _i27.IProfileImpl(
         gh<_i5.FirebaseFirestore>(),
-        gh<_i11.UploadPlaceService>(),
-        gh<_i22.GetCurrentPosition>(),
+        gh<_i13.UploadPlaceService>(),
+        gh<_i24.GetCurrentPosition>(),
         gh<_i10.ImageService>(),
       ));
-  gh.lazySingleton<_i26.ISellFacade>(() => _i27.ISellImpl(
+  gh.lazySingleton<_i28.ISellFacade>(() => _i29.ISellImpl(
         gh<_i5.FirebaseFirestore>(),
-        gh<_i11.UploadPlaceService>(),
-        gh<_i22.GetCurrentPosition>(),
+        gh<_i13.UploadPlaceService>(),
+        gh<_i24.GetCurrentPosition>(),
       ));
   return getIt;
 }
 
-class _$AppInjectableModule extends _i28.AppInjectableModule {}
+class _$AppInjectableModule extends _i30.AppInjectableModule {}
 
 class _$FirebaseInjectableModule extends _i4.FirebaseInjectableModule {}

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/authentication/presentation/provider/auth_provider.dart';
 import 'package:hinvex_app/features/authentication/presentation/view/cheking_screen.dart';
+import 'package:hinvex_app/features/banner/presentation/provider/banner_provider.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/text_widget.dart';
 import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
@@ -23,6 +24,7 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<BannerProvider>(context, listen: false).fetchMobileBanners();
       Provider.of<AuthenticationProvider>(context, listen: false).fetchUser();
     });
     _controller = AnimationController(

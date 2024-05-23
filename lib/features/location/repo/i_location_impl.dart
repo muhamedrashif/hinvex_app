@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,7 +7,6 @@ import 'package:hinvex_app/features/location/data/i_location_facade.dart';
 import 'package:hinvex_app/features/location/data/model/location_model_main.dart/location_model_main.dart';
 import 'package:hinvex_app/features/location/data/model/popular_cities_model/popularcities_model.dart';
 import 'package:hinvex_app/features/location/data/model/search_location_model/search_location_model.dart';
-import 'package:hinvex_app/general/failures/exeception/execeptions.dart';
 import 'package:hinvex_app/general/failures/failures.dart';
 import 'package:hinvex_app/general/services/location_service.dart'
     show GetPosition;
@@ -73,10 +71,12 @@ class ILocationImpl implements ILocationFacade {
         );
 
         final result = await uploadPlaceService.uploadPlace(placeCell);
-        FirebaseFirestore.instance
-            .collection('users')
-            .doc(FirebaseAuth.instance.currentUser!.uid)
-            .update({"userLocation": placeCell.toMap()});
+        if (FirebaseAuth.instance.currentUser != null) {
+          FirebaseFirestore.instance
+              .collection('users')
+              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .update({"userLocation": placeCell.toMap()});
+        }
 
         return result.fold(
           left,
@@ -125,10 +125,8 @@ class ILocationImpl implements ILocationFacade {
           result.docs.map((doc) => PopularCitiesModel.fromSnap(doc)).toList();
 
       return Right(popularCitiesModel);
-    } catch (e, stackTrace) {
-      print(e.toString());
-      log("Error fetching next reports: $e", stackTrace: stackTrace);
-      throw CustomExeception('Error fetching next reports: $e');
+    } catch (e) {
+      return left(MainFailure.serverFailure(errorMsg: e.toString()));
     }
   }
 }
@@ -184,11 +182,6 @@ class GetCurrentPosition {
                 );
 
                 final result = await uploadPlaceService.uploadPlace(placeCell);
-                FirebaseFirestore.instance
-                    .collection('users')
-                    .doc(FirebaseAuth.instance.currentUser!.uid)
-                    .update({"userLocation": placeCell.toMap()});
-
                 controller.add(result.fold(
                   left,
                   (r) => right(placeCell),

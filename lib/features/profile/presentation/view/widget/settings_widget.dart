@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hinvex_app/features/authentication/presentation/view/authentocation_screen.dart';
+import 'package:hinvex_app/features/notification/presentation/view/notification_screen.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
 
 import '../customer_support_screen.dart';
@@ -41,35 +45,54 @@ class SettingsWidget extends StatelessWidget {
                     fontSize: 14,
                     color: AppColors.titleTextColor),
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 20.0,
-                  bottom: 10,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Notification",
-                      style: TextStyle(
-                          fontSize: 14, color: AppColors.subtitleTextColor),
-                    ),
-                    Icon(
-                      Icons.arrow_forward_ios_rounded,
-                      size: 12,
-                      color: AppColors.titleTextColor,
-                    ),
-                  ],
-                ),
-              ),
-              GestureDetector(
+              InkWell(
                 onTap: () {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const EditProfileScreen(),
+                      builder: (context) => const NotificationScreen(),
                     ),
                   );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    top: 20.0,
+                    bottom: 10,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Notification",
+                        style: TextStyle(
+                            fontSize: 14, color: AppColors.subtitleTextColor),
+                      ),
+                      Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        size: 12,
+                        color: AppColors.titleTextColor,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  if (FirebaseAuth.instance.currentUser == null) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AuthenticationScreen(),
+                      ),
+                    );
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const EditProfileScreen(),
+                      ),
+                    );
+                  }
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -90,7 +113,7 @@ class SettingsWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              GestureDetector(
+              InkWell(
                 onTap: () {
                   Navigator.push(
                     context,
@@ -154,7 +177,7 @@ class SettingsWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              GestureDetector(
+              InkWell(
                 onTap: () {
                   showDialog(
                     context: context,

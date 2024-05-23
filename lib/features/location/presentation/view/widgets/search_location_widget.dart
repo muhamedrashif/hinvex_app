@@ -5,6 +5,7 @@ import 'package:hinvex_app/features/location/presentation/provider/location_prov
 import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
 import 'package:hinvex_app/general/utils/progress_indicator_widget/progress_indicator_widget.dart';
+import 'package:hinvex_app/general/utils/toast/toast.dart';
 import 'package:provider/provider.dart';
 
 class SearchLocationWidget extends StatefulWidget {
@@ -135,7 +136,7 @@ class _SearchLocationWidgetState extends State<SearchLocationWidget> {
                           onSuccess: (placecell) {
                             log("SUCCESS");
                             log("placeCell$placecell");
-
+                            state.selectPlaceCell(placecell);
                             _searchLocationController.clear();
                             state.clearSuggestions();
                             Navigator.pop(context);
@@ -176,8 +177,9 @@ class _SearchLocationWidgetState extends State<SearchLocationWidget> {
                                 const BottomNavigationWidget(),
                           ),
                           (route) => false);
-                    }, onFailure: () {
+                    }, onFailure: (failed) {
                       log("Get current location Failed");
+                      showToast(failed, backgroundColor: Colors.red);
                       Navigator.pop(context);
                     });
                   },
@@ -286,7 +288,7 @@ class _SearchLocationWidgetState extends State<SearchLocationWidget> {
                             onSuccess: (placecell) {
                               log("SUCCESS");
                               log("placeCell$placecell");
-
+                              state.selectPlaceCell(placecell);
                               Navigator.pop(context);
                               Navigator.pushAndRemoveUntil(
                                   context,

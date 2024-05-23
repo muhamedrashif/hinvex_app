@@ -1,9 +1,9 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/authentication/presentation/provider/auth_provider.dart';
 import 'package:hinvex_app/features/profile/presentation/view/widget/settings_widget.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_image_widget.dart';
 import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
+import 'package:hinvex_app/general/utils/app_details.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -29,30 +29,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Consumer<AuthenticationProvider>(
       builder: (context, state, _) {
-        log(state.userModel!.id!);
-        DateTime postDate = state.userModel!.startedDate!.toDate();
-        String formattedDate = DateFormat('MMM yyyy').format(postDate);
-
-        return
-            // : StreamBuilder<DocumentSnapshot>(
-            //     stream: FirebaseFirestore.instance
-            //         .collection('users')
-            //         .doc(FirebaseAuth.instance.currentUser!.uid)
-            //         .snapshots(),
-            //     builder: (context, snapshot) {
-            //       log(FirebaseAuth.instance.currentUser!.uid.toString());
-            //       if (snapshot.hasData && snapshot.data!.exists) {
-            //         final userData =
-            //             snapshot.data!.data() as Map<String, dynamic>;
-            //         final users = UserModel.fromSnap(userData);
-
-            Scaffold(
+        return Scaffold(
           backgroundColor: AppColors.backgroundColor,
-          body:
-              // state.fetchUserLoading
-              //     ? const Center(child: CircularProgressIndicator())
-              //     :
-              SafeArea(
+          body: SafeArea(
             child: CustomScrollView(
               slivers: [
                 SliverAppBar(
@@ -70,7 +49,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 SliverToBoxAdapter(
                   child: Column(
                     children: [
-                      state.userModel!.userImage != null
+                      state.userModel?.userImage != null
                           ? Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: CircleAvatar(
@@ -88,7 +67,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                             ),
                       Text(
-                        "Hello, ${state.userModel!.userName ?? ''}",
+                        "Hello, ${state.userModel?.userName ?? 'User'}",
                         style: const TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 16,
@@ -103,13 +82,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             height: 24,
                             width: 24,
                           ),
-                          Text(
-                            "Member Since $formattedDate",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12,
-                                color: AppColors.titleTextColor),
-                          ),
+                          if (state.userModel != null)
+                            Text(
+                              "Member Since ${DateFormat('MMM yyyy').format(state.userModel!.startedDate!.toDate())}",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12,
+                                  color: AppColors.titleTextColor),
+                            ),
                         ],
                       ),
                       const ActivitiesWidget(),
@@ -117,7 +97,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const Padding(
                         padding: EdgeInsets.only(top: 25.0),
                         child: Text(
-                          "Updation Available 2.2.3",
+                          "Updation Available ${AppDetails.version}",
                           style: TextStyle(
                             fontSize: 10,
                             color: Colors.grey,
