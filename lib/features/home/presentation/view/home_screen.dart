@@ -7,7 +7,6 @@ import 'package:hinvex_app/features/profile/presentation/view/profile_screen.dar
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_image_widget.dart';
 import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
 import 'package:hinvex_app/general/utils/app_theme/colors.dart';
-import 'package:hinvex_app/general/utils/enums/enums.dart';
 import 'package:hinvex_app/general/utils/showExitPopup_widget/showexitpopup_widget.dart';
 import 'package:hinvex_app/general/utils/textformfeild_widget/textformfield_widget.dart';
 import 'package:provider/provider.dart';
@@ -145,6 +144,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         SliverToBoxAdapter(
                           child: Bar(),
+                        ),
+                        const SliverToBoxAdapter(
+                          child: Text(
+                            "Fresh Recommendation",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600, fontSize: 16),
+                          ),
                         ),
                       ],
                     ),
