@@ -5,8 +5,10 @@ import 'package:hinvex_app/features/bottomNavigationBar/presentation/view/bottom
 import 'package:hinvex_app/features/property_details_view/presentation/view/property_details_screen.dart';
 import 'package:hinvex_app/features/shortlists/presentation/provider/shortlist_provider.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_image_widget.dart';
-import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
-import 'package:hinvex_app/general/utils/app_theme/colors.dart';
+import 'package:hinvex_app/general/utils/image_constants.dart';
+import 'package:hinvex_app/general/utils/colors.dart';
+import 'package:hinvex_app/general/utils/shimmer/property_card_simmer.dart';
+import 'package:hinvex_app/general/widgets/nodata_widget.dart';
 import 'package:hinvex_app/general/widgets/property_card_items.dart';
 import 'package:provider/provider.dart';
 
@@ -34,6 +36,7 @@ class _ShortListsScreenState extends State<ShortListsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: deprecated_member_use
     return WillPopScope(
       onWillPop: () {
         Navigator.push(context, MaterialPageRoute(
@@ -84,24 +87,13 @@ class _ShortListsScreenState extends State<ShortListsScreen> {
                   ),
                   if (state.propertiesList.isEmpty && state.isLoading)
                     const SliverFillRemaining(
-                      hasScrollBody: false,
-                      child: Padding(
-                        padding: EdgeInsets.all(15.0),
-                        child: Center(
-                          child: CupertinoActivityIndicator(),
-                        ),
-                      ),
-                    )
+                        hasScrollBody: false,
+                        child: PropertyShimmerCardWidget())
                   else if (state.propertiesList.isEmpty &&
                       state.isLoading == false)
                     const SliverFillRemaining(
                       hasScrollBody: false,
-                      child: Center(
-                        child: Text(
-                          "No Data.!",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ),
+                      child: NoDataWidget(),
                     )
                   else
                     SliverList.builder(

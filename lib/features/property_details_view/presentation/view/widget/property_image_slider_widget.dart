@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/property_details_view/presentation/view/widget/image_view_widget.dart';
 import 'package:hinvex_app/general/utils/Customwidgets/CustomNetworkImageWidget.dart';
-import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
+import 'package:hinvex_app/general/utils/image_constants.dart';
 
 class PropertyImageSlider extends StatelessWidget {
   final List propertyImages;

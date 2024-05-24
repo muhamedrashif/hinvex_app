@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_image_widget.dart';
-import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
-import 'package:hinvex_app/general/utils/app_theme/colors.dart';
+import 'package:hinvex_app/general/utils/image_constants.dart';
+import 'package:hinvex_app/general/utils/colors.dart';
 import 'package:hinvex_app/general/utils/enums/enums.dart';
 
 // ignore: must_be_immutable

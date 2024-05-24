@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/authentication/presentation/provider/auth_provider.dart';
 import 'package:hinvex_app/features/splash/presentation/view/splash_screen.dart';
-import 'package:hinvex_app/general/utils/app_theme/colors.dart';
+import 'package:hinvex_app/general/utils/colors.dart';
 import 'package:provider/provider.dart';
 
 class SignOutConfirmationDialog extends StatelessWidget {

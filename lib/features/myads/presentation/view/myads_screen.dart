@@ -6,8 +6,9 @@ import 'package:hinvex_app/features/bottomNavigationBar/presentation/view/bottom
 import 'package:hinvex_app/features/myads/presentation/provider/myads_provider.dart';
 import 'package:hinvex_app/features/property_details_view/presentation/view/property_details_screen.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_image_widget.dart';
-import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
-import 'package:hinvex_app/general/utils/app_theme/colors.dart';
+import 'package:hinvex_app/general/utils/image_constants.dart';
+import 'package:hinvex_app/general/utils/colors.dart';
+import 'package:hinvex_app/general/widgets/nodata_widget.dart';
 import 'package:provider/provider.dart';
 
 import 'widget/myaddpropertycard_widget.dart';
@@ -82,11 +83,7 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
                     else if (state.myAdsList.isEmpty &&
                         state.fetchProductsLoading == false)
                       const SliverFillRemaining(
-                        hasScrollBody: false,
-                        child: Center(
-                          child: Text("No My Ads"),
-                        ),
-                      )
+                          hasScrollBody: false, child: NoDataWidget())
                     else
                       SliverList.builder(
                           itemCount: state.myAdsList.length,

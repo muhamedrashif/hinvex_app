@@ -196,4 +196,8 @@ class ImageConstant {
 
   // bluetick
   static String bluetick = '$imagePath/bluetick.png';
+
+  /////////////////////
+  // Lotties NO DATA
+  static String noData = 'assets/lotties/noDataLottie.json';
 }

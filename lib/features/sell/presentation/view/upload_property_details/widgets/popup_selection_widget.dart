@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hinvex_app/general/utils/app_theme/colors.dart';
+import 'package:hinvex_app/general/utils/colors.dart';
 
 class CustomAlertDialog extends StatelessWidget {
   final String title;

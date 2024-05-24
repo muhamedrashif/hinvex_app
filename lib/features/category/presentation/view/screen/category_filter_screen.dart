@@ -7,7 +7,7 @@ import 'package:hinvex_app/features/category/presentation/view/filter%20widget/f
 import 'package:hinvex_app/features/category/presentation/view/filter%20widget/listedby_widget.dart';
 import 'package:hinvex_app/features/category/presentation/view/filter%20widget/sqft_price.dart';
 import 'package:hinvex_app/features/category/presentation/view/filter%20widget/status_widget.dart';
-import 'package:hinvex_app/general/utils/app_theme/colors.dart';
+import 'package:hinvex_app/general/utils/colors.dart';
 import 'package:provider/provider.dart';
 
 class CategoryFilterScreen extends StatefulWidget {

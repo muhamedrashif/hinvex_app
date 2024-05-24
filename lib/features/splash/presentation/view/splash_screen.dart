@@ -4,10 +4,8 @@ import 'package:hinvex_app/features/authentication/presentation/provider/auth_pr
 import 'package:hinvex_app/features/authentication/presentation/view/cheking_screen.dart';
 import 'package:hinvex_app/features/banner/presentation/provider/banner_provider.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/text_widget.dart';
-import 'package:hinvex_app/general/di/injection.dart';
-import 'package:hinvex_app/general/services/dynamic_link_services.dart';
-import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
-import 'package:hinvex_app/general/utils/app_theme/colors.dart';
+import 'package:hinvex_app/general/utils/image_constants.dart';
+import 'package:hinvex_app/general/utils/colors.dart';
 import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {

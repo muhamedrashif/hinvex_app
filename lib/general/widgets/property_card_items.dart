@@ -6,8 +6,8 @@ import 'package:hinvex_app/features/authentication/presentation/view/authentocat
 import 'package:hinvex_app/features/sell/data/model/property_model.dart';
 import 'package:hinvex_app/features/shortlists/presentation/provider/shortlist_provider.dart';
 import 'package:hinvex_app/general/utils/Customwidgets/CustomNetworkImageWidget.dart';
-import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
-import 'package:hinvex_app/general/utils/app_theme/colors.dart';
+import 'package:hinvex_app/general/utils/image_constants.dart';
+import 'package:hinvex_app/general/utils/colors.dart';
 import 'package:provider/provider.dart';
 
 class PropertyCardItems extends StatelessWidget {

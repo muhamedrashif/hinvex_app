@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/sell/data/model/property_model.dart';
 import 'package:hinvex_app/general/utils/app_details.dart';
-import 'package:hinvex_app/general/utils/app_theme/colors.dart';
+import 'package:hinvex_app/general/utils/colors.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 
 class PropertyDetails extends StatelessWidget {

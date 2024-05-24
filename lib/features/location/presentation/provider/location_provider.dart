@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/location/data/i_location_facade.dart';
 import 'package:hinvex_app/features/location/data/model/location_model_main.dart/location_model_main.dart';
@@ -13,7 +12,13 @@ class LocationProvider with ChangeNotifier {
 
   List<PlaceResult> suggestions = [];
 
-  late PlaceCell currentPlaceCell;
+  PlaceCell? currentPlaceCell;
+  String? currentPlace;
+  SharedPreferences? _prefs;
+
+  Future<void> initSharedPreferences() async {
+    _prefs = await SharedPreferences.getInstance();
+  }
 
   Future<void> getLocations(String query) async {
     final reult = await iLocationFacade.pickLocationFromSearch(query);
@@ -44,7 +49,6 @@ class LocationProvider with ChangeNotifier {
       (location) async {
         log('searchLocationByAddress success');
         onSuccess(location);
-        // _saveLocationInSharedPreferences(location);
         notifyListeners();
       },
     );
@@ -60,6 +64,7 @@ class LocationProvider with ChangeNotifier {
         onFailure(l.errorMsg);
       }, (placeCell) {
         currentPlaceCell = placeCell;
+        saveLocationInSharedPreferences(placeCell);
         notifyListeners();
         onSuccess();
       });
@@ -74,12 +79,34 @@ class LocationProvider with ChangeNotifier {
     popularcitiesList.clear();
     popularcitiesIsLoading = true;
     notifyListeners();
-
     final result = await iLocationFacade.fetchPopularCities();
     result.fold((l) => null,
         (r) => popularcitiesList.addAll(r as Iterable<PopularCitiesModel>));
-
     popularcitiesIsLoading = false;
+    notifyListeners();
+  }
+
+  void saveLocationInSharedPreferences(PlaceCell location) async {
+    _prefs = await SharedPreferences.getInstance();
+    log("SHAREDPREFERENCES CALLED");
+    if (_prefs != null) {
+      if (location.localArea != null) {
+        _prefs!.setString('save_location', location.localArea!);
+        currentPlace = location.localArea.toString();
+        log("LOCATION : $currentPlace + ${location.localArea}");
+      } else {
+        _prefs!.setString('save_location', location.district);
+        currentPlace = location.district.toString();
+        log("LOCATION : $currentPlace + ${location.district}");
+      }
+    }
+  }
+
+  Future<void> getSavedLocation() async {
+    await initSharedPreferences();
+    if (_prefs?.containsKey("save_location") != null) {
+      currentPlace = _prefs!.getString('save_location');
+    }
     notifyListeners();
   }
 

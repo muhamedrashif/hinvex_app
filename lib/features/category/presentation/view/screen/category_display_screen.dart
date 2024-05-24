@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/category/presentation/provider/category_filter_provider.dart';
 import 'package:hinvex_app/features/category/presentation/view/screen/category_filter_screen.dart';
 import 'package:hinvex_app/features/property_details_view/presentation/view/property_details_screen.dart';
-import 'package:hinvex_app/general/utils/app_theme/colors.dart';
+import 'package:hinvex_app/general/utils/colors.dart';
+import 'package:hinvex_app/general/widgets/nodata_widget.dart';
 import 'package:hinvex_app/general/widgets/property_card_items.dart';
 import 'package:provider/provider.dart';
 
@@ -158,12 +159,7 @@ class _CategoryDisplayScreenState extends State<CategoryDisplayScreen> {
                       ),
                     )
                   : state.filteredUploadedPropertiesList.isEmpty
-                      ? const Center(
-                          child: Text(
-                            "No Data.!",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        )
+                      ? const NoDataWidget()
                       : Expanded(
                           child: ListView.separated(
                             controller: state.scrollController,

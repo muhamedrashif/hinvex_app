@@ -5,8 +5,8 @@ import 'package:hinvex_app/features/myads/presentation/view/myads_screen.dart';
 import 'package:hinvex_app/features/sell/presentation/view/sell_product_main/screens/sell_screen.dart';
 import 'package:hinvex_app/features/shortlists/presentation/view/shortlists_screen.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_image_widget.dart';
-import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
-import 'package:hinvex_app/general/utils/app_theme/colors.dart';
+import 'package:hinvex_app/general/utils/image_constants.dart';
+import 'package:hinvex_app/general/utils/colors.dart';
 
 class BottomNavigationWidget extends StatefulWidget {
   const BottomNavigationWidget({super.key});

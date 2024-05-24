@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/notification/data/model/notification_model.dart';
 import 'package:hinvex_app/general/utils/Customwidgets/CustomNetworkImageWidget.dart';
-import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
-import 'package:hinvex_app/general/utils/app_theme/colors.dart';
+import 'package:hinvex_app/general/utils/image_constants.dart';
+import 'package:hinvex_app/general/utils/colors.dart';
 
 class NotificationCard extends StatelessWidget {
   final NotificationModel notificationModel;

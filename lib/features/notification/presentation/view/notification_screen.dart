@@ -2,9 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/notification/presentation/provider/notification_provider.dart';
 import 'package:hinvex_app/features/notification/presentation/view/widget/notification_card.dart';
+import 'package:hinvex_app/features/notification/presentation/view/widget/notification_shimmer_card.dart';
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_image_widget.dart';
-import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
-import 'package:hinvex_app/general/utils/app_theme/colors.dart';
+import 'package:hinvex_app/general/utils/image_constants.dart';
+import 'package:hinvex_app/general/utils/colors.dart';
 import 'package:provider/provider.dart';
 
 class NotificationScreen extends StatefulWidget {
@@ -47,14 +48,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 if (notificationState.notificationList.isEmpty &&
                     notificationState.isLoading)
                   const SliverFillRemaining(
-                    hasScrollBody: false,
-                    child: Padding(
-                      padding: EdgeInsets.all(15.0),
-                      child: Center(
-                        child: CupertinoActivityIndicator(),
-                      ),
-                    ),
-                  )
+                      hasScrollBody: false,
+                      child: NotificationShimmerCardWidget())
                 else if (notificationState.notificationList.isEmpty &&
                     notificationState.isLoading == false)
                   SliverToBoxAdapter(

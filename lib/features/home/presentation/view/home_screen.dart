@@ -17,13 +17,14 @@ import 'package:hinvex_app/features/property_details_view/presentation/view/prop
 import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_image_widget.dart';
 import 'package:hinvex_app/general/di/injection.dart';
 import 'package:hinvex_app/general/services/dynamic_link_services.dart';
-import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
-import 'package:hinvex_app/general/utils/app_theme/colors.dart';
+import 'package:hinvex_app/general/utils/image_constants.dart';
+import 'package:hinvex_app/general/utils/colors.dart';
 import 'package:hinvex_app/general/utils/showExitPopup_widget/showexitpopup_widget.dart';
 import 'package:hinvex_app/general/utils/textformfeild_widget/textformfield_widget.dart';
+import 'package:hinvex_app/general/widgets/nodata_widget.dart';
 import 'package:hinvex_app/general/widgets/property_card_items.dart';
 import 'package:provider/provider.dart';
-import 'widgets/property_card_simmer.dart';
+import '../../../../general/utils/shimmer/property_card_simmer.dart';
 import 'widgets/tabbar_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -99,10 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                       const Gap(4),
                                       Text(
-                                        locationProvider
-                                                .currentPlaceCell.localArea ??
-                                            locationProvider
-                                                .currentPlaceCell.district,
+                                        locationProvider.currentPlace ?? "",
                                         style: const TextStyle(
                                           fontWeight: FontWeight.w600,
                                         ),
@@ -212,9 +210,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           state.fetchProductsLoading == false)
                         const SliverFillRemaining(
                           hasScrollBody: false,
-                          child: Center(
-                            child: Text("No My Ads"),
-                          ),
+                          child: NoDataWidget(),
                         )
                       else
                         SliverList.builder(

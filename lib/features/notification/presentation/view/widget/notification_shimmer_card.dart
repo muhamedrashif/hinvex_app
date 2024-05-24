@@ -14,7 +14,8 @@ class NotificationShimmerCardWidget extends StatelessWidget {
         baseColor: Colors.grey[300]!,
         highlightColor: Colors.grey[100]!,
         child: ListView.builder(
-          itemCount: 3, // Adjust the count based on your needs
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: 10, // Adjust the count based on your needs
           itemBuilder: (context, index) {
             return Padding(
               padding: const EdgeInsets.all(.5),

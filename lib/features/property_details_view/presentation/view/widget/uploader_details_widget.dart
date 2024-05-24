@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hinvex_app/features/authentication/data/model/user_details_model.dart';
 import 'package:hinvex_app/features/sell/data/model/property_model.dart';
-import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
-import 'package:hinvex_app/general/utils/app_theme/colors.dart';
+import 'package:hinvex_app/general/utils/image_constants.dart';
+import 'package:hinvex_app/general/utils/colors.dart';
 import 'package:intl/intl.dart';
 
 class UploaderDetails extends StatelessWidget {

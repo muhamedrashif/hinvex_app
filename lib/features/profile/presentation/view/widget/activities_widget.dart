@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/authentication/presentation/view/authentocation_screen.dart';
 import 'package:hinvex_app/features/myads/presentation/view/myads_screen.dart';
 import 'package:hinvex_app/features/shortlists/presentation/view/shortlists_screen.dart';
-import 'package:hinvex_app/general/utils/app_theme/colors.dart';
+import 'package:hinvex_app/general/utils/colors.dart';
 
 class ActivitiesWidget extends StatelessWidget {
   const ActivitiesWidget({super.key});

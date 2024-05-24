@@ -24,7 +24,7 @@ import 'package:hinvex_app/features/shortlists/presentation/provider/shortlist_p
 import 'package:hinvex_app/general/di/injection.dart';
 import 'package:hinvex_app/general/services/notification_services.dart';
 import 'package:hinvex_app/general/utils/app_details.dart';
-import 'package:hinvex_app/general/utils/app_theme/colors.dart';
+import 'package:hinvex_app/general/utils/colors.dart';
 import 'package:provider/provider.dart';
 import 'features/splash/presentation/view/splash_screen.dart';
 
@@ -76,6 +76,10 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => BannerProvider(iBannerFacade: sl<IBannerFacade>()),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => NotificationProvider(
+              iNotificationFacade: sl<INotificationFacade>()),
         )
       ],
       child: MaterialApp(

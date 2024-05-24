@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hinvex_app/general/utils/app_theme/colors.dart';
+import 'package:hinvex_app/general/utils/colors.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ShortListShimmer extends StatelessWidget {

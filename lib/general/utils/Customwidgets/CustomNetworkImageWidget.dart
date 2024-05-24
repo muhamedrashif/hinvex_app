@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
+import 'package:hinvex_app/general/utils/image_constants.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CustomNetworkImageWidget extends StatelessWidget {

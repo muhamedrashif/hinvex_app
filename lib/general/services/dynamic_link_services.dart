@@ -74,6 +74,7 @@ class DynamicLinkServices {
   }
 
   //fetch product by id
+  // ignore: body_might_complete_normally_nullable
   Future<PropertyModel?> _fetchProductById(String id) async {
     try {
       final docSnap = await _firestore.collection('posts').doc(id).get();

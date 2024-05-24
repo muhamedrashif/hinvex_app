@@ -2,8 +2,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/bottomNavigationBar/presentation/view/bottom_navigation_widget.dart';
 import 'package:hinvex_app/features/location/presentation/provider/location_provider.dart';
-import 'package:hinvex_app/general/utils/app_assets/image_constants.dart';
-import 'package:hinvex_app/general/utils/app_theme/colors.dart';
+import 'package:hinvex_app/general/utils/image_constants.dart';
+import 'package:hinvex_app/general/utils/colors.dart';
 import 'package:hinvex_app/general/utils/progress_indicator_widget/progress_indicator_widget.dart';
 import 'package:hinvex_app/general/utils/toast/toast.dart';
 import 'package:provider/provider.dart';
@@ -136,6 +136,7 @@ class _SearchLocationWidgetState extends State<SearchLocationWidget> {
                           onSuccess: (placecell) {
                             log("SUCCESS");
                             log("placeCell$placecell");
+                            state.saveLocationInSharedPreferences(placecell);
                             state.selectPlaceCell(placecell);
                             _searchLocationController.clear();
                             state.clearSuggestions();
@@ -288,6 +289,7 @@ class _SearchLocationWidgetState extends State<SearchLocationWidget> {
                             onSuccess: (placecell) {
                               log("SUCCESS");
                               log("placeCell$placecell");
+                              state.saveLocationInSharedPreferences(placecell);
                               state.selectPlaceCell(placecell);
                               Navigator.pop(context);
                               Navigator.pushAndRemoveUntil(
