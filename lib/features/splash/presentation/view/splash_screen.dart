@@ -5,7 +5,6 @@ import 'package:hinvex_app/features/authentication/presentation/provider/auth_pr
 import 'package:hinvex_app/features/authentication/presentation/view/authentocation_screen.dart';
 import 'package:hinvex_app/features/banner/presentation/provider/banner_provider.dart';
 import 'package:hinvex_app/features/bottomNavigationBar/presentation/view/bottom_navigation_widget.dart';
-import 'package:hinvex_app/features/location/data/model/search_location_model/search_location_model.dart';
 import 'package:hinvex_app/features/location/presentation/provider/location_provider.dart';
 import 'package:hinvex_app/features/location/presentation/view/location_sreen.dart';
 import 'package:hinvex_app/features/onboard/presentation/view/onboard_screen_.dart';
@@ -114,7 +113,8 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   Future<void> checkUserAuthenticated() async {
-    final placeCell = Provider.of<LocationProvider>(context).currentPlaceCell;
+    final placeCell =
+        Provider.of<LocationProvider>(context, listen: false).currentPlaceCell;
     if (FirebaseAuth.instance.currentUser == null) {
       checkOnbodingLocalStore();
     } else if (placeCell == null) {
