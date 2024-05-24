@@ -13,12 +13,8 @@ class LocationProvider with ChangeNotifier {
   List<PlaceResult> suggestions = [];
 
   PlaceCell? currentPlaceCell;
-  String? currentPlace;
-  SharedPreferences? _prefs;
 
-  Future<void> initSharedPreferences() async {
-    _prefs = await SharedPreferences.getInstance();
-  }
+  SharedPreferences? _prefs;
 
   Future<void> getLocations(String query) async {
     final reult = await iLocationFacade.pickLocationFromSearch(query);
@@ -64,7 +60,7 @@ class LocationProvider with ChangeNotifier {
         onFailure(l.errorMsg);
       }, (placeCell) {
         currentPlaceCell = placeCell;
-        saveLocationInSharedPreferences(placeCell);
+
         notifyListeners();
         onSuccess();
       });
@@ -86,27 +82,29 @@ class LocationProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void saveLocationInSharedPreferences(PlaceCell location) async {
+  Future<void> saveCurrentPlaceCellLocally() async {
     _prefs = await SharedPreferences.getInstance();
-    log("SHAREDPREFERENCES CALLED");
     if (_prefs != null) {
-      if (location.localArea != null) {
-        _prefs!.setString('save_location', location.localArea!);
-        currentPlace = location.localArea.toString();
-        log("LOCATION : $currentPlace + ${location.localArea}");
-      } else {
-        _prefs!.setString('save_location', location.district);
-        currentPlace = location.district.toString();
-        log("LOCATION : $currentPlace + ${location.district}");
+      if (currentPlaceCell != null) {
+        await _prefs?.setString('currentPlaceCell', currentPlaceCell!.toJson());
       }
     }
+    notifyListeners();
   }
 
   Future<void> getSavedLocation() async {
-    await initSharedPreferences();
-    if (_prefs?.containsKey("save_location") != null) {
-      currentPlace = _prefs!.getString('save_location');
+    _prefs = await SharedPreferences.getInstance();
+    if (_prefs?.containsKey("currentPlaceCell") != null) {
+      final jsonResult = _prefs!.getString('currentPlaceCell');
+      currentPlaceCell = PlaceCell.fromJson(jsonResult!);
     }
+    notifyListeners();
+  }
+
+  void clearLocation() async {
+    _prefs = await SharedPreferences.getInstance();
+    _prefs?.clear();
+
     notifyListeners();
   }
 

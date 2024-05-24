@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/authentication/presentation/provider/auth_provider.dart';
 import 'package:hinvex_app/features/profile/presentation/view/widget/settings_widget.dart';
-import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_image_widget.dart';
+import 'package:hinvex_app/general/widgets/custom_image_widget.dart';
 import 'package:hinvex_app/general/utils/image_constants.dart';
 import 'package:hinvex_app/general/utils/app_details.dart';
 import 'package:hinvex_app/general/utils/colors.dart';

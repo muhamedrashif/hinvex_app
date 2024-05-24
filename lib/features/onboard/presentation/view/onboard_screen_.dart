@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/authentication/presentation/view/authentocation_screen.dart';
-import 'package:hinvex_app/features/splash/presentation/view/onBoard_splash_screen_3.dart';
-import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_image_widget.dart';
-import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_outLines_button_widget.dart';
-import 'package:hinvex_app/features/splash/presentation/view/widgets/text_widget.dart';
+import 'package:hinvex_app/features/onboard/data/local_data/onboard_local_data.dart';
+import 'package:hinvex_app/features/onboard/presentation/view/widgets/onbording_frame.dart';
+import 'package:hinvex_app/general/widgets/custom_image_widget.dart';
+import 'package:hinvex_app/general/widgets/custom_outLines_button_widget.dart';
 import 'package:hinvex_app/general/utils/image_constants.dart';
 import 'package:hinvex_app/general/utils/colors.dart';
+import '../../../../general/widgets/custom_button_widget.dart';
 
-import 'widgets/custom_button_widget.dart';
-
-class OnBoardSplashScreen2 extends StatefulWidget {
-  const OnBoardSplashScreen2({super.key});
+class OnBoardScreen extends StatefulWidget {
+  const OnBoardScreen({super.key});
 
   @override
-  State<OnBoardSplashScreen2> createState() => _OnBoardSplashScreen2State();
+  State<OnBoardScreen> createState() => _OnBoardScreenState();
 }
 
-class _OnBoardSplashScreen2State extends State<OnBoardSplashScreen2> {
+class _OnBoardScreenState extends State<OnBoardScreen> {
+  PageController pageController = PageController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,27 +33,18 @@ class _OnBoardSplashScreen2State extends State<OnBoardSplashScreen2> {
           const SizedBox(
             height: 30,
           ),
-          CustumImage(
-            image: ImageConstant.onBoard2,
-            height: 183.29,
-            width: 200,
+          SizedBox(
+            height: 400,
+            child: PageView.builder(
+              controller: pageController,
+              itemCount: OnboardLocalData.list.length,
+              itemBuilder: (context, index) {
+                return OnBoardFrame(
+                  onboardModel: OnboardLocalData.list[index],
+                );
+              },
+            ),
           ),
-          const SizedBox(
-            height: 20,
-          ),
-          TextWidget(
-              alignment: Alignment.centerLeft,
-              text: "You Can Upload Your\nProperty Unlimitedly",
-              fontWeight: FontWeight.bold,
-              fontSize: 23,
-              textColor: AppColors.titleTextColor),
-          const TextWidget(
-              alignment: Alignment.centerLeft,
-              text:
-                  "You are free to upload your property without\nany limitations or restrictions, enabling you to\nshare as much as you desire.",
-              fontWeight: FontWeight.w500,
-              fontSize: 13,
-              textColor: Colors.grey),
           const SizedBox(
             height: 30,
           ),
@@ -72,12 +63,23 @@ class _OnBoardSplashScreen2State extends State<OnBoardSplashScreen2> {
                       text: "Next",
                       textColor: Colors.white,
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  const OnBoardSplashScreen3(),
-                            ));
+                        if (OnboardLocalData.list.length ==
+                            (pageController.page!.toInt() + 1)) {
+                          OnboardLocalData.onBoardLocalStore();
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const AuthenticationScreen(),
+                              ));
+                        } else {
+                          final newPageindex = pageController.page!.toInt() + 1;
+                          pageController.animateToPage(
+                            newPageindex,
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.linear,
+                          );
+                        }
                       },
                     ),
                     const SizedBox(
@@ -89,6 +91,7 @@ class _OnBoardSplashScreen2State extends State<OnBoardSplashScreen2> {
                       text: "Skip",
                       textColor: Colors.grey,
                       onTap: () {
+                        OnboardLocalData.onBoardLocalStore();
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(

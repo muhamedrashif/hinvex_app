@@ -5,10 +5,10 @@ import 'package:hinvex_app/features/authentication/presentation/provider/auth_pr
 import 'package:hinvex_app/features/bottomNavigationBar/presentation/view/bottom_navigation_widget.dart';
 import 'package:hinvex_app/features/location/presentation/provider/location_provider.dart';
 import 'package:hinvex_app/features/location/presentation/view/widgets/search_location_widget.dart';
-import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_button_widget.dart';
-import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_image_widget.dart';
-import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_outLines_button_widget.dart';
-import 'package:hinvex_app/features/splash/presentation/view/widgets/text_widget.dart';
+import 'package:hinvex_app/general/widgets/custom_button_widget.dart';
+import 'package:hinvex_app/general/widgets/custom_image_widget.dart';
+import 'package:hinvex_app/general/widgets/custom_outLines_button_widget.dart';
+
 import 'package:hinvex_app/general/utils/image_constants.dart';
 import 'package:hinvex_app/general/utils/colors.dart';
 import 'package:hinvex_app/general/utils/progress_indicator_widget/progress_indicator_widget.dart';
@@ -49,19 +49,23 @@ class _LocationScreenState extends State<LocationScreen> {
             const SizedBox(
               height: 20,
             ),
-            TextWidget(
-                alignment: Alignment.center,
-                text: "Choose Your Location",
+            Text(
+              "Choose Your Location",
+              textAlign: TextAlign.center,
+              style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
-                textColor: AppColors.titleTextColor),
-            const TextWidget(
-                alignment: Alignment.center,
-                text:
-                    "Select your present location now\n  for optimal interaction with us.",
-                fontWeight: FontWeight.w500,
-                fontSize: 14,
-                textColor: Colors.grey),
+                color: AppColors.titleTextColor,
+              ),
+            ),
+            const Text(
+              "Select your present location now\n  for optimal interaction with us.",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14,
+                  color: Colors.grey),
+            ),
             const SizedBox(
               height: 30,
             ),
@@ -91,7 +95,7 @@ class _LocationScreenState extends State<LocationScreen> {
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const BottomNavigationWidget(),
+                          builder: (context) => const BottomNavigationScreen(),
                         ),
                         (route) => false);
                   }, onFailure: (failed) {

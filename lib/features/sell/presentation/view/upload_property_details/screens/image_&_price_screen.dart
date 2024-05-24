@@ -4,7 +4,7 @@ import 'package:hinvex_app/features/authentication/presentation/provider/auth_pr
 import 'package:hinvex_app/features/bottomNavigationBar/presentation/view/bottom_navigation_widget.dart';
 import 'package:hinvex_app/features/sell/data/model/property_model.dart';
 import 'package:hinvex_app/features/sell/presentation/provider/sell_provider.dart';
-import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_button_widget.dart';
+import 'package:hinvex_app/general/widgets/custom_button_widget.dart';
 import 'package:hinvex_app/general/utils/Customwidgets/CustomNetworkImageWidget.dart';
 import 'package:hinvex_app/general/utils/colors.dart';
 import 'package:hinvex_app/general/utils/progress_indicator_widget/progress_indicator_widget.dart';
@@ -380,7 +380,7 @@ class _PriceScreenState extends State<PriceScreen> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                            const BottomNavigationWidget(),
+                                            const BottomNavigationScreen(),
                                       ),
                                       (route) => false);
                                 },
@@ -495,7 +495,7 @@ class _PriceScreenState extends State<PriceScreen> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                            const BottomNavigationWidget(),
+                                            const BottomNavigationScreen(),
                                       ),
                                       (route) => false);
                                 },

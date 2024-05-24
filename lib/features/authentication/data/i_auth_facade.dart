@@ -4,10 +4,11 @@ import 'package:hinvex_app/general/failures/failures.dart';
 import 'package:hinvex_app/general/typedefs/typedefs.dart';
 
 abstract class IAuthFacade {
-  Stream<Either<MainFailure, String>> verifyPhoneNumber(String phoneNumber);
+  Stream<Either<MainFailure, bool>> verifyPhoneNumber(
+    String phoneNumber,
+  );
   FutureResult<String> verifySmsCode({
     required String smsCode,
-    required String verificationId,
   }) {
     throw UnimplementedError('verifyPhoneNumber() is not implemented, ');
   }
@@ -18,5 +19,9 @@ abstract class IAuthFacade {
 
   FutureResult<Unit> signOut() {
     throw UnimplementedError('signOut() is not implemented ');
+  }
+
+  void clearData() {
+    throw UnimplementedError('clearData() is not implemented ');
   }
 }

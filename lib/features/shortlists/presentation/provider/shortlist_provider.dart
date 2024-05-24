@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/authentication/data/model/user_details_model.dart';
 import 'package:hinvex_app/features/sell/data/model/property_model.dart';
@@ -33,13 +32,10 @@ class ShortListProvider with ChangeNotifier {
       showToast(
         l.errorMsg,
       );
-    }, (datas) {
-      log("DATA LENGTH:${datas.length}");
-      if (datas.isNotEmpty) {
-        propertiesList.addAll(datas);
+    }, (success) {
+      if (success.isNotEmpty) {
+        propertiesList.addAll(success);
       }
-
-      log("PROPERTI LENGTH:${datas.length}");
       isLoading = false;
       notifyListeners();
     });

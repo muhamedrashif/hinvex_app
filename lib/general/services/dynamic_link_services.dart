@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/property_details_view/presentation/view/property_details_screen.dart';
 import 'package:hinvex_app/features/sell/data/model/property_model.dart';
 import 'package:hinvex_app/general/utils/app_details.dart';
+import 'package:hinvex_app/general/utils/progress_indicator_widget/progress_indicator_widget.dart';
 import 'package:hinvex_app/general/utils/toast/toast.dart';
 import 'package:hinvex_app/main.dart';
 
@@ -17,7 +18,9 @@ class DynamicLinkServices {
   DynamicLinkServices(this._firebaseDynamicLinks, this._firestore);
 
   //CREATE DYNAMIC LINK
-  Future<void> createShareLink({required PropertyModel propertyModel}) async {
+  Future<void> createShareLink(
+      {required PropertyModel propertyModel,
+      required BuildContext context}) async {
     try {
       final dynamicLinkParams = DynamicLinkParameters(
         link: Uri.parse("https://hinvex.com/?id=${propertyModel.id}"),
@@ -30,12 +33,14 @@ class DynamicLinkServices {
             const AndroidParameters(packageName: AppDetails.appPackageName),
         iosParameters: const IOSParameters(bundleId: AppDetails.bundleId),
       );
-
+      showProgress(context);
       final shortLink = await _firebaseDynamicLinks.buildShortLink(
           dynamicLinkParams,
           shortLinkType: ShortDynamicLinkType.short);
+
       await Share.share("${shortLink.shortUrl}",
           subject: propertyModel.propertyTitle);
+      Navigator.of(context).pop();
     } catch (e) {
       log("ERROR IN DYNAMIC ✔:$e");
     }

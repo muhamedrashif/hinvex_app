@@ -60,7 +60,8 @@ class _PropertyDetailsScrenState extends State<PropertyDetailsScren> {
                   child: InkWell(
                       onTap: () {
                         dynamicLinkServices.createShareLink(
-                            propertyModel: widget.propertyModel);
+                            propertyModel: widget.propertyModel,
+                            context: context);
                       },
                       child: Image.asset(ImageConstant.share)),
                 ),

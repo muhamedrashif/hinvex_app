@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/notification/presentation/provider/notification_provider.dart';
 import 'package:hinvex_app/features/notification/presentation/view/widget/notification_card.dart';
 import 'package:hinvex_app/features/notification/presentation/view/widget/notification_shimmer_card.dart';
-import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_image_widget.dart';
+import 'package:hinvex_app/general/widgets/custom_image_widget.dart';
 import 'package:hinvex_app/general/utils/image_constants.dart';
 import 'package:hinvex_app/general/utils/colors.dart';
 import 'package:provider/provider.dart';

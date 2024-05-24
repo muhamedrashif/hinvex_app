@@ -3,8 +3,8 @@ import 'package:hinvex_app/features/authentication/data/model/user_details_model
 import 'package:hinvex_app/features/authentication/presentation/provider/auth_provider.dart';
 import 'package:hinvex_app/features/profile/presentation/provider/profile_provider.dart';
 import 'package:hinvex_app/features/profile/presentation/view/widget/user_location_search.dart';
-import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_button_widget.dart';
-import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_image_widget.dart';
+import 'package:hinvex_app/general/widgets/custom_button_widget.dart';
+import 'package:hinvex_app/general/widgets/custom_image_widget.dart';
 import 'package:hinvex_app/general/utils/image_constants.dart';
 import 'package:hinvex_app/general/utils/colors.dart';
 import 'package:hinvex_app/general/utils/progress_indicator_widget/progress_indicator_widget.dart';

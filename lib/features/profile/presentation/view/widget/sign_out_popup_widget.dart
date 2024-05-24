@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/authentication/presentation/provider/auth_provider.dart';
-import 'package:hinvex_app/features/splash/presentation/view/splash_screen.dart';
+import 'package:hinvex_app/features/authentication/presentation/view/authentocation_screen.dart';
 import 'package:hinvex_app/general/utils/colors.dart';
 import 'package:provider/provider.dart';
 
@@ -54,14 +54,14 @@ class SignOutConfirmationDialog extends StatelessWidget {
               // prefs.setString('save_location', "");
 
               Provider.of<AuthenticationProvider>(context, listen: false)
-                  .signOut();
+                  .signOut(context);
 
               Navigator.pushAndRemoveUntil(
                 // ignore: use_build_context_synchronously
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return const SplashScreen();
+                    return const AuthenticationScreen();
                   },
                 ),
                 (route) => false,

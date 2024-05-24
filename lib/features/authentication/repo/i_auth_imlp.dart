@@ -15,24 +15,28 @@ class IAuthImpl implements IAuthFacade {
   final FirebaseAuth _firebaseAuth;
   final FirebaseFirestore _firestore;
   final FirebaseMessaging _messaging;
+  String? verificationId;
+  int? forceResendingToken;
 
   @override
-  Stream<Either<MainFailure, String>> verifyPhoneNumber(
+  Stream<Either<MainFailure, bool>> verifyPhoneNumber(
     String phoneNumber,
   ) async* {
-    final StreamController<Either<MainFailure, String>> controller =
-        StreamController<Either<MainFailure, String>>();
+    final StreamController<Either<MainFailure, bool>> controller =
+        StreamController<Either<MainFailure, bool>>();
 
     await _firebaseAuth.verifyPhoneNumber(
       phoneNumber: phoneNumber,
+      forceResendingToken: forceResendingToken,
       verificationCompleted: (PhoneAuthCredential credential) async {},
       verificationFailed: (err) {
         controller.add(left(MainFailure.serverFailure(errorMsg: err.code)));
       },
       codeSent: (verificationId, forceResendingToken) {
         //verification id is stored in the state
-
-        controller.add(right(verificationId));
+        this.verificationId = verificationId;
+        this.forceResendingToken = forceResendingToken;
+        controller.add(right(true));
       },
       codeAutoRetrievalTimeout: (verificationId) {},
     );
@@ -43,13 +47,12 @@ class IAuthImpl implements IAuthFacade {
   @override
   FutureResult<String> verifySmsCode({
     required String smsCode,
-    required String verificationId,
   }) async {
     // log('$smsCode, $verificationId');
     try {
       final PhoneAuthCredential phoneAuthCredential =
           PhoneAuthProvider.credential(
-              verificationId: verificationId, smsCode: smsCode);
+              verificationId: verificationId!, smsCode: smsCode);
 
       UserCredential userCredential =
           await _firebaseAuth.signInWithCredential(phoneAuthCredential);
@@ -117,5 +120,10 @@ class IAuthImpl implements IAuthFacade {
         MainFailure.userAuthenticatorError(errorMsg: '$e'),
       );
     }
+  }
+
+  @override
+  void clearData() {
+    forceResendingToken = null;
   }
 }

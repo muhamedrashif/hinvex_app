@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/bottomNavigationBar/presentation/view/bottom_navigation_widget.dart';
 import 'package:hinvex_app/features/myads/presentation/provider/myads_provider.dart';
 import 'package:hinvex_app/features/property_details_view/presentation/view/property_details_screen.dart';
-import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_image_widget.dart';
+import 'package:hinvex_app/general/widgets/custom_image_widget.dart';
 import 'package:hinvex_app/general/utils/image_constants.dart';
 import 'package:hinvex_app/general/utils/colors.dart';
 import 'package:hinvex_app/general/widgets/nodata_widget.dart';
@@ -37,7 +37,7 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
       onWillPop: () {
         Navigator.push(context, MaterialPageRoute(
           builder: (context) {
-            return const BottomNavigationWidget();
+            return const BottomNavigationScreen();
           },
         ));
         return Future.value(true);

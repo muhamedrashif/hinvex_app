@@ -134,9 +134,6 @@ class _SearchLocationWidgetState extends State<SearchLocationWidget> {
                           longitude:
                               suggestion.geometry!.location!.lng.toString(),
                           onSuccess: (placecell) {
-                            log("SUCCESS");
-                            log("placeCell$placecell");
-                            state.saveLocationInSharedPreferences(placecell);
                             state.selectPlaceCell(placecell);
                             _searchLocationController.clear();
                             state.clearSuggestions();
@@ -145,7 +142,7 @@ class _SearchLocationWidgetState extends State<SearchLocationWidget> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      const BottomNavigationWidget(),
+                                      const BottomNavigationScreen(),
                                 ),
                                 (route) => false);
                           },
@@ -175,7 +172,7 @@ class _SearchLocationWidgetState extends State<SearchLocationWidget> {
                           context,
                           MaterialPageRoute(
                             builder: (context) =>
-                                const BottomNavigationWidget(),
+                                const BottomNavigationScreen(),
                           ),
                           (route) => false);
                     }, onFailure: (failed) {
@@ -287,16 +284,13 @@ class _SearchLocationWidgetState extends State<SearchLocationWidget> {
                                 .geoPoint.longitude
                                 .toString(),
                             onSuccess: (placecell) {
-                              log("SUCCESS");
-                              log("placeCell$placecell");
-                              state.saveLocationInSharedPreferences(placecell);
                               state.selectPlaceCell(placecell);
                               Navigator.pop(context);
                               Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        const BottomNavigationWidget(),
+                                        const BottomNavigationScreen(),
                                   ),
                                   (route) => false);
                             },

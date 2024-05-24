@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hinvex_app/features/category/data/local%20data/category_store.dart';
 import 'package:hinvex_app/features/category/presentation/provider/category_filter_provider.dart';
 import 'package:hinvex_app/features/category/presentation/view/screen/category_display_screen.dart';
-import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_image_widget.dart';
+import 'package:hinvex_app/general/widgets/custom_image_widget.dart';
 import 'package:hinvex_app/general/utils/colors.dart';
 import 'package:provider/provider.dart';
 

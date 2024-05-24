@@ -14,7 +14,7 @@ import 'package:hinvex_app/features/location/presentation/view/widgets/search_lo
 import 'package:hinvex_app/features/notification/presentation/view/notification_screen.dart';
 import 'package:hinvex_app/features/profile/presentation/view/profile_screen.dart';
 import 'package:hinvex_app/features/property_details_view/presentation/view/property_details_screen.dart';
-import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_image_widget.dart';
+import 'package:hinvex_app/general/widgets/custom_image_widget.dart';
 import 'package:hinvex_app/general/di/injection.dart';
 import 'package:hinvex_app/general/services/dynamic_link_services.dart';
 import 'package:hinvex_app/general/utils/image_constants.dart';
@@ -100,7 +100,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                       const Gap(4),
                                       Text(
-                                        locationProvider.currentPlace ?? "",
+                                        locationProvider
+                                                .currentPlaceCell?.localArea ??
+                                            locationProvider
+                                                .currentPlaceCell?.district ??
+                                            'Pick Location',
                                         style: const TextStyle(
                                           fontWeight: FontWeight.w600,
                                         ),

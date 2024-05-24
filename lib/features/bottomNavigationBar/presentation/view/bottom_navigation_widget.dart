@@ -4,18 +4,18 @@ import 'package:hinvex_app/features/home/presentation/view/home_screen.dart';
 import 'package:hinvex_app/features/myads/presentation/view/myads_screen.dart';
 import 'package:hinvex_app/features/sell/presentation/view/sell_product_main/screens/sell_screen.dart';
 import 'package:hinvex_app/features/shortlists/presentation/view/shortlists_screen.dart';
-import 'package:hinvex_app/features/splash/presentation/view/widgets/custom_image_widget.dart';
+import 'package:hinvex_app/general/widgets/custom_image_widget.dart';
 import 'package:hinvex_app/general/utils/image_constants.dart';
 import 'package:hinvex_app/general/utils/colors.dart';
 
-class BottomNavigationWidget extends StatefulWidget {
-  const BottomNavigationWidget({super.key});
+class BottomNavigationScreen extends StatefulWidget {
+  const BottomNavigationScreen({super.key});
 
   @override
-  State<BottomNavigationWidget> createState() => _BottomNavigationWidgetState();
+  State<BottomNavigationScreen> createState() => _BottomNavigationScreenState();
 }
 
-class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
+class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
