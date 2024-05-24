@@ -1,21 +1,24 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
+import 'package:hinvex_app/features/category/data/i_category_facade.dart';
 import 'package:hinvex_app/features/sell/data/model/property_model.dart';
 import 'package:hinvex_app/general/failures/failures.dart';
 import 'package:hinvex_app/general/typedefs/typedefs.dart';
+import 'package:injectable/injectable.dart';
 
-class CategoryFilterRepository {
-  factory CategoryFilterRepository() {
-    return CategoryFilterRepository._();
-  }
-  CategoryFilterRepository._();
-  FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-  CollectionReference get _posts => firebaseFirestore.collection('posts');
+@LazySingleton(as: ICategoryFacade)
+class ICategoryImpl implements ICategoryFacade {
+  ICategoryImpl(
+    this._firestore,
+  );
+  final FirebaseFirestore _firestore;
+  CollectionReference get _posts => _firestore.collection('posts');
 
   DocumentSnapshot<Map<String, dynamic>>? lastDoc;
   bool noMoreData = false;
 
+  @override
   FutureResult<List<PropertyModel>> fetchFilterPosts({
     required bool? isBuy,
     required int? bedroom,
@@ -136,6 +139,7 @@ class CategoryFilterRepository {
     }
   }
 
+  @override
   void clearData() {
     lastDoc = null;
     noMoreData = false;

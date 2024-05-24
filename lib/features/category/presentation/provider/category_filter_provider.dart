@@ -1,10 +1,13 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:hinvex_app/features/category/repo/i_category_impl.dart';
+import 'package:hinvex_app/features/category/data/i_category_facade.dart';
 import 'package:hinvex_app/features/sell/data/model/property_model.dart';
 import 'package:hinvex_app/general/utils/toast/toast.dart';
 
 class CategoryFilterProvider extends ChangeNotifier {
+  final ICategoryFacade iCategoryFacade;
+  CategoryFilterProvider({required this.iCategoryFacade});
+
   int? category;
   bool? isBuy;
   int? bedroomCount;
@@ -15,8 +18,6 @@ class CategoryFilterProvider extends ChangeNotifier {
   double? sqPriceSliderValue;
   ScrollController scrollController = ScrollController();
 
-  CategoryFilterRepository categoryFilterRepository =
-      CategoryFilterRepository();
   List<PropertyModel> filteredUploadedPropertiesList = [];
   bool isLoading = false;
 
@@ -65,7 +66,7 @@ class CategoryFilterProvider extends ChangeNotifier {
     if (isLoading) return;
     isLoading = true;
     notifyListeners();
-    final data = await categoryFilterRepository.fetchFilterPosts(
+    final data = await iCategoryFacade.fetchFilterPosts(
         isBuy: isBuy,
         bedroom: bedroomCount,
         furnishingCount: furnishingCount,
@@ -92,7 +93,7 @@ class CategoryFilterProvider extends ChangeNotifier {
   }
 
   void clearData() {
-    categoryFilterRepository.clearData();
+    iCategoryFacade.clearData();
     isLoading = false;
     filteredUploadedPropertiesList.clear();
     notifyListeners();

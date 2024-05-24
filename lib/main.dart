@@ -4,6 +4,7 @@ import 'package:hinvex_app/features/authentication/data/i_auth_facade.dart';
 import 'package:hinvex_app/features/authentication/presentation/provider/auth_provider.dart';
 import 'package:hinvex_app/features/banner/data/i_banner_facade.dart';
 import 'package:hinvex_app/features/banner/presentation/provider/banner_provider.dart';
+import 'package:hinvex_app/features/category/data/i_category_facade.dart';
 import 'package:hinvex_app/features/category/presentation/provider/category_filter_provider.dart';
 import 'package:hinvex_app/features/home/data/i_home_facade.dart';
 import 'package:hinvex_app/features/home/presentation/provider/home_provider.dart';
@@ -68,7 +69,8 @@ class MyApp extends StatelessWidget {
           create: (_) => HomeProvider(iHomeFacade: sl<IHomeFacade>()),
         ),
         ChangeNotifierProvider(
-          create: (_) => CategoryFilterProvider(),
+          create: (_) =>
+              CategoryFilterProvider(iCategoryFacade: sl<ICategoryFacade>()),
         ),
         ChangeNotifierProvider(
           create: (_) =>

@@ -4,6 +4,7 @@ import 'package:hinvex_app/features/category/presentation/provider/category_filt
 import 'package:hinvex_app/features/category/presentation/view/screen/category_filter_screen.dart';
 import 'package:hinvex_app/features/property_details_view/presentation/view/property_details_screen.dart';
 import 'package:hinvex_app/general/utils/colors.dart';
+import 'package:hinvex_app/general/utils/shimmer/property_card_simmer.dart';
 import 'package:hinvex_app/general/widgets/nodata_widget.dart';
 import 'package:hinvex_app/general/widgets/property_card_items.dart';
 import 'package:provider/provider.dart';
@@ -150,18 +151,13 @@ class _CategoryDisplayScreenState extends State<CategoryDisplayScreen> {
           ),
           Consumer<CategoryFilterProvider>(
             builder: (context, state, child) {
-              return (state.filteredUploadedPropertiesList.isEmpty &&
-                      state.isLoading)
-                  ? const Padding(
-                      padding: EdgeInsets.all(15.0),
-                      child: Center(
-                        child: CupertinoActivityIndicator(),
-                      ),
-                    )
-                  : state.filteredUploadedPropertiesList.isEmpty
-                      ? const NoDataWidget()
-                      : Expanded(
-                          child: ListView.separated(
+              return Expanded(
+                child: (state.filteredUploadedPropertiesList.isEmpty &&
+                        state.isLoading)
+                    ? const PropertyShimmerCardWidget()
+                    : state.filteredUploadedPropertiesList.isEmpty
+                        ? const NoDataWidget()
+                        : ListView.separated(
                             controller: state.scrollController,
                             itemCount:
                                 state.filteredUploadedPropertiesList.length,
@@ -205,7 +201,7 @@ class _CategoryDisplayScreenState extends State<CategoryDisplayScreen> {
                               );
                             },
                           ),
-                        );
+              );
             },
           ),
         ]));
